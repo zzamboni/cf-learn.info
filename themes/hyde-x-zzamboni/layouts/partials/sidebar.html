@@ -12,13 +12,13 @@
         <li class="sidebar-nav-item"><a href="{{ .Site.BaseURL }}/">{{ .Title }}</a></li>
         {{ end }}
       {{ end }}
-      {{ range .Site.Menus.main }}
-      <li class="sidebar-nav-item"><a href="{{ .URL }}">{{ .Name }}</a></li>
-      {{end}}
       {{ range $key, $value := .Site.Sections }}
        {{ if $key }}
       <li class="sidebar-nav-item"><a href="/{{ $key }}">The {{ title $key }}</a></li>
        {{ end }}
+      {{end}}
+      {{ range .Site.Menus.main }}
+      <li class="sidebar-nav-item"><a href="{{ .URL }}">{{ .Name }}</a></li>
       {{end}}
     </ul>
 
