@@ -7,13 +7,17 @@
     </div>
 
     <ul class="sidebar-nav">
-      <li class="sidebar-nav-item"><a href="{{ .Site.BaseURL }}/">Home</a></li>
+      {{ range .Site.Pages }}
+        {{ if in .Params.tags "_home" }}
+        <li class="sidebar-nav-item"><a href="{{ .Site.BaseURL }}/">{{ .Title }}</a></li>
+        {{ end }}
+      {{ end }}
       {{ range .Site.Menus.main }}
       <li class="sidebar-nav-item"><a href="{{ .URL }}">{{ .Name }}</a></li>
       {{end}}
       {{ range $key, $value := .Site.Sections }}
        {{ if $key }}
-      <li class="sidebar-nav-item"><a href="/{{ $key }}">{{ title $key }}</a></li>
+      <li class="sidebar-nav-item"><a href="/{{ $key }}">The {{ title $key }}</a></li>
        {{ end }}
       {{end}}
     </ul>
@@ -24,6 +28,11 @@
       {{ with .Site.Params.twitter }}<a href="{{ . }}"><li class="icon-twitter"></li></a>&nbsp;{{ end }}
       {{ with .Site.Params.googleplus }}<a href="{{ . }}"><li class="icon-googleplus"></li></a>&nbsp;{{ end }}
       {{ with .Site.Params.facebook }}<a href="{{ . }}"><li class="icon-facebook"></li></a>&nbsp;{{ end }}
+    </ul>
+
+    <ul class="sidebar-nav">
+      <a href="http://shop.oreilly.com/product/0636920022022.do" class="sidebar-nav-item">Get the book</a>
+      <iframe src="{{ .Site.BaseURL }}/get-the-book-widget.html" height="500px" width="200px" scrolling="no" frameborder="0"></iframe>
     </ul>
 
     <div class="sidebar-sticky"><p>&copy; {{ .Now.Format "2006" }} Diego Zamboni<br/>
