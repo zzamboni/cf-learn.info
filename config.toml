@@ -47,7 +47,7 @@ pluralizeListTitles = false
 
     # Sidebar social links, avoid enabling too many of these if possible.
     # These should be full URLs.
-    github = "http://github.com/zzamboni/cf-learn.info-new"
+    github = "http://github.com/zzamboni/cf-learn.info"
     linkedin = "http://mx.linkedin.com/in/zzamboni"
     googleplus = ""
     facebook = ""
