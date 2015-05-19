@@ -1,4 +1,4 @@
-baseurl = "http://cf-learn.info/"
+baseurl = "http://zzamboni.org/cf-learn.info-new/"
 languageCode = "en-us"
 title = "Learning CFEngine 3"
 builddrafts = false
