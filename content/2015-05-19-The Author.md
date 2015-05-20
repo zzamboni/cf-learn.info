@@ -1,13 +1,13 @@
 ---
 categories: &1
 - page
-- _menu=main
-- _weight=1
 date: '2015-05-19'
 description: ''
 keywords: []
 title: The Author
 tags: *1
+menu: main
+weight: '1'
 slug: the-author
 ---
 
