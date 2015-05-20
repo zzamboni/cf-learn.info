@@ -11,7 +11,8 @@ DEPLOY=$(dirname $0)/deploy.sh
 while true
 do
     echo `date` Running Enwrite...
-    enwrite $SEARCHOPTS $HUGOOPTS $ADDOPTS
+    enwrite $SEARCHOPTS $HUGOOPTS $ADDOPTS $FIRSTOPTS
+    FIRSTOPTS=""
 
     # Regenerate and deploy on the first pass through the loop or when content changes
     if [[ $? -eq 0 || "$FIRST" == "yes" ]]
