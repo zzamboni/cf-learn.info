@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Booknews on Learning CFEngine 3</title>
+    <link>http://cf-learn.info/categories/booknews/</link>
+    <description>Recent content in Booknews on Learning CFEngine 3</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 19 May 2015 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://cf-learn.info/categories/booknews/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Finally, an update about “Learning CFEngine 3”!</title>
+      <link>http://cf-learn.info/blog/finally-an-update-about-learning-cfengine-3/</link>
+      <pubDate>Tue, 19 May 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://cf-learn.info/blog/finally-an-update-about-learning-cfengine-3/</guid>
+      <description>I know, I know. It’s been over two years since the last post, and other than my occasional comment on the IRC channel or mailing list, you couldn’t be blamed to think that I had disappeared from the face of the earth.  But I’m back! And I have a few updates for you:   I am finally working again on the new release of the book! It will focus on the upcoming CFEngine 3.</description>
+    </item>
+    
+    <item>
+      <title>Second release of &#34;Learning CFEngine 3&#34;</title>
+      <link>http://cf-learn.info/blog/second-release-of-learning-cfengine-3/</link>
+      <pubDate>Wed, 14 Nov 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://cf-learn.info/blog/second-release-of-learning-cfengine-3/</guid>
+      <description>I am happy to announce that as of today, the second release of &#34;Learning CFEngine 3&#34; is available. If you have purchased the e-book version of the book you can get the new release from the &#34;Your Products&#34; page at oreilly.com (pro tip: set up Dropbox synchronization, and you will always have the latest version with you!). And if you haven&#39;t purchased it, now it&#39;s an excellent time to do it!</description>
+    </item>
+    
+    <item>
+      <title>Get a free copy of &#34;Learning CFEngine 3&#34; in exchange for a review</title>
+      <link>http://cf-learn.info/blog/get-a-free-copy-of-learning-cfengine-3-in-exc/</link>
+      <pubDate>Fri, 04 May 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://cf-learn.info/blog/get-a-free-copy-of-learning-cfengine-3-in-exc/</guid>
+      <description>Are you a technical blogger? O&#39;Reilly&#39;s &#34;Blogger Review Program&#34; allows bloggers to get free ebooks and videos, in exchange for writing reviews of them. 
+I&#39;d love to see more reviews of &#34;Learning CFEngine 3&#34;. If you have a technical blog, and would be interested in reviewing the book, I encourage you to visit the program&#39;s website to find out more. 
+Plus, I&#39;m sure you will enjoy the book, and I would love to read your review!</description>
+    </item>
+    
+    <item>
+      <title>Day Against DRM at O&#39;Reilly: 50% discount on &#34;Learning CFEngine 3&#34; and all other ebooks</title>
+      <link>http://cf-learn.info/blog/day-against-drm-at-oreilly-50-discount-on-lea/</link>
+      <pubDate>Thu, 03 May 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://cf-learn.info/blog/day-against-drm-at-oreilly-50-discount-on-lea/</guid>
+      <description>Today, May 4th, 2012, O&#39;Reilly Media is participating in support of the FSF&#39;s Day Against DRM. All O&#39;Reilly ebooks and videos are DRM-free, and to celebrate this, you can get 50% off on any purchase by using the code DRMFREE.
+
+I&#39;m proud to participate. Learning CFEngine 3 is also available as a DRM-free ebook, and you can use this code to get it at half price. 
+Here&#39;s the message from O&#39;Reilly.</description>
+    </item>
+    
+    <item>
+      <title>My first batch of print books arrived</title>
+      <link>http://cf-learn.info/blog/my-first-batch-of-print-books-arrived/</link>
+      <pubDate>Mon, 26 Mar 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://cf-learn.info/blog/my-first-batch-of-print-books-arrived/</guid>
+      <description>I&#39;m visiting Purdue University today to give a talk and to visit old friends and colleagues. And the first box of books arrived here! It&#39;s incredible to have the physical book in my hand.
+ This is the building where I spent most of my grad school years.
+
+  </description>
+    </item>
+    
+    <item>
+      <title>The bird on the cover of &#34;Learning CFEngine 3&#34;</title>
+      <link>http://cf-learn.info/blog/the-bird-on-the-cover-of-learning-cfengine-3/</link>
+      <pubDate>Mon, 26 Mar 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://cf-learn.info/blog/the-bird-on-the-cover-of-learning-cfengine-3/</guid>
+      <description>A lot of people have asked me about the bird on the cover of the book, and I had to admit I didn&#39;t know. Unfortunately, the book (even in the print version) does not include a description of the cover in the Colophon, like most other O&#39;Reilly books. But today I got the information directly from Karen Montgomery at O&#39;Reilly, who designed the cover:
+The bird is a Tui, a kind of bird that leaves in New Zealand, also known as a Parson Bird.</description>
+    </item>
+    
+    <item>
+      <title>Book status: released!</title>
+      <link>http://cf-learn.info/blog/book-status-released/</link>
+      <pubDate>Fri, 23 Mar 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://cf-learn.info/blog/book-status-released/</guid>
+      <description>I am ecstatic to announce that the book is now officially released! You can get it here: http://shop.oreilly.com/product/0636920022022.do. If you purchased the Early Release version, you should automatically be able to download the final version from your &#34;Your products&#34; page at oreilly.com.
+It&#39;s been an incredible ride, and it&#39;s an incredible feeling to see it come to this big milestone (I won&#39;t say &#34;the end&#34;, because I know this book will keep evolving).</description>
+    </item>
+    
+    <item>
+      <title>Book status: print-ready</title>
+      <link>http://cf-learn.info/blog/book-status-print-ready/</link>
+      <pubDate>Fri, 16 Mar 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://cf-learn.info/blog/book-status-print-ready/</guid>
+      <description>I am very happy! I got the notification today that the final book draft has been produced and sent to the printer. This means that over the next few days the final version will be available for purchase, both as e-book and in print form. I will of course let you know when this happens. 
+For now, time to enjoy a relaxing weekend, the first with no book-related work in a long time :) </description>
+    </item>
+    
+    <item>
+      <title>Syntax highlighting in &#34;Learning CFEngine 3&#34;</title>
+      <link>http://cf-learn.info/blog/syntax-highlighting-in-learning-cfengine-3/</link>
+      <pubDate>Fri, 16 Mar 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://cf-learn.info/blog/syntax-highlighting-in-learning-cfengine-3/</guid>
+      <description>The electronic versions of the book contain full syntax highlighting and other useful features. I&#39;m biased of course, but I think it is both functional and beautiful. Here&#39;s a sample from Chapter 4:
+    
+The syntax highlighting in my opinion greatly helps in reading the code. Additionally, each one of those numbered callouts in the code are in-document links that take you to the paragraph where that part of the code is described.</description>
+    </item>
+    
+    <item>
+      <title>Book status: production</title>
+      <link>http://cf-learn.info/blog/book-status-production/</link>
+      <pubDate>Wed, 29 Feb 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://cf-learn.info/blog/book-status-production/</guid>
+      <description>Some people have asked me what the status of the book is, so I thought I would post it here. The book is currently in the &#34;production stage&#34;, which means that the draft has been finalized content-wise, and is now being prepared for publication by O&#39;Reilly. They have a specialized group of people for this, who work on preparing nice final versions of the figures, making sure the layout of the book is correct, and doing a few thorough proofreading and editing passes.</description>
+    </item>
+    
+  </channel>
+</rss>

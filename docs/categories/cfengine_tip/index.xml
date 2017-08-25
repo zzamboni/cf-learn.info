@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Cfengine_tip on Learning CFEngine 3</title>
+    <link>http://cf-learn.info/categories/cfengine_tip/</link>
+    <description>Recent content in Cfengine_tip on Learning CFEngine 3</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 25 Sep 2012 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://cf-learn.info/categories/cfengine_tip/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>CFEngine tip #004: How to bootstrap a CFEngine client</title>
+      <link>http://cf-learn.info/blog/cfengine-tip-004-how-to-bootstrap-a-cfengine/</link>
+      <pubDate>Tue, 25 Sep 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://cf-learn.info/blog/cfengine-tip-004-how-to-bootstrap-a-cfengine/</guid>
+      <description>My apologies for the long delay since the last tip! Today we come back with a simple tip: how to bootstrap a CFEngine client.
+First, some background CFEngine is designed to operate in a fully distributed fashion – each CFEngine client (i.e. a machine running cf-agent) can operate fully autonomously, using only the policy files stored locally. For regular operation, cf-agent does not require any type of network connectivity.
+In real deployments, of course, maintaining each machine’s policy independently would be impractical, so CFEngine has the concept of a policy hub.</description>
+    </item>
+    
+    <item>
+      <title>CFEngine tip #003: The distinction between bodies and bundles</title>
+      <link>http://cf-learn.info/blog/cfengine-tip-003-the-distinction-between-bodi/</link>
+      <pubDate>Mon, 04 Jun 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://cf-learn.info/blog/cfengine-tip-003-the-distinction-between-bodi/</guid>
+      <description>This is an extract from Chapter 3 of &#34;Learning CFEngine 3&#34;, where you can also find a much more comprehensive description of bodies and bundles in the CFEngine 3 policy language.
+The distinction between bundles and bodies can be confusing at first. Remembering these points may help:
+  Bodies are named groups of attributes, whereas bundles are collections of promises. Promises are the units that actually do something in CFEngine (for example, run a command or add a line to a file), whereas attributes specify characteristics of how things are done (for example, whether to run the command in a shell, or where in the file to add the line).</description>
+    </item>
+    
+    <item>
+      <title>CFEngine tip #002: How to pass arguments to bundles using arrays</title>
+      <link>http://cf-learn.info/blog/cfengine-tip-002-how-to-pass-arguments-to-bun/</link>
+      <pubDate>Mon, 07 May 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://cf-learn.info/blog/cfengine-tip-002-how-to-pass-arguments-to-bun/</guid>
+      <description>(This tip is based on a section from Chapter 5 of Learning CFEngine 3.)
+Many system configuration tasks require groups of name-value pairs as arguments. For example:
+ Editing configuration files in which parameters and their values need to be stored (ssh configuration files, Windows-style INI files, etc.) Setting user parameters. In this case, sets of name-value pairs (home directory, full name, shell, etc.) are associated with a single user, identified by name.</description>
+    </item>
+    
+    <item>
+      <title>CFEngine tip #001: Modularize complex policies using methods: calls</title>
+      <link>http://cf-learn.info/blog/cfengine-tip-001-modularize-complex-policies/</link>
+      <pubDate>Mon, 23 Apr 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://cf-learn.info/blog/cfengine-tip-001-modularize-complex-policies/</guid>
+      <description>Welcome to the new &#34;CFEngine tip&#34; series. In this series of posts I will explore different tips, tricks and techniques for making better use of CFEngine. For now I will post weekly, but the frequency may change as time goes by. If you have any suggestions for topics that I should cover in this series, please let me know! 
+For our first installment, we will talk about methods: promises, and how they can be used to make policies both clearer and more extensible.</description>
+    </item>
+    
+  </channel>
+</rss>

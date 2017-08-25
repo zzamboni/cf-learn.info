@@ -6,6 +6,7 @@ theme = "hyde-x-zzamboni"
 paginate = 10
 canonifyurls = true
 pluralizeListTitles = false
+publishDir = "docs"
 
 [author]
     name = "Diego Zamboni"

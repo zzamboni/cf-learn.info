@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Page on Learning CFEngine 3</title>
+    <link>http://cf-learn.info/categories/page/</link>
+    <description>Recent content in Page on Learning CFEngine 3</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 18 May 2015 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://cf-learn.info/categories/page/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>The Author</title>
+      <link>http://cf-learn.info/the-author/</link>
+      <pubDate>Mon, 18 May 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://cf-learn.info/the-author/</guid>
+      <description>My name is Diego Zamboni, and I am the author of Learning CFEngine 3. I am a computer scientist, consultant, programmer, sysadmin and overall geek, now turned manager. I am very interested in topics related to computer security, virtualization, configuration management and system automation. Currently I work at Swisscom in the Cloud Development Platform team, where I lead teams working on Health Management, Logging and Monitoring capabilities.
+During college I founded the first computer security team at UNAM (Mexico&amp;rsquo;s national university), which would grow to become a much larger organization, before moving to the U.</description>
+    </item>
+    
+    <item>
+      <title>The Code</title>
+      <link>http://cf-learn.info/the-code/</link>
+      <pubDate>Mon, 18 May 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://cf-learn.info/the-code/</guid>
+      <description>These are all the source files included in the book, organized by chapter. Note that in the text, many examples show only fragments of a larger file (for example, when things are explained step by step). In these cases, only the complete file is linked here, and only once per chapter.
+Note that the CFEngine Standard Library is not included here, despite several fragments of it being described in the book.</description>
+    </item>
+    
+    <item>
+      <title>Contact</title>
+      <link>http://cf-learn.info/contact/</link>
+      <pubDate>Tue, 19 May 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://cf-learn.info/contact/</guid>
+      <description>var host = ((&#34;https:&#34; == document.location.protocol) ? &#34;https://secure.&#34; : &#34;http://&#34;);document.write(unescape(&#34;%3Cscript src=&#39;&#34; + host + &#34;wufoo.com/scripts/embed/form.js&#39; type=&#39;text/javascript&#39;%3E%3C/script%3E&#34;)); var z7x3k1 = new WufooForm(); z7x3k1.initialize({ &#39;userName&#39;:&#39;zzamboni&#39;, &#39;formHash&#39;:&#39;z7x3k1&#39;, &#39;autoResize&#39;:true, &#39;height&#39;:&#39;437&#39;, &#39;header&#39;:&#39;show&#39;}); z7x3k1.display();  </description>
+    </item>
+    
+    <item>
+      <title>The Raves</title>
+      <link>http://cf-learn.info/the-raves/</link>
+      <pubDate>Tue, 19 May 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://cf-learn.info/the-raves/</guid>
+      <description>Here are some of the nice things people have said about &amp;ldquo;Learning CFEngine 3&amp;rdquo;, with links to their original sources. In most cases I have only included select quotes, you should follow the link to see the full review or comment.
+ A brilliant book! (best book since friedl&amp;rsquo;s mastering reg ex ;-)
+Diego Zamboni delivers here on just 160 Pages, short and sharp, an intense introduction to CFEngine and the underlying &amp;ldquo;promise theory&amp;rdquo;.</description>
+    </item>
+    
+    <item>
+      <title>The Book</title>
+      <link>http://cf-learn.info/the-book/</link>
+      <pubDate>Mon, 18 May 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://cf-learn.info/the-book/</guid>
+      <description>CFEngine 3 is the most mature and widely used tool for comprehensive configuration management, and Learning CFEngine 3 will help you in getting up to speed with it. The main audience for this book is experienced system administrators of null-to-medium expertise with CFEngine, although more advanced CFEngine users will also find useful snippets and techniques. Its goal is to guide you from installation to advanced examples and concepts by using examples and techniques that can be put to work straight away.</description>
+    </item>
+    
+  </channel>
+</rss>
