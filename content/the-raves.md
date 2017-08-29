@@ -11,15 +11,27 @@ weight: '5'
 slug: the-raves
 ---
 
-
 Here are some of the nice things people have said about "Learning
-CFEngine 3", with links to their original sources. In most cases I
-have only included select quotes, you should follow the link to see
-the full review or comment.
-
+CFEngine 3" (since the O'Reilly Product Page for the book has
+disappeared, some of the links are to its last Wayback Machine archive
+snapshot). In most cases I have only included select quotes, you
+should follow the links to see the full review or comment.
 
 ------------------------
 
+> The book is excellent. It explains CFEngine 3 in a manner which is
+> easy to understand. The examples are practical and can be adapted for
+> production use at our site. After reading the book, the online
+> documentation finally made sense.
+> 
+> I know I will use the book as long as I manage CFEngine 3. It
+> complements the online reference manuals perfectly. I also highly
+> recommend the PDF version for quick browsing.
+
+<div align="right">&mdash;<cite><a
+href="https://web.archive.org/web/20161211230610/http://shop.oreilly.com/product/0636920022022.do#PowerReview">JeremyW</a>, Sydney, Australia</cite></div>
+
+------------------------
 
 > A brilliant book!
 > (best book since friedl's mastering reg ex ;-)
@@ -27,26 +39,20 @@ the full review or comment.
 > Diego Zamboni delivers here on just 160 Pages, short and sharp, an
 > intense introduction to CFEngine and the underlying "promise theory".
 
-
 <div align="right">&mdash;<cite><a
-href="http://shop.oreilly.com/product/0636920022022.do#PowerReview">save
+href="https://web.archive.org/web/20161211230610/http://shop.oreilly.com/product/0636920022022.do#PowerReview">save
 the whales</a>, Berlin, Germany</cite></div>
-
 
 ------------------------
 
-
 > Wish "Learning CFEngine 3" by @zzamboni was available when I stumbled
 > upon ‪#cfengine‬ for the first time. It's simply great.
-
 
 <div align="right">&mdash;<cite><a
 href="https://twitter.com/vblaskov/status/217522686199463936">Vladimir
 Blaskov</a>, Varna, Bulgaria</cite></div>
 
-
 ------------------------
-
 
 > I bought this book, and I saw the light! I've now read the book and
 > I'm writing clean CFEngine recipes with the feeling of doing a good
@@ -56,12 +62,9 @@ Blaskov</a>, Varna, Bulgaria</cite></div>
 > to commit to the real CFEngine philosophy, the productive and clean
 > one.
 
-
 <div align="right">&mdash;<cite><a href="http://www.amazon.com/review/R2AY7CMR3F0XKF">Laurent Raufaste</a>, New York, NY, U.S.A.</cite></div>
 
-
 ------------------------
-
 
 > &hellip; something happened, and things changed like when the night
 > turns into a new day.
@@ -74,14 +77,11 @@ Blaskov</a>, Varna, Bulgaria</cite></div>
 > do in months. And I finally could appreciate the good qualities of
 > cfengine I liked from version 2: powerful, predictable, lightweight.
 
-
 <div align="right">&mdash;<cite><a
-href="http://my.opera.com/marcomarongiu/blog/2012/06/17/why-i-gave-up-puppet-and-chose-cfengine-3">Marco
+href="https://syslog.me/2012/06/17/why-i-gave-up-puppet-and-chose-cfengine-3/">Marco
 Marongiu</a>, Oslo, Norway</cite></div>
 
-
 ------------------------
-
 
 > The writing and editing done on this book is excellent. The author
 >is very skilled at delivering complex information in a readable and
@@ -92,19 +92,15 @@ Marongiu</a>, Oslo, Norway</cite></div>
 > If you have struggled with CFEngine 3 in the past, or are strongly
 >considering deploying it in any way, I highly recommend this book.
 
-
 <div align="right">&mdash;<cite><a
-href="http://shop.oreilly.com/product/0636920022022.do#PowerReview">Jeff
+href="https://web.archive.org/web/20161211230610/http://shop.oreilly.com/product/0636920022022.do#PowerReview">Jeff
 Blaine</a>, St. Petersburgh, FL, U.S.A.</cite></div>
 
-
 ------------------------
-
 
 Nick wrote a
 [full review of the book](http://www.cmdln.org/2012/03/29/review-learning-cfengine-3/),
 you should check it out.
-
 
 > I can't recommend this book enough. &hellip; If you meet all those
 > criteria and you don't like the book, I'll buy you a beer if we ever
@@ -115,14 +111,11 @@ you should check it out.
 > It really is one of the best technical books I have read in a
 > while.
 
-
 <div align="right">&mdash;<cite><a
 href="http://www.cmdln.org/2012/03/29/review-learning-cfengine-3/">Nick
 Anderson</a>, Lawrence, KS, U.S.A.</cite></div>
 
-
 ------------------------
-
 
 > This book is a perfect guide to getting started with CFEngine 3, and
 > once you've gone through the example code and the explanations of what
@@ -131,14 +124,11 @@ Anderson</a>, Lawrence, KS, U.S.A.</cite></div>
 > This book is very well-written, easy to understand, and most
 > importantly - the examples actually work!
 
-
 <div align="right">&mdash;<cite><a
-href="http://shop.oreilly.com/product/0636920022022.do#PowerReview">Glen
+href="https://web.archive.org/web/20161211230610/http://shop.oreilly.com/product/0636920022022.do#PowerReview">Glen
 Barber</a>, Philadelphia, PA, U.S.A.</cite></div>
 
-
 -----------------------
-
 
 > &hellip; this book looks great. It explains the terminology of
 > CFEngine very well. I've used CFEngine 2 for several years, but the
@@ -147,41 +137,31 @@ Barber</a>, Philadelphia, PA, U.S.A.</cite></div>
 > quickly. I would strongly recommend this book to anyone trying to
 > learn CFEngine 3.
 
-
 <div align="right">&mdash;<cite><a
-href="http://shop.oreilly.com/product/0636920022022.do#PowerReview">Brian</a>,
+href="https://web.archive.org/web/20161211230610/http://shop.oreilly.com/product/0636920022022.do#PowerReview">Brian</a>,
 Dallas, TX, U.S.A.</cite></div>
 
-
 ------------------------
-
 
 > &hellip; it is very well organized with clear explanation of additional options
 > in CFEngine3. I just started using CFEngine and this book helps a lot!
 
-
 <div align="right">&mdash;<cite><a
-href="http://shop.oreilly.com/product/0636920022022.do#PowerReview">roadtest</a>,
+href="https://web.archive.org/web/20161211230610/http://shop.oreilly.com/product/0636920022022.do#PowerReview">roadtest</a>,
 Toronto, Canada</cite></div>
-
 
 ------------------------
 
-
 > congratulations. This is the tutorial CFEngine
 > deserved and never had.
-
 
 <div align="right">&mdash;<cite><a
 href="http://permalink.gmane.org/gmane.comp.sysutils.cfengine.general/9278">Marco
 Marongiu</a>, Oslo, Norway</cite></div>
 
-
 ------------------------
 
-
 > "Learning CFEngine 3" is an excellent piece of writing.
-
 
 <div align="right">&mdash;<cite><a href="https://twitter.com/#!/cjeffblaine/status/198426894822150145">Jeff Blaine</a>, Saint Petersburg, FL</cite></div>
 
