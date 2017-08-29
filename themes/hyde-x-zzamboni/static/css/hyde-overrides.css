@@ -20,7 +20,7 @@
 }
 
 .sidebar {
-  background-color: #51121E;
+    background-color: #51121E;
 }
 
 html {
@@ -84,3 +84,8 @@ a[rel ~='external'] {
 	padding-left: 18px;
 	background: transparent url(/new/icons/icon_external.gif) no-repeat center left;
 }
+
+.contact-button {
+    background-color: #51121E;
+}
+
