@@ -3,7 +3,7 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>http://cf-learn.info/blog/</loc>
+    <loc>http://cf-learn.info/post/</loc>
     <lastmod>2017-08-29T00:00:00+00:00</lastmod>
   </url>
   
@@ -28,7 +28,7 @@
   </url>
   
   <url>
-    <loc>http://cf-learn.info/blog/finally-an-update-about-learning-cfengine-3/</loc>
+    <loc>http://cf-learn.info/post/finally-an-update-about-learning-cfengine-3/</loc>
     <lastmod>2015-05-19T00:00:00+00:00</lastmod>
   </url>
   
@@ -38,132 +38,132 @@
   </url>
   
   <url>
-    <loc>http://cf-learn.info/blog/learning-cfengine-3-at-lisa12/</loc>
+    <loc>http://cf-learn.info/post/learning-cfengine-3-at-lisa12/</loc>
     <lastmod>2012-12-17T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://cf-learn.info/blog/second-release-of-learning-cfengine-3/</loc>
+    <loc>http://cf-learn.info/post/second-release-of-learning-cfengine-3/</loc>
     <lastmod>2012-11-14T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://cf-learn.info/blog/cfengine-tip-004-how-to-bootstrap-a-cfengine/</loc>
+    <loc>http://cf-learn.info/post/cfengine-tip-#004-how-to-bootstrap-a-cfengine-client/</loc>
     <lastmod>2012-09-25T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://cf-learn.info/blog/cfengine-tip-003-the-distinction-between-bodi/</loc>
+    <loc>http://cf-learn.info/post/cfengine-tip-#003-the-distinction-between-bodies-and-bundles/</loc>
     <lastmod>2012-06-04T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://cf-learn.info/blog/cfengine-tip-002-how-to-pass-arguments-to-bun/</loc>
+    <loc>http://cf-learn.info/post/cfengine-tip-#002-how-to-pass-arguments-to-bundles-using-arrays/</loc>
     <lastmod>2012-05-07T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://cf-learn.info/blog/get-a-free-copy-of-learning-cfengine-3-in-exc/</loc>
+    <loc>http://cf-learn.info/post/get-a-free-copy-of-learning-cfengine-3-in-exchange-for-a-review/</loc>
     <lastmod>2012-05-04T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://cf-learn.info/blog/day-against-drm-at-oreilly-50-discount-on-lea/</loc>
+    <loc>http://cf-learn.info/post/day-against-drm-at-oreilly-50-discount-on-learning-cfengine-3-and-all-other-ebooks/</loc>
     <lastmod>2012-05-03T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://cf-learn.info/blog/cfengine-talks-at-picc12-conference/</loc>
+    <loc>http://cf-learn.info/post/cfengine-talks-at-picc12-conference/</loc>
     <lastmod>2012-04-27T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://cf-learn.info/blog/a-full-shelf/</loc>
+    <loc>http://cf-learn.info/post/a-full-shelf/</loc>
     <lastmod>2012-04-25T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://cf-learn.info/blog/cfengine-tip-001-modularize-complex-policies/</loc>
+    <loc>http://cf-learn.info/post/cfengine-tip-#001-modularize-complex-policies-using-methods-calls/</loc>
     <lastmod>2012-04-23T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://cf-learn.info/blog/new-reviews-page/</loc>
+    <loc>http://cf-learn.info/post/new-reviews-page/</loc>
     <lastmod>2012-04-19T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://cf-learn.info/blog/my-first-batch-of-print-books-arrived/</loc>
+    <loc>http://cf-learn.info/post/my-first-batch-of-print-books-arrived/</loc>
     <lastmod>2012-03-26T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://cf-learn.info/blog/the-bird-on-the-cover-of-learning-cfengine-3/</loc>
+    <loc>http://cf-learn.info/post/the-bird-on-the-cover-of-learning-cfengine-3/</loc>
     <lastmod>2012-03-26T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://cf-learn.info/blog/cfengine-related-speaking-engagements-from-ma/</loc>
+    <loc>http://cf-learn.info/post/cfengine-related-speaking-engagements-from-march-26th-28th-2012/</loc>
     <lastmod>2012-03-24T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://cf-learn.info/blog/book-status-released/</loc>
+    <loc>http://cf-learn.info/post/book-status-released/</loc>
     <lastmod>2012-03-23T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://cf-learn.info/blog/book-status-print-ready/</loc>
+    <loc>http://cf-learn.info/post/book-status-print-ready/</loc>
     <lastmod>2012-03-16T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://cf-learn.info/blog/syntax-highlighting-in-learning-cfengine-3/</loc>
+    <loc>http://cf-learn.info/post/syntax-highlighting-in-learning-cfengine-3/</loc>
     <lastmod>2012-03-16T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://cf-learn.info/blog/cfengine-community-event-march-8th-2012/</loc>
+    <loc>http://cf-learn.info/post/cfengine-community-event-march-8th-2012/</loc>
     <lastmod>2012-03-05T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://cf-learn.info/blog/book-status-production/</loc>
+    <loc>http://cf-learn.info/post/book-status-production/</loc>
     <lastmod>2012-02-29T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://cf-learn.info/blog/searching-cfengine-documentation/</loc>
+    <loc>http://cf-learn.info/post/searching-cfengine-documentation/</loc>
     <lastmod>2012-02-02T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://cf-learn.info/blog/content-complete/</loc>
+    <loc>http://cf-learn.info/post/content-complete/</loc>
     <lastmod>2012-01-28T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://cf-learn.info/blog/code-examples-for-learning-cfengine-3-now-ava/</loc>
+    <loc>http://cf-learn.info/post/code-examples-for-learning-cfengine-3-now-available/</loc>
     <lastmod>2012-01-08T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://cf-learn.info/blog/cfengine-3-training-on-january-25-27th-2012/</loc>
+    <loc>http://cf-learn.info/post/cfengine-3-training-on-january-25-27th-2012/</loc>
     <lastmod>2012-01-04T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://cf-learn.info/blog/cf-cmd-a-command-line-tool-for-running-cfengi/</loc>
+    <loc>http://cf-learn.info/post/cf-cmd-a-command-line-tool-for-running-cfengine-snippets/</loc>
     <lastmod>2011-12-27T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://cf-learn.info/blog/migrating-from-cfengine-2-to-cfengine-3/</loc>
+    <loc>http://cf-learn.info/post/migrating-from-cfengine-2-to-cfengine-3/</loc>
     <lastmod>2011-12-21T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://cf-learn.info/blog/httpcf-learninfo-goes-live/</loc>
+    <loc>http://cf-learn.info/post/http/cf-learn.info/-goes-live/</loc>
     <lastmod>2011-12-14T00:00:00+00:00</lastmod>
   </url>
   
@@ -289,7 +289,7 @@
   
   <url>
     <loc>http://cf-learn.info/categories/page/</loc>
-    <lastmod>2017-08-29T00:00:00+00:00</lastmod>
+    <lastmod>2015-05-18T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   

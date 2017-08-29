@@ -13,10 +13,10 @@
     
     <item>
       <title>CFEngine talks at PICC&#39;12 conference</title>
-      <link>http://cf-learn.info/blog/cfengine-talks-at-picc12-conference/</link>
+      <link>http://cf-learn.info/post/cfengine-talks-at-picc12-conference/</link>
       <pubDate>Fri, 27 Apr 2012 00:00:00 +0000</pubDate>
       
-      <guid>http://cf-learn.info/blog/cfengine-talks-at-picc12-conference/</guid>
+      <guid>http://cf-learn.info/post/cfengine-talks-at-picc12-conference/</guid>
       <description>There will be several CFEngine-related classes and talks at the PICC&#39;12 conference (Professional IT Community Conference) on May 11-12th, in New Jersey. I will be talking about using CFEngine as part of your security infrastructure. My colleague Joe Netzel will be talking about migration from CFEngine 2 to CFEngine 3, so if you are using CF2 and have been considering (or dreading) the migration, make sure to come by! Aleksey Tsalolikhin will give an introductory class to CFEngine.</description>
     </item>
     

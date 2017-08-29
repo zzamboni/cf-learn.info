@@ -13,10 +13,10 @@
     
     <item>
       <title>CFEngine tip #004: How to bootstrap a CFEngine client</title>
-      <link>http://cf-learn.info/blog/cfengine-tip-004-how-to-bootstrap-a-cfengine/</link>
+      <link>http://cf-learn.info/post/cfengine-tip-#004-how-to-bootstrap-a-cfengine-client/</link>
       <pubDate>Tue, 25 Sep 2012 00:00:00 +0000</pubDate>
       
-      <guid>http://cf-learn.info/blog/cfengine-tip-004-how-to-bootstrap-a-cfengine/</guid>
+      <guid>http://cf-learn.info/post/cfengine-tip-#004-how-to-bootstrap-a-cfengine-client/</guid>
       <description>My apologies for the long delay since the last tip! Today we come back with a simple tip: how to bootstrap a CFEngine client.
 First, some background CFEngine is designed to operate in a fully distributed fashion – each CFEngine client (i.e. a machine running cf-agent) can operate fully autonomously, using only the policy files stored locally. For regular operation, cf-agent does not require any type of network connectivity.
 In real deployments, of course, maintaining each machine’s policy independently would be impractical, so CFEngine has the concept of a policy hub.</description>

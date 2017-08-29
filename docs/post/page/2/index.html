@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>The Blog &middot; Diego Zamboni</title>
+
+  
+  <link rel="stylesheet" href="http://cf-learn.info/css/poole.css">
+  <link rel="stylesheet" href="http://cf-learn.info/css/hyde.css">
+  <link rel="stylesheet" href="http://cf-learn.info/css/poole-overrides.css">
+  <link rel="stylesheet" href="http://cf-learn.info/css/hyde-overrides.css">
+  <link rel="stylesheet" href="http://cf-learn.info/css/hyde-x.css">
+  <link rel="stylesheet" type="text/css" href="http://cf-learn.info/css/socialicious.css" media="screen" />
+  <link rel="stylesheet" href="http://cf-learn.info/css/highlight/github.css">
+  <link href='http://fonts.googleapis.com/css?family=Quattrocento|Quattrocento+Sans' rel='stylesheet' type='text/css'>
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://cf-learn.info/apple-touch-icon-144-precomposed.png">
+  <link href="http://cf-learn.info/favicon.png" rel="icon">
+
+  
+  <link href="http://cf-learn.info/post/index.xml" rel="alternate" type="application/rss+xml" title="Learning CFEngine 3 &middot; Diego Zamboni" />
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  
+</head>
+<body>
+<div class="sidebar">
+  <div class="container">
+    <div class="sidebar-about">
+      
+      <h1>Learning CFEngine 3</h1>
+      
+    </div>
+
+    <ul class="sidebar-nav">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+        <li class="sidebar-nav-item"><a href="http://cf-learn.info/">The Book</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+      
+       
+      
+      
+      <li class="sidebar-nav-item"><a href="http://cf-learn.info/the-author/">The Author</a></li>
+      
+      <li class="sidebar-nav-item"><a href="http://cf-learn.info/post/">The Blog</a></li>
+      
+      <li class="sidebar-nav-item"><a href="http://cf-learn.info/the-code/">The Code</a></li>
+      
+      <li class="sidebar-nav-item"><a href="http://cf-learn.info/the-raves/">The Raves</a></li>
+      
+      <li class="sidebar-nav-item"><a href="http://cf-learn.info/contact/">Contact</a></li>
+      
+    </ul>
+
+    <ul class="sidebar-nav">
+      <a href="http://github.com/zzamboni/cf-learn.info"><li class="icon-github"></li></a>&nbsp;
+      <a href="http://mx.linkedin.com/in/zzamboni"><li class="icon-linkedin"></li></a>&nbsp;
+      <a href="http://twitter.com/LearningCF3"><li class="icon-twitter"></li></a>&nbsp;
+      
+      
+    </ul>
+
+    <div class="sidebar-sticky"><p>&copy; 2017 Diego Zamboni<br/>
+       Powered by <a href="http://gohugo.io">Hugo</a> and <a href="https://github.com/zyro/hyde-x">Hyde-X</a></p></div>
+  </div>
+</div>
+
+
+<div class="content container">
+  <div class="posts">
+    
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://cf-learn.info/post/cfengine-tip-#001-modularize-complex-policies-using-methods-calls/">CFEngine tip #001: Modularize complex policies using methods: calls</a>
+      </h1>
+      <span class="post-date">Apr 23, 2012 &middot; 2 minute read &middot; <a href="http://cf-learn.info/post/cfengine-tip-#001-modularize-complex-policies-using-methods-calls/#disqus_thread">Comments</a>
+      
+      <br/>
+      
+      <a class="label" href="http://cf-learn.info/categories/cfengine">cfengine</a><a class="label" href="http://cf-learn.info/categories/cfengine_tip">cfengine_tip</a><a class="label" href="http://cf-learn.info/categories/methods">methods</a><a class="label" href="http://cf-learn.info/categories/tips">tips</a>
+      </span>
+      <div>Welcome to the new "CFEngine tip" series. In this series of posts I will explore different tips, tricks and techniques for making better use of CFEngine. For now I will post weekly, but the frequency may change as time goes by. If you have any suggestions for topics that I should cover in this series, please <a href="http://cf-learn.info/contact.html">let me know</a>!</div>
+<p></p>
+<div>For our first installment, we will talk about methods: promises, and how they can be used to make policies both clearer and more extensible.</div>
+<div>
+<hr>
+</div>
+<p>As your CFEngine policies grow in complexity, they become harder to read if all your promises are in a single bundle, or if you split them among bundles, to have all those bundles listed in the <a href="http://cf-learn.info/ref/bundlesequence">bundlesequence</a> declaration.</p>
+<div>Enter the <a href="http://cf-learn.info/ref/methods">methods:</a> promise type. Promises of this type allow you to call other bundles in sequence, passing arbitrary parameters. For example, consider the following example (from <a href="http://cf-learn.info/code/ch05/configfiles5.cf.html">Chapter 5</a> of "Learning CFEngine 3"):</div>
+<p>{% gist 2471468 methods_ex1.cf %}</p>
+<div>The methods: section makes it very easy to see the sequence of actions that will take place: backup some files, configure sysctl, sshd, inittab and users in sequence. This helps both in clarity and in code reusability: each bundle can perform logically different functionality, and they could potentially be reused in different settings and with different parameters. The promiser string in a methods: promise is an arbitrary string. The CFEngine documentation uses "any", but you can also use it, as in this example, to indicate the purpose of the promise.</div>
+<p></p>
+<div>Furthermore, you can use CFEngine's <a href="https://cfengine.com/manuals/cf3-reference#Loops-and-lists-in-CFEngine-3">implicit looping</a> to create generic promises that will call as many other bundles as necessary. Consider this <a href="http://cf-learn.info/code/ch05/configfiles7.cf.html">revised code</a>:</div>
+<p>{% gist 2471468 methods_ex2.cf %}</p>
+<div>Now the list of bundles to call (edit_sysctl, edit_sshd and edit_inittab) is being built on the fly from the contents of the files array, and used through implicit looping to call the bundles in the methods: promises. Note how you can even pass arguments to these calls. This makes it very easy to extend the functionality by simply adding new elements to the files array (and of course, defining the appropriate edit_* bundle).</div>
+<p></p>
+<div>Until next time!</div>
+
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://cf-learn.info/post/new-reviews-page/">New &#34;reviews&#34; page</a>
+      </h1>
+      <span class="post-date">Apr 19, 2012 &middot; 1 minute read &middot; <a href="http://cf-learn.info/post/new-reviews-page/#disqus_thread">Comments</a>
+      
+      <br/>
+      
+      
+      </span>
+      I have started collecting some of the nice things I have read people say about the book, and put them in the <a href="http://cf-learn.info/reviews.html">Reviews</a> page. Check it out!
+
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://cf-learn.info/post/my-first-batch-of-print-books-arrived/">My first batch of print books arrived</a>
+      </h1>
+      <span class="post-date">Mar 26, 2012 &middot; 1 minute read &middot; <a href="http://cf-learn.info/post/my-first-batch-of-print-books-arrived/#disqus_thread">Comments</a>
+      
+      <br/>
+      
+      <a class="label" href="http://cf-learn.info/categories/booknews">booknews</a><a class="label" href="http://cf-learn.info/categories/photos">photos</a><a class="label" href="http://cf-learn.info/categories/purdue">purdue</a>
+      </span>
+      I'm visiting Purdue University today to give a talk and to visit old friends and colleagues. And the first box of books arrived here! It's incredible to have the physical book in my hand.<p></p>
+<div class="p_embed p_image_embed">
+<img alt="Img_0515" height="640" src="http://cf-learn.info/images/2012/03/26/my-first-batch-of-print-books-arrived/39422579-IMG_0515.jpeg" width="479">
+</div>
+<p>This is the building where I spent most of my grad school years.</p>
+<p></p>
+<div class="p_embed p_image_embed">
+<a href="http://cf-learn.info/images/2012/03/26/my-first-batch-of-print-books-arrived/39422580-IMG_0514.jpeg"><img alt="Img_0514" height="374" src="http://cf-learn.info/images/2012/03/26/my-first-batch-of-print-books-arrived/39422580-IMG_0514.jpeg" width="500"></a>
+</div>
+
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://cf-learn.info/post/the-bird-on-the-cover-of-learning-cfengine-3/">The bird on the cover of &#34;Learning CFEngine 3&#34;</a>
+      </h1>
+      <span class="post-date">Mar 26, 2012 &middot; 1 minute read &middot; <a href="http://cf-learn.info/post/the-bird-on-the-cover-of-learning-cfengine-3/#disqus_thread">Comments</a>
+      
+      <br/>
+      
+      <a class="label" href="http://cf-learn.info/categories/booknews">booknews</a><a class="label" href="http://cf-learn.info/categories/newzealand">newzealand</a><a class="label" href="http://cf-learn.info/categories/tui">tui</a>
+      </span>
+      A lot of people have asked me about the bird on the cover of the book, and I had to admit I didn't know. Unfortunately, the book (even in the print version) does not include a description of the cover in the Colophon, like most other O'Reilly books. But today I got the information directly from Karen Montgomery at O'Reilly, who designed the cover:<p></p>
+<div>The bird is a <a href="http://en.wikipedia.org/wiki/Tui_(bird)">Tui</a>, a kind of bird that leaves in New Zealand, also known as a Parson Bird. Here's a photo of a real Tui bird:</div>
+<p></p>
+<div>
+<div class="p_embed p_image_embed">
+<a href="http://cf-learn.info/images/2012/03/26/the-bird-on-the-cover-of-learning-cfengine-3/39446356-Tui_on_flax.jpeg"><img alt="Tui_on_flax" height="333" src="http://cf-learn.info/images/2012/03/26/the-bird-on-the-cover-of-learning-cfengine-3/39446356-Tui_on_flax.jpeg" width="500"></a>
+</div>
+</div>
+<div>(photo by <a href="http://www.flickr.com/photos/69029168@N00">Matt Binns</a>, reused under the <a href="http://creativecommons.org/licenses/by/2.0/deed.en">Creative Commons Attribution 2.0 Generic</a> license)</div>
+
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://cf-learn.info/post/cfengine-related-speaking-engagements-from-march-26th-28th-2012/">CFEngine-related speaking engagements from March 26th-28th, 2012</a>
+      </h1>
+      <span class="post-date">Mar 24, 2012 &middot; 1 minute read &middot; <a href="http://cf-learn.info/post/cfengine-related-speaking-engagements-from-march-26th-28th-2012/#disqus_thread">Comments</a>
+      
+      <br/>
+      
+      <a class="label" href="http://cf-learn.info/categories/announcements">announcements</a><a class="label" href="http://cf-learn.info/categories/chicago">chicago</a><a class="label" href="http://cf-learn.info/categories/purdue">purdue</a><a class="label" href="http://cf-learn.info/categories/talks">talks</a><a class="label" href="http://cf-learn.info/categories/westlafayette">westlafayette</a>
+      </span>
+      <p>I will be giving three CFEngine related talks this week. I would love to see you at any one of them!</p>
+<p></p>
+<div>
+<strong>March 26th</strong> - Purdue University, Lawson CS Building 3102, West Lafayette, IN, 1:30PM</div>
+<p></p>
+<div style="padding-left: 30px;">
+<span style=""> </span>"CFEngine 3: Empowering the Next-Generation SysAdmin"</div>
+<p></p>
+<div>
+<strong>March 27th</strong> - <a href="http://www.meetup.com/devops/events/51903632/">Chicago Devops Meetup, Morningstar, Chicaco, IL, 5:30PM</a>
+</div>
+<p></p>
+<div style="padding-left: 30px;">
+<span style=""> </span>"CFEngine 3: Empowering the Next-Generation SysAdmin"</div>
+<p></p>
+<div>
+<strong>March 28th</strong> - <a href="http://campconferences.com/events/2012/iom.htm">CampIT conference on IT Infrastructure &amp; Operations Management, Chicago, IL, 9:00AM</a>
+</div>
+<p></p>
+<div style="padding-left: 30px;">
+<span style=""> </span>"Achieving IT Infrastructure and Operational Excellence"</div>
+
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://cf-learn.info/post/book-status-released/">Book status: released!</a>
+      </h1>
+      <span class="post-date">Mar 23, 2012 &middot; 1 minute read &middot; <a href="http://cf-learn.info/post/book-status-released/#disqus_thread">Comments</a>
+      
+      <br/>
+      
+      <a class="label" href="http://cf-learn.info/categories/announcements">announcements</a><a class="label" href="http://cf-learn.info/categories/booknews">booknews</a>
+      </span>
+      <div><a href="http://shop.oreilly.com/product/0636920022022.do"><div class="p_embed p_image_embed">
+<img alt="Cat" height="236" src="http://cf-learn.info/images/2012/03/23/book-status-released/39333994-cat.gif" width="180">
+</div>
+</a></div>
+<p></p>I am ecstatic to announce that the book is now officially released! You can get it here: <a href="http://shop.oreilly.com/product/0636920022022.do">http://shop.oreilly.com/product/0636920022022.do</a>. If you purchased the Early Release version, you should automatically be able to download the final version from your "Your products" page at <a href="http://oreilly.com">oreilly.com</a>.<p></p>
+<div>It's been an incredible ride, and it's an incredible feeling to see it come to this big milestone (I won't say "the end", because I know this book will keep evolving).</div>
+<p></p>
+<div>There have been so many people who helped me through this process, including my editor (Andy Oram), all the staff at O'Reilly, who have been so professional and helpful, my very competent tech reviewers (Mark Burgess and Jesse Becker), all my colleagues at CFEngine AS, all the readers of intermediate and partial versions of the book, all the people who purchased the Early Release, and of course, my lovely wife and my two beautiful daughters, who were so patient while I worked on "the book". Everyone gave me encouragement, incredible feedback, and tons of guidance and support. Thank you everyone!</div>
+
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://cf-learn.info/post/book-status-print-ready/">Book status: print-ready</a>
+      </h1>
+      <span class="post-date">Mar 16, 2012 &middot; 1 minute read &middot; <a href="http://cf-learn.info/post/book-status-print-ready/#disqus_thread">Comments</a>
+      
+      <br/>
+      
+      <a class="label" href="http://cf-learn.info/categories/announcements">announcements</a><a class="label" href="http://cf-learn.info/categories/booknews">booknews</a>
+      </span>
+      I am very happy! I got the notification today that the final book draft has been produced and sent to the printer. This means that over the next few days the final version will be available for purchase, both as e-book and in print form. I will of course let you know when this happens. <p></p> For now, time to enjoy a relaxing weekend, the first with no book-related work in a long time :)
+
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://cf-learn.info/post/syntax-highlighting-in-learning-cfengine-3/">Syntax highlighting in &#34;Learning CFEngine 3&#34;</a>
+      </h1>
+      <span class="post-date">Mar 16, 2012 &middot; 1 minute read &middot; <a href="http://cf-learn.info/post/syntax-highlighting-in-learning-cfengine-3/#disqus_thread">Comments</a>
+      
+      <br/>
+      
+      <a class="label" href="http://cf-learn.info/categories/booknews">booknews</a>
+      </span>
+      The electronic versions of the book contain full syntax highlighting and other useful features. I'm biased of course, but I think it is both functional and beautiful. Here's a sample from Chapter 4:<p></p>
+<blockquote class="webkit-indent-blockquote" style="margin: 0 0 0 40px; border: none; padding: 0px;"><div>
+<div class="p_embed p_image_embed">
+<a href="http://cf-learn.info/images/2012/03/16/syntax-highlighting-in-learning-cfengine-3/39091981-final_web.pdf%20(page%20126%20of%20182)-1.jpg"><img alt="Final_web" height="527" src="http://cf-learn.info/images/2012/03/16/syntax-highlighting-in-learning-cfengine-3/39091981-final_web.pdf%20(page%20126%20of%20182)-1.jpg" width="500"></a>
+</div>
+</div></blockquote>
+<p></p>
+<div>The syntax highlighting in my opinion greatly helps in reading the code. Additionally, each one of those numbered callouts in the code are in-document links that take you to the paragraph where that part of the code is described. Conversely, the callouts in the text take you back to the corresponding line in the code. And finally, most CFEngine keywords and concepts are links to the corresponding description in the CFEngine Reference Manual. In the PDF, clicking on that blue "files:" in the last paragraph will take you to <a href="http://cf-learn.info/ref/files">http://cf-learn.info/ref/files</a>
+</div>
+
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://cf-learn.info/post/cfengine-community-event-march-8th-2012/">CFEngine community event: March 8th, 2012</a>
+      </h1>
+      <span class="post-date">Mar 5, 2012 &middot; 1 minute read &middot; <a href="http://cf-learn.info/post/cfengine-community-event-march-8th-2012/#disqus_thread">Comments</a>
+      
+      <br/>
+      
+      
+      </span>
+      I am visiting the Bay Area this week, and we took the opportunity to organize a <a href="http://cfengine3paloalto.eventbrite.com/">CFEngine community event</a> on Thursday, March 8th, at 6:30 PM. Come by, meet the CFEngine team, hear about some of the exciting things we are working on, and give us your feedback for the future.<p></p>
+<div>Hope to see you there! If you plan to attend please don't forget to <a href="http://cfengine3paloalto.eventbrite.com/">register</a>.</div>
+
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://cf-learn.info/post/book-status-production/">Book status: production</a>
+      </h1>
+      <span class="post-date">Feb 29, 2012 &middot; 1 minute read &middot; <a href="http://cf-learn.info/post/book-status-production/#disqus_thread">Comments</a>
+      
+      <br/>
+      
+      <a class="label" href="http://cf-learn.info/categories/announcements">announcements</a><a class="label" href="http://cf-learn.info/categories/booknews">booknews</a>
+      </span>
+      Some people have asked me what the status of the book is, so I thought I would post it here. The book is currently in the "production stage", which means that the draft has been finalized content-wise, and is now being prepared for publication by O'Reilly. They have a specialized group of people for this, who work on preparing nice final versions of the figures, making sure the layout of the book is correct, and doing a few thorough proofreading and editing passes. <p></p> This means that it's now really close to publication. I cannot make any promises about the specific date, but it should be before the end of March. <p></p> Thank you for your interest!
+
+    </div>
+    
+    
+
+<ul class="pagination">
+    
+    <li>
+        <a href="http://cf-learn.info/post/" aria-label="First"><span aria-hidden="true">&laquo;&laquo;</span></a>
+    </li>
+    
+    <li
+    >
+    <a href="http://cf-learn.info/post/" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+    </li>
+    
+    
+    
+    
+    
+     
+        
+        
+    
+    
+    <li
+    ><a href="http://cf-learn.info/post/">1</a></li>
+    
+    
+    
+    
+    
+     
+        
+        
+    
+    
+    <li
+    class="active"><a href="http://cf-learn.info/post/page/2/">2</a></li>
+    
+    
+    
+    
+    
+     
+        
+        
+    
+    
+    <li
+    ><a href="http://cf-learn.info/post/page/3/">3</a></li>
+    
+    
+    <li
+    >
+    <a href="http://cf-learn.info/post/page/3/" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+    </li>
+    
+    <li>
+        <a href="http://cf-learn.info/post/page/3/" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+    </li>
+    
+</ul>
+
+  </div>
+</div>
+
+
+<script type="text/javascript">
+var disqus_shortname = "cf-learn";
+(function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+}());
+</script>
+
+<script src="http://cf-learn.info/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+</body>
+</html>
+

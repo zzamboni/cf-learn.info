@@ -13,10 +13,10 @@
     
     <item>
       <title>cf-cmd: A command-line tool for running CFEngine snippets</title>
-      <link>http://cf-learn.info/blog/cf-cmd-a-command-line-tool-for-running-cfengi/</link>
+      <link>http://cf-learn.info/post/cf-cmd-a-command-line-tool-for-running-cfengine-snippets/</link>
       <pubDate>Tue, 27 Dec 2011 00:00:00 +0000</pubDate>
       
-      <guid>http://cf-learn.info/blog/cf-cmd-a-command-line-tool-for-running-cfengi/</guid>
+      <guid>http://cf-learn.info/post/cf-cmd-a-command-line-tool-for-running-cfengine-snippets/</guid>
       <description>While writing this book, I&#39;ve had to run hundreds of little CFEngine snippets to run tests, develop examples, verify functionality, or get a solid idea of what some constructs did. After building the typical &#34;test bundle&#34; scaffolding in an editor for the hundredth time, I decided to do something about it. The result is the cf-cmd command. I will let it speak for itself: 
    $ cf-cmd help cf-cmd v1.</description>
     </item>

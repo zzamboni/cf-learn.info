@@ -13,10 +13,10 @@
     
     <item>
       <title>Migrating from CFEngine 2 to CFEngine 3</title>
-      <link>http://cf-learn.info/blog/migrating-from-cfengine-2-to-cfengine-3/</link>
+      <link>http://cf-learn.info/post/migrating-from-cfengine-2-to-cfengine-3/</link>
       <pubDate>Wed, 21 Dec 2011 00:00:00 +0000</pubDate>
       
-      <guid>http://cf-learn.info/blog/migrating-from-cfengine-2-to-cfengine-3/</guid>
+      <guid>http://cf-learn.info/post/migrating-from-cfengine-2-to-cfengine-3/</guid>
       <description>When designing the CFEngine 3 language, its author Mark Burgess decided a complete overhaul was needed. This decision freed CFEngine 3 from any backwards-compatibility constraints, resulting in a completely new language that is much more flexible, extensible, powerful and expressive. 
 Unfortunately, this means that migrating from CFEngine 2 to CFEngine 3 is not automated, and requires a certain level of hand-tweaking. One of the frequent comments I heard at LISA&#39;11 was from people who are currently using CFEngine 2, and have been hesitant of migrating to CFEngine 3 because they are not sure how to proceed, and are afraid of the amount of work it will involve (and also, &#34;</description>
     </item>

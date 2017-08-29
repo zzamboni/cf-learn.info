@@ -13,10 +13,10 @@
     
     <item>
       <title>CFEngine tip #003: The distinction between bodies and bundles</title>
-      <link>http://cf-learn.info/blog/cfengine-tip-003-the-distinction-between-bodi/</link>
+      <link>http://cf-learn.info/post/cfengine-tip-#003-the-distinction-between-bodies-and-bundles/</link>
       <pubDate>Mon, 04 Jun 2012 00:00:00 +0000</pubDate>
       
-      <guid>http://cf-learn.info/blog/cfengine-tip-003-the-distinction-between-bodi/</guid>
+      <guid>http://cf-learn.info/post/cfengine-tip-#003-the-distinction-between-bodies-and-bundles/</guid>
       <description>This is an extract from Chapter 3 of &#34;Learning CFEngine 3&#34;, where you can also find a much more comprehensive description of bodies and bundles in the CFEngine 3 policy language.
 The distinction between bundles and bodies can be confusing at first. Remembering these points may help:
   Bodies are named groups of attributes, whereas bundles are collections of promises. Promises are the units that actually do something in CFEngine (for example, run a command or add a line to a file), whereas attributes specify characteristics of how things are done (for example, whether to run the command in a shell, or where in the file to add the line).</description>
@@ -24,10 +24,10 @@ The distinction between bundles and bodies can be confusing at first. Rememberin
     
     <item>
       <title>CFEngine tip #002: How to pass arguments to bundles using arrays</title>
-      <link>http://cf-learn.info/blog/cfengine-tip-002-how-to-pass-arguments-to-bun/</link>
+      <link>http://cf-learn.info/post/cfengine-tip-#002-how-to-pass-arguments-to-bundles-using-arrays/</link>
       <pubDate>Mon, 07 May 2012 00:00:00 +0000</pubDate>
       
-      <guid>http://cf-learn.info/blog/cfengine-tip-002-how-to-pass-arguments-to-bun/</guid>
+      <guid>http://cf-learn.info/post/cfengine-tip-#002-how-to-pass-arguments-to-bundles-using-arrays/</guid>
       <description>(This tip is based on a section from Chapter 5 of Learning CFEngine 3.)
 Many system configuration tasks require groups of name-value pairs as arguments. For example:
  Editing configuration files in which parameters and their values need to be stored (ssh configuration files, Windows-style INI files, etc.) Setting user parameters. In this case, sets of name-value pairs (home directory, full name, shell, etc.) are associated with a single user, identified by name.</description>
@@ -35,59 +35,59 @@ Many system configuration tasks require groups of name-value pairs as arguments.
     
     <item>
       <title>CFEngine talks at PICC&#39;12 conference</title>
-      <link>http://cf-learn.info/blog/cfengine-talks-at-picc12-conference/</link>
+      <link>http://cf-learn.info/post/cfengine-talks-at-picc12-conference/</link>
       <pubDate>Fri, 27 Apr 2012 00:00:00 +0000</pubDate>
       
-      <guid>http://cf-learn.info/blog/cfengine-talks-at-picc12-conference/</guid>
+      <guid>http://cf-learn.info/post/cfengine-talks-at-picc12-conference/</guid>
       <description>There will be several CFEngine-related classes and talks at the PICC&#39;12 conference (Professional IT Community Conference) on May 11-12th, in New Jersey. I will be talking about using CFEngine as part of your security infrastructure. My colleague Joe Netzel will be talking about migration from CFEngine 2 to CFEngine 3, so if you are using CF2 and have been considering (or dreading) the migration, make sure to come by! Aleksey Tsalolikhin will give an introductory class to CFEngine.</description>
     </item>
     
     <item>
       <title>CFEngine tip #001: Modularize complex policies using methods: calls</title>
-      <link>http://cf-learn.info/blog/cfengine-tip-001-modularize-complex-policies/</link>
+      <link>http://cf-learn.info/post/cfengine-tip-#001-modularize-complex-policies-using-methods-calls/</link>
       <pubDate>Mon, 23 Apr 2012 00:00:00 +0000</pubDate>
       
-      <guid>http://cf-learn.info/blog/cfengine-tip-001-modularize-complex-policies/</guid>
+      <guid>http://cf-learn.info/post/cfengine-tip-#001-modularize-complex-policies-using-methods-calls/</guid>
       <description>Welcome to the new &#34;CFEngine tip&#34; series. In this series of posts I will explore different tips, tricks and techniques for making better use of CFEngine. For now I will post weekly, but the frequency may change as time goes by. If you have any suggestions for topics that I should cover in this series, please let me know! 
 For our first installment, we will talk about methods: promises, and how they can be used to make policies both clearer and more extensible.</description>
     </item>
     
     <item>
       <title>Searching CFEngine documentation</title>
-      <link>http://cf-learn.info/blog/searching-cfengine-documentation/</link>
+      <link>http://cf-learn.info/post/searching-cfengine-documentation/</link>
       <pubDate>Thu, 02 Feb 2012 00:00:00 +0000</pubDate>
       
-      <guid>http://cf-learn.info/blog/searching-cfengine-documentation/</guid>
+      <guid>http://cf-learn.info/post/searching-cfengine-documentation/</guid>
       <description>The CFEngine Reference Manual is extremely useful, and is the ultimate guide to everything about CFEngine. However, it is not always the easiest to find what you are looking for. 
 To help in this respect, I have created a cross-referenced index of all the section headings in the manual. You can search it using the second search box on the right of any page of this site. For example, try searching for &#34;</description>
     </item>
     
     <item>
       <title>Code examples for &#34;Learning CFEngine 3&#34; now available</title>
-      <link>http://cf-learn.info/blog/code-examples-for-learning-cfengine-3-now-ava/</link>
+      <link>http://cf-learn.info/post/code-examples-for-learning-cfengine-3-now-available/</link>
       <pubDate>Sun, 08 Jan 2012 00:00:00 +0000</pubDate>
       
-      <guid>http://cf-learn.info/blog/code-examples-for-learning-cfengine-3-now-ava/</guid>
+      <guid>http://cf-learn.info/post/code-examples-for-learning-cfengine-3-now-available/</guid>
       <description>I&#39;m happy to announce that the code examples from Learning CFEngine 3 are now available for browsing and download at http://cf-learn.info/code.html. You can view or download individual files, and also the whole collection. You can also get them from the GitHub repository. 
 These examples are extracted automatically from the source files for the book, and as such reflect exactly the current state of what you will find in it. This also means, of course, that as the book evolves you will see changes in the files.</description>
     </item>
     
     <item>
       <title>CFEngine 3 training on January 25-27th, 2012</title>
-      <link>http://cf-learn.info/blog/cfengine-3-training-on-january-25-27th-2012/</link>
+      <link>http://cf-learn.info/post/cfengine-3-training-on-january-25-27th-2012/</link>
       <pubDate>Wed, 04 Jan 2012 00:00:00 +0000</pubDate>
       
-      <guid>http://cf-learn.info/blog/cfengine-3-training-on-january-25-27th-2012/</guid>
+      <guid>http://cf-learn.info/post/cfengine-3-training-on-january-25-27th-2012/</guid>
       <description>Quick plug: if you are in the Bay Area and are interested in getting some hands-on introduction to CFEngine 3, please make sure to check out this training session: 
   Automating System Administration using CFEngine 3 Presented by Mark Burgess &amp;amp; Aleksey Tsalolikhin Date: January 25-27 Location: Palo Alto, CA Price: $1950 per person (group discount negotiable) Registration &amp;amp; Agenda: http://cfengine3.eventbrite.com   Mark is the original author of CFEngine and the ultimate CFEngine authority in the world.</description>
     </item>
     
     <item>
       <title>cf-cmd: A command-line tool for running CFEngine snippets</title>
-      <link>http://cf-learn.info/blog/cf-cmd-a-command-line-tool-for-running-cfengi/</link>
+      <link>http://cf-learn.info/post/cf-cmd-a-command-line-tool-for-running-cfengine-snippets/</link>
       <pubDate>Tue, 27 Dec 2011 00:00:00 +0000</pubDate>
       
-      <guid>http://cf-learn.info/blog/cf-cmd-a-command-line-tool-for-running-cfengi/</guid>
+      <guid>http://cf-learn.info/post/cf-cmd-a-command-line-tool-for-running-cfengine-snippets/</guid>
       <description>While writing this book, I&#39;ve had to run hundreds of little CFEngine snippets to run tests, develop examples, verify functionality, or get a solid idea of what some constructs did. After building the typical &#34;test bundle&#34; scaffolding in an editor for the hundredth time, I decided to do something about it. The result is the cf-cmd command. I will let it speak for itself: 
    $ cf-cmd help cf-cmd v1.</description>
     </item>
