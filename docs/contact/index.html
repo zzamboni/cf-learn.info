@@ -18,6 +18,7 @@
   <link rel="stylesheet" type="text/css" href="http://cf-learn.info/css/socialicious.css" media="screen" />
   <link rel="stylesheet" href="http://cf-learn.info/css/highlight/github.css">
   <link href='http://fonts.googleapis.com/css?family=Quattrocento|Quattrocento+Sans' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="http://cf-learn.info/css/tachyons.min.css"/>
 
   
   <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://cf-learn.info/apple-touch-icon-144-precomposed.png">
@@ -214,17 +215,28 @@
 <div class="content container">
   <div class="post">
     <h1>Contact</h1>
-    <script type="text/javascript">var host = (("https:" == document.location.protocol) ? "https://secure." : "http://");document.write(unescape("%3Cscript src='" + host + "wufoo.com/scripts/embed/form.js' type='text/javascript'%3E%3C/script%3E"));</script>
-<script type="text/javascript">
-var z7x3k1 = new WufooForm();
-z7x3k1.initialize({
-'userName':'zzamboni', 
-'formHash':'z7x3k1', 
-'autoResize':true,
-'height':'437',
-'header':'show'});
-z7x3k1.display();
-</script>
+    
+
+
+<form class="post-dateblack-80 sans-serif" accept-charset="UTF-8" action="http://formspree.io/diego@zzamboni.org" method="POST" role="form">
+
+    <div class="requirements f6 gray glow i ph3 overflow-hidden">
+      All fields are required
+    </div>
+
+    <label class="f6 b db mb1 mt3 sans-serif mid-gray"  for="name">Your Name</label>
+    <input type="text" id="name" name="name" class="w-100 f5 pv3 ph3 bg-light-gray bn"  required placeholder=" "  aria-labelledby="name"/>
+
+    <label class="f6 b db mb1 mt3 sans-serif mid-gray" for="email">Email Address</label>
+    <input type="email" id="email" name="email" class="w-100 f5 pv3 ph3 bg-light-gray bn"  required placeholder=" "  aria-labelledby="email"/>
+
+    <label class="f6 b db mb1 mt3 sans-serif mid-gray" for="message">Message</label>
+    <textarea id="message" name="message" class="w-100 f5 pv3 ph3 bg-light-gray bn h4" aria-labelledby="message"></textarea>
+
+    <input class="db w-100 mv2 white pa3 bn contact-button grow" type="submit" value="Send" />
+
+</form>
+
 
   </div>
 </div>

@@ -47,7 +47,7 @@ Note that the CFEngine Standard Library is not included here, despite several fr
       <pubDate>Tue, 19 May 2015 00:00:00 +0000</pubDate>
       
       <guid>http://cf-learn.info/contact/</guid>
-      <description>var host = ((&#34;https:&#34; == document.location.protocol) ? &#34;https://secure.&#34; : &#34;http://&#34;);document.write(unescape(&#34;%3Cscript src=&#39;&#34; + host + &#34;wufoo.com/scripts/embed/form.js&#39; type=&#39;text/javascript&#39;%3E%3C/script%3E&#34;)); var z7x3k1 = new WufooForm(); z7x3k1.initialize({ &#39;userName&#39;:&#39;zzamboni&#39;, &#39;formHash&#39;:&#39;z7x3k1&#39;, &#39;autoResize&#39;:true, &#39;height&#39;:&#39;437&#39;, &#39;header&#39;:&#39;show&#39;}); z7x3k1.display();  </description>
+      <description> All fields are required  Your Name Email Address Message   </description>
     </item>
     
     <item>
