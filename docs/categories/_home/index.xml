@@ -17,7 +17,8 @@
       <pubDate>Mon, 18 May 2015 00:00:00 +0000</pubDate>
       
       <guid>http://cf-learn.info/the-book/</guid>
-      <description>CFEngine 3 is the most mature and widely used tool for comprehensive configuration management, and Learning CFEngine 3 will help you in getting up to speed with it. The main audience for this book is experienced system administrators of null-to-medium expertise with CFEngine, although more advanced CFEngine users will also find useful snippets and techniques. Its goal is to guide you from installation to advanced examples and concepts by using examples and techniques that can be put to work straight away.</description>
+      <description>CFEngine 3 is a mature and widely used tool for configuration management, and Learning CFEngine 3will help you get up to speed with it.
+The main audience for this book is experienced system administrators of none-to-medium expertise with CFEngine, but more advanced CFEngine users will also find useful snippets and techniques. Its goal is to guide you from installation to advanced examples and concepts by using examples and techniques that can be put to work straight away.</description>
     </item>
     
   </channel>
