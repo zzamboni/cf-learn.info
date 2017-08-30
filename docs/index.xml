@@ -17,8 +17,7 @@
       <pubDate>Mon, 18 May 2015 00:00:00 +0000</pubDate>
       
       <guid>http://cf-learn.info/the-author/</guid>
-      <description>My name is Diego Zamboni, and I am the author of Learning CFEngine 3. I am a computer scientist, consultant, programmer, sysadmin and overall geek, now turned manager. I am very interested in topics related to computer security, virtualization, configuration management and system automation. Currently I work at Swisscom in the Cloud Development Platform team, where I lead teams working on Health Management, Logging and Monitoring capabilities.
-During college I founded the first computer security team at UNAM (Mexico&amp;rsquo;s national university), which would grow to become a much larger organization, before moving to the U.</description>
+      <description>My name is Diego Zamboni, and I am the author of Learning CFEngine 3. I am a computer scientist, consultant, programmer, sysadmin and overall geek, now turned manager, project lead and SAFe Product Owner. I am very interested in topics related to computer security, virtualization, configuration management and system automation. Currently I work at Swisscom in the Cloud Development Platform team, where I lead teams working on Health Management, Logging and Monitoring capabilities.</description>
     </item>
     
     <item>
@@ -47,7 +46,7 @@ Note that the CFEngine Standard Library is not included here, despite several fr
       <pubDate>Tue, 19 May 2015 00:00:00 +0000</pubDate>
       
       <guid>http://cf-learn.info/contact/</guid>
-      <description>All fields are required  Your Name Email Address Message   </description>
+      <description> All fields are required  Your Name Email Address Message   </description>
     </item>
     
     <item>
