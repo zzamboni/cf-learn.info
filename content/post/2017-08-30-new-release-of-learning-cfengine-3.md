@@ -13,8 +13,8 @@ It has finally happened: a new release of "Learning CFEngine 3" is here!
 
 - The book is no longer published by O'Reilly Media - the new release
   is published directly by me, and distributed through Amazon as a
-  Kindle ebook, available now (see link on the right). It is also
-  available at a lower price (US$9.99) than the O'Reilly release.
+  Kindle ebook, available now. It is also available at a lower price
+  (US$9.99) than the previous release.
 
 - The book now has an index! This has been a very frequent request
   since the book was first released.
