@@ -47,7 +47,18 @@ Note that the CFEngine Standard Library is not included here, despite several fr
       <pubDate>Tue, 19 May 2015 00:00:00 +0000</pubDate>
       
       <guid>http://cf-learn.info/contact/</guid>
-      <description> All fields are required  Your Name Email Address Message   </description>
+      <description>All fields are required  Your Name Email Address Message   </description>
+    </item>
+    
+    <item>
+      <title>New Release of &#34;Learning CFEngine 3&#34;</title>
+      <link>http://cf-learn.info/post/new-release-of-learning-cfengine-3/</link>
+      <pubDate>Wed, 30 Aug 2017 08:00:00 +0000</pubDate>
+      
+      <guid>http://cf-learn.info/post/new-release-of-learning-cfengine-3/</guid>
+      <description>It has finally happened: a new release of &amp;ldquo;Learning CFEngine 3&amp;rdquo; is here!
+Short version   The book is no longer published by O&amp;rsquo;Reilly Media - the new release is published directly by me, and distributed through Amazon as a Kindle ebook, available now (see link on the right). It is also available at a lower price (US$9.99) than the O&amp;rsquo;Reilly release.
+ The book now has an index!</description>
     </item>
     
     <item>
