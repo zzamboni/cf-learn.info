@@ -20,8 +20,17 @@
 }
 
 .sidebar {
-    background-color: #51121E;
+    /* background-color: #51121E;*/
+    /* New book blue */
+    background-color: #2585C1;
 }
+
+.contact-button {
+    /* background-color: #51121E; */
+    /* New book blue */
+    background-color: #2585C1;
+}
+
 
 html {
   font-family: 'Quattrocento Sans', sans-serif;
@@ -83,9 +92,5 @@ a[href$='.xls'] {
 a[rel ~='external'] {
 	padding-left: 18px;
 	background: transparent url(/new/icons/icon_external.gif) no-repeat center left;
-}
-
-.contact-button {
-    background-color: #51121E;
 }
 
