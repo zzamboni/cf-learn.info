@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>http://cf-learn.info/book/</loc>
+    <lastmod>2017-09-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://cf-learn.info/post/</loc>
     <lastmod>2017-08-29T00:00:00+00:00</lastmod>
   </url>
@@ -38,7 +43,7 @@
   </url>
   
   <url>
-    <loc>http://cf-learn.info/the-book/</loc>
+    <loc>http://cf-learn.info/home/</loc>
     <lastmod>2015-05-18T00:00:00+00:00</lastmod>
   </url>
   
@@ -293,12 +298,6 @@
   </url>
   
   <url>
-    <loc>http://cf-learn.info/categories/page/</loc>
-    <lastmod>2015-05-18T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>http://cf-learn.info/categories/photos/</loc>
     <lastmod>2012-04-25T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -379,12 +378,6 @@
   <url>
     <loc>http://cf-learn.info/categories/westlafayette/</loc>
     <lastmod>2012-03-24T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://cf-learn.info/categories/_home/</loc>
-    <lastmod>2015-05-18T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
