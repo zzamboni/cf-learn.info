@@ -11,5 +11,15 @@
 	<atom:link href="http://cf-learn.info/book/index.xml" rel="self" type="application/rss+xml" />
     
     
+    <item>
+      <title>Chapter 1: Introduction</title>
+      <link>http://cf-learn.info/book/chapter01/</link>
+      <pubDate>Mon, 04 Sep 2017 22:47:03 +0200</pubDate>
+      
+      <guid>http://cf-learn.info/book/chapter01/</guid>
+      <description>Table of Contents How to Achieve Automation Home-Grown Scripts Specialized Tools for Automation   Why CFEngine? A Brief History of CFEngine Versions of CFEngine    Every time someone logs onto a system by hand, they jeopardize everyone’s understanding of the system.
+  &amp;#8212; Mark Burgess&amp;#44; author of CFEngine   If you are a computer user of any type, you rely on automation every day. Their ability to automate things is what makes computers useful, after all.</description>
+    </item>
+    
   </channel>
 </rss>
