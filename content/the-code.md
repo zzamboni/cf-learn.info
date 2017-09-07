@@ -1,11 +1,6 @@
 ---
-categories: &1
-- page
 date: '2015-05-18'
-description: ''
-keywords: []
 title: The Code
-tags: *1
 menu: main
 weight: '4'
 slug: the-code

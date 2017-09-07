@@ -1,11 +1,6 @@
 ---
-categories: &1
-- page
 date: '2015-05-19'
-description: ''
-keywords: []
 title: The Raves
-tags: *1
 menu: main
 weight: '5'
 slug: the-raves

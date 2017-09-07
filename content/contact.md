@@ -1,6 +1,5 @@
 ---
 date: '2015-05-19'
-description: ''
 title: Contact
 menu: main
 weight: '6'

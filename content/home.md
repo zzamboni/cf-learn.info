@@ -1,13 +1,9 @@
 ---
-categories: &1
-- page
-- _home
 date: '2015-05-18'
-description: ''
-keywords: []
-title: The Book
-tags: *1
-slug: the-book
+title: Home
+tags:
+- _home
+slug: home
 ---
 
 CFEngine 3 is a mature and widely used tool for configuration
