@@ -12,6 +12,16 @@
     
     
     <item>
+      <title>Home</title>
+      <link>http://cf-learn.info/home/</link>
+      <pubDate>Mon, 18 May 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://cf-learn.info/home/</guid>
+      <description>CFEngine 3 is a mature and widely used tool for configuration management, and Learning CFEngine 3will help you get up to speed with it.
+The main audience for this book is experienced system administrators of none-to-medium expertise with CFEngine, but more advanced CFEngine users will also find useful snippets and techniques. Its goal is to guide you from installation to advanced examples and concepts by using examples and techniques that can be put to work straight away.</description>
+    </item>
+    
+    <item>
       <title>The Author</title>
       <link>http://cf-learn.info/the-author/</link>
       <pubDate>Mon, 18 May 2015 00:00:00 +0000</pubDate>
@@ -50,6 +60,15 @@ Note that the CFEngine Standard Library is not included here, despite several fr
     </item>
     
     <item>
+      <title>Chapter 1 of “Learning CFEngine 3” is Online</title>
+      <link>http://cf-learn.info/post/chapter-1-of-learning-cfengine-3-is-online/</link>
+      <pubDate>Thu, 07 Sep 2017 06:54:15 +0200</pubDate>
+      
+      <guid>http://cf-learn.info/post/chapter-1-of-learning-cfengine-3-is-online/</guid>
+      <description>I have always believed that knowledge is best when freely shared. For this reason I have for a long time wished I could make &amp;ldquo;Learning CFEngine 3&amp;rdquo; freely available, and it became possible when the rights of the book were reassigned to me. I am proud to announce that, as promised a few days ago, the first chapter of the book is now available online. Over the next few weeks I will post the next chapters.</description>
+    </item>
+    
+    <item>
       <title>New Release of &#34;Learning CFEngine 3&#34;</title>
       <link>http://cf-learn.info/post/new-release-of-learning-cfengine-3/</link>
       <pubDate>Wed, 30 Aug 2017 08:00:00 +0000</pubDate>
@@ -67,16 +86,6 @@ Short version   The book is no longer published by O&amp;rsquo;Reilly Media - th
       
       <guid>http://cf-learn.info/post/finally-an-update-about-learning-cfengine-3/</guid>
       <description>I know, I know. It’s been over two years since the last post, and other than my occasional comment on the IRC channel or mailing list, you couldn’t be blamed to think that I had disappeared from the face of the earth.  But I’m back! And I have a few updates for you:   I am finally working again on the new release of the book! It will focus on the upcoming CFEngine 3.</description>
-    </item>
-    
-    <item>
-      <title>Home</title>
-      <link>http://cf-learn.info/home/</link>
-      <pubDate>Mon, 18 May 2015 00:00:00 +0000</pubDate>
-      
-      <guid>http://cf-learn.info/home/</guid>
-      <description>CFEngine 3 is a mature and widely used tool for configuration management, and Learning CFEngine 3will help you get up to speed with it.
-The main audience for this book is experienced system administrators of none-to-medium expertise with CFEngine, but more advanced CFEngine users will also find useful snippets and techniques. Its goal is to guide you from installation to advanced examples and concepts by using examples and techniques that can be put to work straight away.</description>
     </item>
     
     <item>
