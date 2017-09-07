@@ -7,13 +7,8 @@
     </div>
 
     <ul class="sidebar-nav">
-      {{ range .Site.Pages }}
-        {{ if in .Params.tags "_home" }}
-          <li class="sidebar-nav-item"><a href="{{ .Site.BaseURL }}/">{{ .Title }}</a></li>
-        {{ end }}
-      {{ end }}
       {{ range .Site.Menus.main }}
-        <li class="sidebar-nav-item"><a  href="{{ .URL }}">{{ .Name }}</a></li>
+        <li class="sidebar-nav-item{{ if or ($.Page.IsMenuCurrent "main" .) }} active{{ end }}"><a  href="{{ .URL }}">{{ .Name }}</a></li>
       {{end}}
     </ul>
 

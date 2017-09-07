@@ -4,6 +4,8 @@ title: Home
 tags:
 - _home
 slug: home
+menu: main
+weight: '1'
 ---
 
 CFEngine 3 is a mature and widely used tool for configuration
