@@ -94,3 +94,67 @@ a[rel ~='external'] {
 	background: transparent url(/new/icons/icon_external.gif) no-repeat center left;
 }
 
+.sidebarblock {
+	  background-color: lightyellow;
+	  margin: 20px;
+    shadow:
+	  border: 1px solid #000000;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.sidebarblock .content {
+	  margin-left: 40px;
+	  margin-right: 40px;
+	  padding-top: 40px;
+	  padding-bottom: 40px;
+}
+
+.sidebarblock .title {
+    text-align: center;
+    font-weight: bold;
+    line-height: 2.75;
+}
+
+.quoteblock {
+	  margin-top: 30px;
+	  margin-bottom: 30px;
+}
+
+.quoteblock blockquote {
+	  margin-top: 0px;
+	  margin-bottom: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+.quoteblock .attribution {
+    text-align: right;
+}
+
+.admonitionblock .content {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.title:after {
+    content: '';
+    display: block;
+    height: 40px;  /*height of icon */
+    width: 40px;  /*width of icon */
+    position: absolute;
+    /*where to replace the icon */
+    top: 0px;
+    left: -40px;
+    /*background */
+    background: #F8E6AE url(/images/avatar.jpg) no-repeat 0px 0px;
+}
+
+.toc {
+ 	  border-top: 1px solid #000000;
+ 	  border-bottom: 1px solid #000000;
+}
+
+#toctitle {
+    font-weight: bold;
+    line-height: 2.75;
+}

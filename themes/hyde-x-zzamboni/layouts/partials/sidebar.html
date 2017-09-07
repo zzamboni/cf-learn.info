@@ -9,16 +9,11 @@
     <ul class="sidebar-nav">
       {{ range .Site.Pages }}
         {{ if in .Params.tags "_home" }}
-        <li class="sidebar-nav-item"><a href="{{ .Site.BaseURL }}/">{{ .Title }}</a></li>
+          <li class="sidebar-nav-item"><a href="{{ .Site.BaseURL }}/">{{ .Title }}</a></li>
         {{ end }}
       {{ end }}
-      {{ range $key, $value := .Site.Sections }}
-       {{ if $key }}
-      <li class="sidebar-nav-item"><a href="/{{ $key }}">The {{ title $key }}</a></li>
-       {{ end }}
-      {{end}}
       {{ range .Site.Menus.main }}
-      <li class="sidebar-nav-item"><a href="{{ .URL }}">{{ .Name }}</a></li>
+        <li class="sidebar-nav-item"><a  href="{{ .URL }}">{{ .Name }}</a></li>
       {{end}}
     </ul>
 
@@ -31,6 +26,6 @@
     </ul>
 
     <div class="sidebar-sticky"><p>&copy; {{ now.Format "2006" }} Diego Zamboni<br/>
-       Powered by <a href="http://gohugo.io">Hugo</a></p></div>
+        Powered by <a href="http://gohugo.io">Hugo</a></p></div>
   </div>
 </div>
