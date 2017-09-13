@@ -8,8 +8,7 @@ It has finally happened: a new release of "Learning CFEngine 3" is here!
 
 ## Short version
 
-<iframe style="width:120px;height:240px;float:right;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_sp_asin_til&ad_type=product_link&tracking_id=zzamboni-20&marketplace=amazon&region=US&placement=B07562BSWG&asins=B07562BSWG&linkId=c198b6763dfcdae02bfbef764d41b1b9&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
-    </iframe>
+{{< bookimglinkfloatright >}}
 
 - The book is no longer published by O'Reilly Media - the new release
   is published directly by me, and distributed through Amazon as a

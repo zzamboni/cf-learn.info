@@ -8,8 +8,7 @@ menu: main
 weight: '1'
 ---
 
-<iframe style="width:120px;height:240px;float:right;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=tf_til&ad_type=product_link&tracking_id=zzamboni-20&marketplace=amazon&region=US&placement=B07562BSWG&asins=B07562BSWG&linkId=e9ff01abacaa63e76aff40ad1a769d3a&show_border=false&link_opens_in_new_window=false&price_color=333333&title_color=0066c0&bg_color=ffffff">
-    </iframe>
+{{< bookimglinkfloatright >}}
 
 CFEngine 3 is a mature and widely used tool for configuration
 management, and <a target="_blank"
@@ -53,8 +52,7 @@ any comments or suggestions.
 
 You can buy the [new, self-published version of the book]({{< relref "post/2017-08-30-new-release-of-learning-cfengine-3.md" >}}) as a Kindle eBook from Amazon:
 
-<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=tf_til&ad_type=product_link&tracking_id=zzamboni-20&marketplace=amazon&region=US&placement=B07562BSWG&asins=B07562BSWG&linkId=e9ff01abacaa63e76aff40ad1a769d3a&show_border=false&link_opens_in_new_window=false&price_color=333333&title_color=0066c0&bg_color=ffffff">
-    </iframe>
+{{< bookimglink >}}
 
 You can also still find the O'Reilly release of the book in Safari
 books online, and through other vendors:
