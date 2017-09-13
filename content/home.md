@@ -8,6 +8,9 @@ menu: main
 weight: '1'
 ---
 
+<iframe style="width:120px;height:240px;float:right;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=tf_til&ad_type=product_link&tracking_id=zzamboni-20&marketplace=amazon&region=US&placement=B07562BSWG&asins=B07562BSWG&linkId=e9ff01abacaa63e76aff40ad1a769d3a&show_border=false&link_opens_in_new_window=false&price_color=333333&title_color=0066c0&bg_color=ffffff">
+    </iframe>
+
 CFEngine 3 is a mature and widely used tool for configuration
 management, and <a target="_blank"
 href="https://www.amazon.com/gp/product/B07562BSWG/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=B07562BSWG&linkCode=as2&tag=zzamboni-20&linkId=01f41bb6ae8e836c2b8cf1aa5ff3be29">Learning
