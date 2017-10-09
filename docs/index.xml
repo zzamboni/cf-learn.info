@@ -6,10 +6,20 @@
     <description>Recent content on Learning CFEngine 3</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 18 May 2015 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 04 Sep 2017 22:47:03 +0200</lastBuildDate>
     
 	<atom:link href="http://cf-learn.info/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Chapter 1: Introduction</title>
+      <link>http://cf-learn.info/book/chapter01/</link>
+      <pubDate>Mon, 04 Sep 2017 22:47:03 +0200</pubDate>
+      
+      <guid>http://cf-learn.info/book/chapter01/</guid>
+      <description>Table of Contents How to Achieve Automation Home-Grown Scripts Specialized Tools for Automation   Why CFEngine? A Brief History of CFEngine Versions of CFEngine    Every time someone logs onto a system by hand, they jeopardize everyone’s understanding of the system.
+  &amp;#8212; Mark Burgess&amp;#44; author of CFEngine   If you are a computer user of any type, you rely on automation every day. Their ability to automate things is what makes computers useful, after all.</description>
+    </item>
     
     <item>
       <title>Home</title>
@@ -28,6 +38,15 @@ The main audience for this book is experienced system administrators of none-to-
       
       <guid>http://cf-learn.info/the-author/</guid>
       <description>My name is Diego Zamboni, and I am the author of Learning CFEngine 3. I am a computer scientist, consultant, programmer, sysadmin and overall geek, now turned manager, project lead and SAFe Product Owner. I am very interested in topics related to computer security, virtualization, configuration management and system automation. Currently I work at Swisscom in the Cloud Development Platform team, where I lead teams working on Health Management, Logging and Monitoring capabilities.</description>
+    </item>
+    
+    <item>
+      <title>Chapter 2: Getting Started with CFEngine</title>
+      <link>http://cf-learn.info/book/chapter02/</link>
+      <pubDate>Mon, 09 Oct 2017 07:30:06 +0200</pubDate>
+      
+      <guid>http://cf-learn.info/book/chapter02/</guid>
+      <description>Table of Contents Installing CFEngine Which Version of CFEngine? Installing the Community Edition from Source Installing the Community Edition from Binary Packages Installing the Commercial Edition   Finishing the Installation and Bootstrapping Auxiliary Files Your First CFEngine Policy Integrating Your New Policy Into Periodic CFEngine Execution     The first step toward using CFEngine is getting it installed on at least one machine so that you can start playing with it.</description>
     </item>
     
     <item>
@@ -60,6 +79,16 @@ Note that the CFEngine Standard Library is not included here, despite several fr
     </item>
     
     <item>
+      <title>Chapter 2 of &#34;Learning Cfengine 3&#34; is Online</title>
+      <link>http://cf-learn.info/post/chapter-2-of-learning-cfengine-3-is-online/</link>
+      <pubDate>Mon, 09 Oct 2017 07:58:25 +0000</pubDate>
+      
+      <guid>http://cf-learn.info/post/chapter-2-of-learning-cfengine-3-is-online/</guid>
+      <description>I am happy to announce that Chapter 2 of the book is now also freely available online.
+Read it now at The Book.</description>
+    </item>
+    
+    <item>
       <title>Limited Time Promotion! 50% off &#34;Learning CFEngine 3&#34; on Amazon</title>
       <link>http://cf-learn.info/post/limited-time-promotion-50-off-learning-cfengine-3-on-amazon/</link>
       <pubDate>Wed, 13 Sep 2017 13:41:12 +0000</pubDate>
@@ -83,16 +112,6 @@ price, US$4.98 instead of the regular US$9.99.&lt;/p&gt;
       
       <guid>http://cf-learn.info/post/chapter-1-of-learning-cfengine-3-is-online/</guid>
       <description>I have always believed that knowledge is best when freely shared. For this reason I have for a long time wished I could make &amp;ldquo;Learning CFEngine 3&amp;rdquo; freely available, and it became possible when the rights of the book were reassigned to me. I am proud to announce that, as promised a few days ago, the first chapter of the book is now available online. Over the next few weeks I will post the next chapters.</description>
-    </item>
-    
-    <item>
-      <title>Chapter 1: Introduction</title>
-      <link>http://cf-learn.info/book/chapter01/</link>
-      <pubDate>Mon, 04 Sep 2017 22:47:03 +0200</pubDate>
-      
-      <guid>http://cf-learn.info/book/chapter01/</guid>
-      <description>Table of Contents How to Achieve Automation Home-Grown Scripts Specialized Tools for Automation   Why CFEngine? A Brief History of CFEngine Versions of CFEngine    Every time someone logs onto a system by hand, they jeopardize everyone’s understanding of the system.
-  &amp;#8212; Mark Burgess&amp;#44; author of CFEngine   If you are a computer user of any type, you rely on automation every day. Their ability to automate things is what makes computers useful, after all.</description>
     </item>
     
     <item>

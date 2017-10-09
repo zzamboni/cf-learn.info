@@ -21,5 +21,14 @@
   &amp;#8212; Mark Burgess&amp;#44; author of CFEngine   If you are a computer user of any type, you rely on automation every day. Their ability to automate things is what makes computers useful, after all.</description>
     </item>
     
+    <item>
+      <title>Chapter 2: Getting Started with CFEngine</title>
+      <link>http://cf-learn.info/book/chapter02/</link>
+      <pubDate>Mon, 09 Oct 2017 07:30:06 +0200</pubDate>
+      
+      <guid>http://cf-learn.info/book/chapter02/</guid>
+      <description>Table of Contents Installing CFEngine Which Version of CFEngine? Installing the Community Edition from Source Installing the Community Edition from Binary Packages Installing the Commercial Edition   Finishing the Installation and Bootstrapping Auxiliary Files Your First CFEngine Policy Integrating Your New Policy Into Periodic CFEngine Execution     The first step toward using CFEngine is getting it installed on at least one machine so that you can start playing with it.</description>
+    </item>
+    
   </channel>
 </rss>

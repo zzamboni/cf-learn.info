@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>Chapter 2: Getting Started with CFEngine &middot; Diego Zamboni</title>
+
+  
+  <link rel="stylesheet" href="http://cf-learn.info/css/poole.css">
+  <link rel="stylesheet" href="http://cf-learn.info/css/hyde.css">
+  <link rel="stylesheet" href="http://cf-learn.info/css/poole-overrides.css">
+  <link rel="stylesheet" href="http://cf-learn.info/css/hyde-overrides.css">
+  <link rel="stylesheet" href="http://cf-learn.info/css/hyde-x.css">
+  <link rel="stylesheet" type="text/css" href="http://cf-learn.info/css/socialicious.css" media="screen" />
+  
+  <link href='http://fonts.googleapis.com/css?family=Quattrocento|Quattrocento+Sans' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="http://cf-learn.info/css/tachyons.min.css"/>
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://cf-learn.info/apple-touch-icon-144-precomposed.png">
+  <link href="http://cf-learn.info/favicon.png" rel="icon">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="Learning CFEngine 3 &middot; Diego Zamboni" />
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  
+</head>
+<body class="lh-copy">
+<div class="sidebar">
+  <div class="container">
+    <div class="sidebar-about">
+      
+      <h1>Learning CFEngine 3</h1>
+      
+    </div>
+
+    <ul class="sidebar-nav">
+      
+        <li class="sidebar-nav-item"><a  href="http://cf-learn.info/home/">Home</a></li>
+      
+        <li class="sidebar-nav-item"><a  href="http://cf-learn.info/the-author/">The Author</a></li>
+      
+        <li class="sidebar-nav-item"><a  href="http://cf-learn.info/post/">The Blog</a></li>
+      
+        <li class="sidebar-nav-item"><a  href="http://cf-learn.info/book/">The Book</a></li>
+      
+        <li class="sidebar-nav-item"><a  href="http://cf-learn.info/the-code/">The Code</a></li>
+      
+        <li class="sidebar-nav-item"><a  href="http://cf-learn.info/the-raves/">The Raves</a></li>
+      
+        <li class="sidebar-nav-item"><a  href="http://cf-learn.info/contact/">Contact</a></li>
+      
+    </ul>
+
+    <ul class="sidebar-nav">
+      
+      
+      <a href="http://twitter.com/LearningCF3"><li class="icon-twitter"></li></a>&nbsp;
+      
+      
+    </ul>
+
+    <div class="sidebar-sticky"><p>&copy; 2017 Diego Zamboni<br/>
+        Powered by <a href="http://gohugo.io">Hugo</a></p></div>
+  </div>
+</div>
+
+
+<div class="content container">
+  <div class="post">
+    <h1>Chapter 2: Getting Started with CFEngine</h1>
+    <div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#I_sect12_d1e648">Installing CFEngine</a>
+<ul class="sectlevel2">
+<li><a href="#_which_version_of_cfengine">Which Version of CFEngine?</a></li>
+<li><a href="#installing-the-community-edition-from-source">Installing the Community Edition from Source</a></li>
+<li><a href="#installing-the-community-edition-from-binary-packages">Installing the Community Edition from Binary Packages</a></li>
+<li><a href="#installing-the-commercial-version">Installing the Commercial Edition</a></li>
+</ul>
+</li>
+<li><a href="#bootstrapping-cfengine">Finishing the Installation and Bootstrapping</a></li>
+<li><a href="#auxiliary-files">Auxiliary Files</a></li>
+<li><a href="#getting-started-with-cfengine---your-first-policy">Your First CFEngine Policy</a>
+<ul class="sectlevel2">
+<li><a href="#sec-integrating-into-promisescf">Integrating Your New Policy Into Periodic CFEngine Execution</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>The first step toward using CFEngine is getting it installed on at least one machine so that you can start playing with it. CFEngine has fairly simple requirements, so you should be able to build it yourself easily. In this chapter we will go through the process of installing CFEngine on your machine, setting it up, and writing and running your first policy. Don’t worry if you do not understand at first glance what all the different pieces mean—the idea of this chapter is to get you going. We will step back in the next chapter to examine all the different CFEngine components.</p>
+</div>
+<div class="paragraph">
+<p>I will mention one concept that you need to understand before we start. Your first CFEngine host will act as the <em>policy hub</em>, which is a server from where other CFEngine clients fetch their policy files. If you are just going to start playing with CFEngine, most likely you will be using it on a single host at the beginning, so the hub and the client can be on the same machine. As you grow your CFEngine installation, other machines will connect to the hub as well. Most CFEngine installations use a “star” configuration, with a single hub serving multiple machines. However, this is not a requirement—CFEngine allows you to connect its components in any architecture you desire<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnote_1" title="View footnote.">1</a>]</sup>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="I_sect12_d1e648">Installing CFEngine</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Remember that CFEngine exists in two versions: community edition and commercial edition. Therefore, I will describe three options for installing CFEngine:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Community edition (free), installed from source code</p>
+</li>
+<li>
+<p>Community edition (free), installed from a binary package</p>
+</li>
+<li>
+<p>Commercial edition, installed from a binary package</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="_which_version_of_cfengine">Which Version of CFEngine?</h3>
+<div class="paragraph">
+<p>I strongly suggest you to install the latest released version of CFEngine. Some operating systems include in their repositories older versions of CFEngine, but each new release includes new features, bug fixes and other improvements which make it worth staying up to date. In particular, please avoid versions older than CFEngine 3.3.0 to avoid any incompatibilities with the examples shown in the book. Throughout this book I assume version 3.5.2, but will point out differences to previous versions when appropriate.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="installing-the-community-edition-from-source">Installing the Community Edition from Source</h3>
+<div class="paragraph">
+<p>You can download the CFEngine source code in a compressed tar file from <a href="https://cfengine.com/source-code" class="bare">https://cfengine.com/source-code</a> (as of this writing, the latest released version is 3.5.2). If you are feeling adventurous, you can also fetch the very latest code from the CFEngine git repository by issuing the following command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="console"><span class="tok-gp">$</span> git clone git://github.com/cfengine/core.git</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>CFEngine requires the following packages (with their development-related content, such as header files):</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://openssl.org/">OpenSSL</a> (installed by default in most Linux and Unix systems)</p>
+</li>
+<li>
+<p>One of: <a href="http://fallabs.com/qdbm/">QDBM</a> or <a href="http://fallabs.com/tokyocabinet/">Tokyo Cabinet</a></p>
+</li>
+<li>
+<p>PCRE, the Perl-Compatible Regular Expressions Library (<a href="http://www.pcre.org/" class="bare">http://www.pcre.org/</a>)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>In addition, the following libraries are supported for enabling optional features. If they are installed, the CFEngine configure script will automatically enable the corresponding features.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://xmlsoft.org">libxml2</a> for the ability to edit XML files.</p>
+</li>
+<li>
+<p><a href="http://savannah.nongnu.org/projects/acl/">libacl</a> for the ability to manipulate POSIX ACLs.</p>
+</li>
+<li>
+<p><a href="http://libvirt.org">libvirt</a> for the ability to manage virtual machines.</p>
+</li>
+<li>
+<p><a href="http://mysql.com">MySQL client library</a> for the ability to manage MySQL databases.</p>
+</li>
+<li>
+<p><a href="http://postgresql.org">PostgreSQL client library</a> for the ability to manage PostgreSQL databases.</p>
+</li>
+</ul>
+</div>
+<div class="sect3">
+<h4 id="compiling-on-linux">Compiling on Linux</h4>
+<div class="paragraph">
+<p>Compiling CFEngine on Linux is very easy, as all of the requirements are either included or very easy to install on most major distributions. Depending on your distribution, you may need to explicitly install the development version of each package (for example, in Red Hat Linux you need to install both openssl and openssl-devel).</p>
+</div>
+<div class="paragraph">
+<p>Once the required packages are installed, compiling and installing CFEngine is as easy as running the following commands in the CFEngine source directory:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="console"><span class="tok-gp">$</span> ./configure
+<span class="tok-gp">$</span> make
+<span class="tok-gp">$</span> sudo make install</code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If you checked out the source code from the git repository, use the following sequence (autogen.sh understands the same options as configure, in case you want to provide any):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="console"><span class="tok-gp">$</span> ./autogen.sh
+<span class="tok-gp">$</span> make
+<span class="tok-gp">$</span> sudo make install</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This will compile CFEngine and install all its binaries and support files under <em>/var/cfengine/</em>. The binaries will all be located in <em>/var/cfengine/bin/</em>, so you should add this directory to your PATH environment variable to be able to invoke the binaries conveniently.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The configure script prints, near the end of its execution, a summary of all the CFEngine features that have been enabled, according to the optional libraries that were found. You can use this to verify that all the features you want are there, before compiling. For example, you can see here that XML support is disabled, which is most likely an indication that the libxml2 library is not installed:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="null">Summary of options...
+&gt; Required libraries
+-&gt; OpenSSL: default path
+-&gt; PCRE: default path
+-&gt; DB: Tokyo Cabinet: default path
+&gt; Optional libraries
+-&gt; MySQL connector: default path
+-&gt; PostgreSQL connector: default path
+-&gt; libvirt: default path
+-&gt; libacl: default path
+-&gt; libxml2: disabled
+-&gt; Workdir: /var/cfengine</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The configure script by default tries to use Tokyo Cabinet as the DB engine. To use Qdbm, you have to specify it as an option:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="console"><span class="tok-gp">$</span> ./configure --with-qdbm</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can run ./configure --help to get a list of all the valid options.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="compiling-on-macosx">Compiling on Mac OS X</h4>
+<div class="paragraph">
+<p>Mac OS X is Unix under the hood, so in principle compiling CFEngine is no different from Linux or other versions of Unix. The main difficulty in installing under OS X is that there is no standard package-management system like in many other versions of Unix, so there are several possible ways of handling the installation of both CFEngine and its prerequisites. The most common package managers for OS X are <a href="http://www.finkproject.org/">Fink</a>, <a href="http://www.macports.org/">MacPorts</a>, and <a href="http://mxcl.github.com/homebrew/">Homebrew</a>, and of course you can also compile everything yourself.</p>
+</div>
+<div class="paragraph">
+<p>As of this writing, Homebrew is the only repository that has the latest version of CFEngine (3.5.2). MacPorts has a slightly older version (3.4.2), and Fink has only CFEngine 2. All the optional libraries can also be compiled on OS X, and many are available in the package manager repositories.</p>
+</div>
+<div class="paragraph">
+<p>Once you have the prerequisites installed, you can either use your package manager of choice to install CFEngine (if it is available), or compile it from source using the method described in <a href="#compiling-on-linux">Compiling on Linux</a>.</p>
+</div>
+<div class="paragraph">
+<p>If you use any of the package managers, please make sure you search for CFEngine in the latest version of the repository, in case it has been added since the time of this writing.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="compiling-on-windows-with-cygwin">Compiling on Windows with cygwin</h4>
+<div class="paragraph">
+<p>If you use <a href="http://cygwin.com/">cygwin</a> under Windows, it is also very easy to compile CFEngine. Using the cygwin setup.exe utility, install the following packages as prerequisites (whenever setup.exe asks if you want to install other packages as dependencies, answer "yes"):</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>make</p>
+</li>
+<li>
+<p>gcc</p>
+</li>
+<li>
+<p>openssl-devel</p>
+</li>
+<li>
+<p>libpcre-devel</p>
+</li>
+<li>
+<p>libxml2-devel</p>
+</li>
+<li>
+<p>libmysqlclient-devel</p>
+</li>
+<li>
+<p>libpq-devel</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Warning</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Keep in mind that CFEngine Community is unsupported under Windows, so compilation under cygwin is not regularly tested by the development team. Depending on the particular version you try to compile, these instructions may not work due to changes in the CFEngine code.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>You also need to install the <a href="http://fallabs.com/qdbm/">QDBM</a> database manager, but as of this writing, there is no cygwin package for it, so you need to compile it from source. First, you need to download the source package from <a href="http://fallabs.com/qdbm/" class="bare">http://fallabs.com/qdbm/</a>. The latest version is <em>qdbm-1.8.78.tar.gz</em>. Once you have downloaded it, you need to open a Cygwin terminal window, compile and install it as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="console"><span class="tok-gp">$</span> tar zxvf qdbm-1.8.78.tar.gz
+<span class="tok-gp">$</span> <span class="tok-nb">cd</span> qdbm-1.8.78
+<span class="tok-gp">$</span> ./configure
+<span class="tok-gp">$</span> make
+<span class="tok-gp">$</span> make install</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This will leave QDBM installed under <em>/usr/local/</em>. Once this is done, the steps for compiling CFEngine are similar as under Unix, but you need to specify the use of QDBM, and you don’t need to use the sudo command to install it:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="console"><span class="tok-gp">$</span> tar zxvf cfengine-3.5.2.tar.gz
+<span class="tok-gp">$</span> <span class="tok-nb">cd</span> cfengine-3.5.2
+<span class="tok-gp">$</span> ./configure --with-qdbm<span class="tok-o">=</span>/usr/local
+<span class="tok-gp">$</span> make
+<span class="tok-gp">$</span> make install</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Remember that there is some functionality missing in the community edition under Windows (for example, the <a href="http://cf-learn.info/ref/userexists">userexists()</a> function does not return correct results). If you want full Windows support (including native features like registry editing, etc.) you have to use the commercial edition of CFEngine. But for all the examples in this book, the Community edition works just fine.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="installing-the-community-edition-from-binary-packages">Installing the Community Edition from Binary Packages</h3>
+<div class="paragraph">
+<p>CFEngine AS, the company that provides commercial services and support for CFEngine, also makes available free binary packages of the Community Edition for several popular Linux distributions. For Debian- and RedHat-based distributions, <em>cfengine.com</em> hosts package repositories that make it really easy to install the latest version of CFEngine, simply by configuring the appropriate repository on your system. You can find the detailed instructions for different distributions and packaging mechanisms at <a href="https://cfengine.com/cfengine-linux-distros" class="bare">https://cfengine.com/cfengine-linux-distros</a>. For example, for Debian-based systems (including both Debian and Ubuntu), you can install the repository with the following commands:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="console"><span class="tok-gp">#</span> wget http://cfengine.com/pub/gpg.key -O - <span class="tok-p">|</span> apt-key add -
+<span class="tok-gp">#</span> <span class="tok-nb">echo</span> <span class="tok-s2">&quot;deb http://cfengine.com/pub/apt </span><span class="tok-k">$(</span>lsb_release -cs<span class="tok-k">)</span><span class="tok-s2"> main&quot;</span> &gt; /etc/apt/sources.list.d/cfengine-community.list
+<span class="tok-gp">#</span> apt-get update</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Once this is done, you can install CFEngine with a single command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="console"><span class="tok-gp">#</span> apt-get install cfengine-community</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Alternatively, you can download the individual package files for different Linux distributions from <a href="https://cfengine.com/inside/myspace" class="bare">https://cfengine.com/inside/myspace</a>. Once you download the appropriate package, install it using the corresponding tool for your operating system (for example, rpm or dpkg).</p>
+</div>
+<div class="paragraph">
+<p>As easy as it is to compile CFEngine from source, these packages are useful to speed up deployment on multiple machines, or to install it on systems in which you cannot install the development tools and libraries needed to compile it.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Warning</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Many Linux distributions contain CFEngine in their default package repositories. However, in many cases the packages are for very old versions of CFEngine (for example, the Ubuntu 12.04 repository currently includes CFEngine 3.1.5, which is more than two years old as of this writing). Please make sure you install a recent version of CFEngine (preferably the latest) to have access to all the features we will discuss. Furthermore, some distributions’ CFEngine packages install CFEngine outside its standard structure under <em>/var/cfengine</em>. If you decide to use your distribution’s package, you should double check where things are installed, and modify the examples from this book accordingly.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="installing-the-commercial-version">Installing the Commercial Edition</h3>
+<div class="paragraph">
+<p>If you have purchased the commercial edition of CFEngine, you will get access to the binary packages of CFEngine Enterprise for all the supported operating systems, including a native Windows installer. You will also need to register your CFEngine policy server to get a license key for it, so that it can operate with all the full features of the commercial edition.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Since CFEngine 3 Enterprise verson 2.2 (the latest is Enterprise 3.5.2), you can use it for free for up to 25 nodes. This is an excellent opportunity to learn and explore the commercial features of CFEngine before committing to purchasing it. You can download this version from <a href="https://cfengine.com/enterprise-download" class="bare">https://cfengine.com/enterprise-download</a></p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The policy language in the commercial edition of CFEngine is a strict superset of the Community Edition, so you can start by practicing with the Community Edition, and move to the commercial edition as you gain more experience and need more advanced features, knowing that your existing policies will work just as before.</p>
+</div>
+<div class="paragraph">
+<p>The current commercial version of CFEngine (Enterprise 3.5.2) comes in two package files, called cfengine-nova and cfengine-nova-hub. The first one should be installed on CFEngine client machines, and the second one on the <em>policy hub</em>, the central host from where clients will fetch their policies, and where the CFEngine graphical console available with Enterprise is installed. The hub software must be installed on a 64-bit machine, so the hub packages are only available in 64-bit versions.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>CFEngine Enterprise was formerly called “CFEngine Nova”, which is why you will find many references to this name, including the package filenames.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>For example, in a 64-bit Ubuntu machine that will be the policy server, you can install CFEngine Enterprise using the following commands:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="console"><span class="tok-gp">#</span> dpkg --install cfengine-nova-hub_3.5.2-1_amd64.deb</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you have a commercial license (this is, you are not using the Free-25 version), you need to install the license key <em>license.dat</em> that you got from CFEngine by storing it in <em>/var/cfengine/masterfiles/</em> in the policy server.</p>
+</div>
+<div class="paragraph">
+<p>After this, you can continue with the bootstrap process as described next.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="bootstrapping-cfengine">Finishing the Installation and Bootstrapping</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>After installing CFEngine, you need to bootstrap the system to a CFEngine policy server by following these steps:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Run the command /var/cfengine/bin/cf-key. This will generate a private- and public-key pair for the current host.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="console"><span class="tok-gp">#</span> /var/cfengine/bin/cf-key
+<span class="tok-go">Making a key pair for cfengine, please wait, this could take a minute...</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>These keys are necessary when operating in a distributed CFEngine environment. This command also sets up under <em>/var/cfengine/</em> the basic directory structure used by CFEngine. The generated keys will be stored in <em>/var/cfengine/ppkeys/</em>.</p>
+</div>
+<div class="paragraph">
+<p>If the keys already exist (CFEngine-provided binary packages run this command automatically during the installation) you will see the following message:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="console"><span class="tok-gp">#</span> /var/cfengine/bin/cf-key
+<span class="tok-go">A key file already exists at /var/cfengine/ppkeys/localhost.pub</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>CFEngine installs its binaries by default in <em>/var/cfengine/bin/</em>. Some binary packages may also copy them to <em>/usr/local/sbin/</em> to have them in the same directory as other system utilities. You may want to add <em>/var/cfengine/bin</em> to your path.</p>
+</li>
+<li>
+<p>On the policy hub, CFEngine expects to find its “master files” under <em>/var/cfengine/masterfiles/</em>. This is meant to be the master copy of its policy files, from where they will be copied to the work directory (<em>/var/cfengine/inputs/</em> by default). If the <em>/var/cfengine/masterfiles/</em> directory is empty or nonexistent (this will be the case if you installed from source), you need to populate it with the sample <em>masterfiles</em> directory from the CFEngine distribution, which normally gets installed in <em>/var/cfengine/share/CoreBase/</em>:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="console"><span class="tok-gp">#</span> ls /var/cfengine/masterfiles
+<span class="tok-gp">#</span> cp -Rp /var/cfengine/share/CoreBase/* /var/cfengine/masterfiles/
+<span class="tok-gp">#</span> ls -F /var/cfengine/masterfiles/
+<span class="tok-go">cf-sketch-runfile.cf  controls/  def.cf     libraries/</span>
+<span class="tok-go">promises.cf           services/  update.cf</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We will examine these files in detail later on.</p>
+</div>
+</li>
+<li>
+<p>Finally, CFEngine needs to be “bootstrapped.” This means copying the masterfiles to their final working location in <em>/var/cfengine/inputs/</em> and starting the base <a href="http://cf-learn.info/ref/cf-execd">cf-execd</a> daemon. This process controls the periodic execution of <a href="http://cf-learn.info/ref/cf-agent">cf-agent</a>, which is the one that actually executes the promises in the provided policies (we will look in more detail at the different components in <a href="#sec-cfengine-components">[sec-cfengine-components]</a>).</p>
+<div class="paragraph">
+<p>First, find the IP address of your policy server, using the ifconfig command (ipconfig under Windows). Let’s assume it is 10.0.2.15. Run the <a href="http://cf-learn.info/ref/cf-agent">cf-agent</a> command with the --bootstrap option, as shown here:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="console"><span class="tok-gp">#</span> /var/cfengine/bin/cf-agent --bootstrap <span class="tok-m">10</span>.0.2.15
+<span class="tok-go">2013-07-03T06:12:34+0000   notice: Q: &quot;...f-serverd&quot;&quot;:</span>
+<span class="tok-go">2013-07-03T06:12:34+0000   notice: Server is starting...</span>
+<span class="tok-go">2013-07-03T06:12:34+0000   notice: R: This host assumes the role of</span>
+<span class="tok-go">                                   policy server</span>
+<span class="tok-go">2013-07-03T06:12:34+0000   notice: R: Updated local policy from</span>
+<span class="tok-go">                                   policy server</span>
+<span class="tok-go">2013-07-03T06:12:34+0000   notice: R: Started the server</span>
+<span class="tok-go">2013-07-03T06:12:34+0000   notice: R: Started the scheduler</span>
+<span class="tok-go">2013-07-03T06:12:35+0000   notice: Bootstrap to &#39;10.0.2.15&#39;</span>
+<span class="tok-go">                                   completed successfully!</span></code></pre>
+</div>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Warning</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Prior to CFEngine 3.5.0 the bootstrapping options were different. This is the command you have to run for older versions:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="console"><span class="tok-gp">#</span> /var/cfengine/bin/cf-agent --bootstrap <span class="tok-se">\</span>
+   --policy-server <span class="tok-m">10</span>.0.2.15</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The cf-agent command recognizes you are using the machine’s own IP address to bootstrap, and configures it as a policy server. You can verify the success of this command by looking at the process list. You should see at least the <a href="http://cf-learn.info/ref/cf-execd">cf-execd</a> process, and maybe some others that are started at different times by cf-execd:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="console"><span class="tok-gp">#</span> ps ax <span class="tok-p">|</span> grep cf
+<span class="tok-go">84284 ??         0:00.22 /var/cfengine/bin/cf-execd</span>
+<span class="tok-go">84287 ??         0:00.15 /var/cfengine/bin/cf-serverd</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you already have a policy hub running, you should provide its IP address to the --bootstrap option when you bootstrap CFEngine on other machines.</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If you are using the commercial edition, it is advisable to give the policy hub a few minutes after bootstrap to finish its initial setup. CFEngine itself will check and install all the necessary dependencies, configure and start the necessary processes for the web-based interface known as the CFEngine Mission Portal. Usually a wait of five minutes is enough.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="auxiliary-files">Auxiliary Files</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The CFEngine distribution includes not only the binaries, but also a large library of documentation and examples. The examples normally get installed in <em>/var/cfengine/share/doc/</em> (in previous versions they were installed under <em>/usr/local/share/cfengine/</em> or <em>/usr/local/share/doc/cfengine/</em>, and can be of big help for getting started. These directories include examples of CFEngine configurations for different tasks and demonstrate the use of different CFEngine constructs. The <em>examples</em> directory contains a large number of mostly-self-contained files that demonstrate and exercise different CFEngine abilities.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="getting-started-with-cfengine---your-first-policy">Your First CFEngine Policy</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Now that you have CFEngine installed and running, let us start by writing a first simple policy. If you have finished the bootstrapping process described in <a href="#bootstrapping-cfengine">Finishing the Installation and Bootstrapping</a>, you can be sure that CFEngine is properly installed. You can also check this by running the following command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="console"><span class="tok-gp">#</span> /var/cfengine/bin/cf-agent --version
+<span class="tok-go">CFEngine Core 3.5.2</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For our first policy, let us tackle a task that is simple to explain, yet can be useful in real systems. We will add a line to the <em>/etc/motd</em> file to indicate that CFEngine is running on this machine. And to keep with the tradition, we will also print out a “Hello world!” message to the console when the policy is run.</p>
+</div>
+<div class="paragraph">
+<p>All CFEngine policies must have a “control body” that contains general configuration and execution information. The only mandatory element in this section is <a href="http://cf-learn.info/ref/bundlesequence">bundlesequence</a>, which tells CFEngine which <em>bundles</em> (containers of promises) to execute, and in which order. For our sample policy, we will have a single bundle executed:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cf3"><span class="tok-k">body</span> <span class="tok-k">common</span> <span class="tok-k">control</span>
+<span class="tok-p">{</span>
+        <span class="tok-kr">bundlesequence</span> <span class="tok-o">=&gt;</span> <span class="tok-p">{</span> <span class="tok-s">&quot;edit_motd&quot;</span> <span class="tok-p">};</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>You may omit the <a href="http://cf-learn.info/ref/bundlesequence">bundlesequence</a> declaration if you specify it from the command line when executing cf-agent, using the --bundlesequence command-line option.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This tells CFEngine that upon execution, this policy must run the bundle called edit_motd. Here it is:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cf3"><span class="tok-k">bundle</span> <span class="tok-k">agent</span> <span class="tok-nf">edit_motd</span> <b class="conum">(1)</b>
+<span class="tok-p">{</span>
+  <span class="tok-kd">vars</span><span class="tok-p">:</span>   <b class="conum">(2)</b>
+      <span class="tok-p">&quot;</span><span class="tok-nv">motd</span><span class="tok-p">&quot;</span> <span class="tok-kt">string</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;/etc/motd&quot;</span><span class="tok-p">;</span>
+
+  <span class="tok-kd">files</span><span class="tok-p">:</span>   <b class="conum">(3)</b>
+      <span class="tok-s">&quot;</span><span class="tok-si">$(motd)</span><span class="tok-s">&quot;</span>
+        <span class="tok-kr">create</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;true&quot;</span><span class="tok-p">,</span>
+        <span class="tok-kr">edit_line</span> <span class="tok-o">=&gt;</span> <span class="tok-nf">addmessage</span><span class="tok-p">;</span>
+
+  <span class="tok-kd">reports</span><span class="tok-p">:</span>   <b class="conum">(4)</b>
+    <span class="tok-nc">cfengine</span><span class="tok-p">::</span>
+      <span class="tok-s">&quot;Hello world!&quot;</span><span class="tok-p">;</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This is the part of the policy that tells CFEngine what to do. Here is how it works:</p>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>In CFEngine, a bundle
+of type <code>agent</code> (identified by its declaration <code>bundle agent</code>,
+followed by an arbitrary identifier, in this case edit_motd) could
+be considered the equivalent of a subroutine, and contains promises
+that CFEngine evaluates and acts on, if needed. It is split into
+sections that correspond to different types of promises, which are
+the lines that start with a word and end with a single colon. In
+this bundle, we have three sections:
+<a href="http://cf-learn.info/ref/vars"><code>vars:</code></a>,
+<a href="http://cf-learn.info/ref/files"><code>files:</code></a>, and
+<a href="http://cf-learn.info/ref/reports"><code>reports:</code></a>.</p>
+</li>
+<li>
+<p>The <a href="http://cf-learn.info/ref/vars"><code>vars:</code></a> section is used to declare variables. CFEngine has several variable types, including strings, lists, arrays, and numbers (both integers and floating-point numbers are supported). Here we are declaring a single string value named motd, which contains the path of the file we want to edit. If you are testing this on a system where you don&#8217;t have <code>root</code> privilege, you should change this path to some file you can edit, for example <em>/tmp/motd</em>.</p>
+</li>
+<li>
+<p>In the
+<a href="http://cf-learn.info/ref/files"><code>files:</code></a> section we indicate the
+file-related operations we want to perform. In this case, the
+promiser is <code>"$(motd)"</code> which expands the motd variable into its
+value, so the promiser becomes <code>"/etc/motd"</code>, telling CFEngine which
+file to edit.</p>
+</li>
+<li>
+<p>Finally, the edit_motd bundle has a
+<a href="http://cf-learn.info/ref/reports"><code>reports:</code></a> section, which is meant
+to produce output during the execution of the policy. Promises in a
+<a href="http://cf-learn.info/ref/reports"><code>reports:</code></a> section indicate
+messages and how they will be handled. By default, the promised
+message will be printed to the console. In our case, we will print
+the message <code>Hello world!</code> to the console every single time the
+policy is executed.
++
+You may notice the additional line <code>cfengine::</code> that
+precedes the message. This is a <em>class expression</em>, and tells
+CFEngine under which conditions the promises that follow it will be
+executed. In this example, <code>cfengine</code> is a class that is defined if
+the policy is being executed by CFEngine, so it will always be true,
+and the message will always be printed. But we can use other
+classes.  For example, if you replace <code>cfengine::</code> with <code>Monday::</code>,
+the message will be printed only on Mondays. CFEngine defines many
+classes, such as days of the week, and a policy can define any
+number of arbitrary classes. We will look at this in much more
+detail in <a href="#classes-and-decision-making">[classes-and-decision-making]</a>.</p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Caution</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Very old versions of CFEngine 3 (in the 3.0.x versions) did not define
+the <code>cfengine</code> class, only <code>cfengine_3</code>. If you find that the message
+is not being printed, this could be the cause. Please verify your
+CFEngine version, and upgrade to a newer one!</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Starting in CFEngine 3.5.0, the class expression line <code>cfengine::</code> is
+no longer necessary. Previous versions of CFEngine required
+<a href="http://cf-learn.info/ref/reports"><code>reports:</code></a> promises to be
+conditioned to something other than <code>any</code> (another class which is
+always set) to avoid accidental notification explosions, but in 3.5.0
+this restriction was
+removed.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>So, let us look at the policy in one piece:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cf3"><span class="tok-k">body</span> <span class="tok-k">common</span> <span class="tok-k">control</span>
+<span class="tok-p">{</span>
+        <span class="tok-kr">bundlesequence</span> <span class="tok-o">=&gt;</span> <span class="tok-p">{</span> <span class="tok-s">&quot;edit_motd&quot;</span> <span class="tok-p">};</span>
+<span class="tok-p">}</span>
+
+<span class="tok-k">bundle</span> <span class="tok-k">agent</span> <span class="tok-nf">edit_motd</span>
+<span class="tok-p">{</span>
+  <span class="tok-kd">vars</span><span class="tok-p">:</span>
+      <span class="tok-p">&quot;</span><span class="tok-nv">motd</span><span class="tok-p">&quot;</span> <span class="tok-kt">string</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;/etc/motd&quot;</span><span class="tok-p">;</span>
+
+  <span class="tok-kd">files</span><span class="tok-p">:</span>
+      <span class="tok-s">&quot;</span><span class="tok-si">$(motd)</span><span class="tok-s">&quot;</span>
+        <span class="tok-kr">create</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;true&quot;</span><span class="tok-p">,</span>
+        <span class="tok-kr">edit_line</span> <span class="tok-o">=&gt;</span> <span class="tok-nf">addmessage</span><span class="tok-p">;</span>
+
+  <span class="tok-kd">reports</span><span class="tok-p">:</span>
+    <span class="tok-nc">cfengine</span><span class="tok-p">::</span>
+      <span class="tok-s">&quot;Hello world!&quot;</span><span class="tok-p">;</span>
+<span class="tok-p">}</span>
+
+<span class="tok-k">bundle</span> <span class="tok-k">edit_line</span> <span class="tok-nf">addmessage</span>
+<span class="tok-p">{</span>
+  <span class="tok-kd">insert_lines</span><span class="tok-p">:</span>
+      <span class="tok-s">&quot;This system is managed by CFEngine 3&quot;</span><span class="tok-p">;</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Type this in and save it to a file, for example <em>edit_motd.cf</em>. You can then execute it with the following command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="console"><span class="tok-gp">#</span> cf-agent --no-lock --inform --file ./edit_motd.cf
+<span class="tok-go">2013-07-04T05:27:55+0000 info: /edit_motd/files/&#39;$(motd)&#39;:</span>
+<span class="tok-go">                         Edit file &#39;/etc/motd&#39;</span>
+<span class="tok-go">2013-07-04T05:27:55+0000 notice: R: Hello world!</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The --no-lock (abbreviated as -K) option means “Ignore locking constraints during execution,” which in practice means “always execute all promises.” Normally, CFEngine obeys certain time periods between successive evaluations of the same promise, to avoid overloading the systems. The --no-lock option disables those constraints, and so is useful for testing policies that you may run several times in quick succession. The --inform (short -I) option means “Print basic information about changes made to the system,” essentially telling CFEngine to show you the actions that it is taking. If not specified, CFEngine’s output is quite terse, limited only to reports explicitly printed by the policies and a few other essential messages. The --file (short -f) option tells CFEngine to use the specified file as its input. Otherwise it will try to read <em>/var/cfengine/inputs/promises.cf</em> (since CFEngine 3.5.0, you can omit the -f and simply give the filename as the last argument to the command).</p>
+</div>
+<div id="I_sidebar2_d1e1662" class="sidebarblock">
+<div class="content">
+<div class="title">Running CFEngine as a Regular User</div>
+<div class="paragraph">
+<p>Most of the examples in this book are shown running as root, since that is the normal conditions under which CFEngine should be executed to have the privileges necessary to exercise changes to the system. However, during development and testing it is perfectly possible to run CFEngine as a regular user. When you run it like this, CFEngine does not look under <em>/var/cfengine/</em> for its input files, rather it looks under <em>$HOME/.cfagent/</em>, so if you run cf-agent without specifying an input file, it will try to read <em>$HOME/.cfagent/inputs/promises.cf</em>.</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Now examine the /etc/motd file, and you will see that a string like the following has been added to it:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>This system is managed by CFEngine 3</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you run the command again, the output changes:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="console"><span class="tok-gp">#</span> cf-agent --no-lock --inform --file ./edit_motd.cf
+<span class="tok-go">2013-07-04T05:32:34+0000   notice: R: Hello world!</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The file already contains the message, so it is not edited again. Now try editing it by hand and removing or modifying the existing line. If you run <a href="http://cf-learn.info/ref/cf-agent">cf-agent</a> again, the message will reappear.</p>
+</div>
+<div class="paragraph">
+<p>Congratulations! You have written and executed your first CFEngine policy. This is very basic operation, but its structure is very similar to that of any CFEngine policy, and allows enough flexibility and expressibility to tackle the most complex configuration operations.</p>
+</div>
+<div class="sect2">
+<h3 id="sec-integrating-into-promisescf">Integrating Your New Policy Into Periodic CFEngine Execution</h3>
+<div class="paragraph">
+<p>In the example we just saw, you were running the policy file by hand using cf-agent. But of course, CFEngine is meant to save you from running things by hand! For development and testing it is fine to run your policies by hand, but once they are done, you need to integrate them into the main CFEngine execution loop so that they are evaluated continuously and automatically. This is done by integrating them into <em>promises.cf</em>, which is the file that CFEngine loads and executes by default.</p>
+</div>
+<div class="paragraph">
+<p>As an example, integrate the edit_motd bundle into CFEngine’s regular execution:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Remove or comment out the entire body common control block. There can be only one such block per policy, and <em>promises.cf</em> already has one.</p>
+</li>
+<li>
+<p>Copy <em>edit_motd.cf</em> to <em>/var/cfengine/masterfiles/</em> so that CFEngine can find it.</p>
+</li>
+<li>
+<p>In <em>/var/cfengine/masterfiles/promises.cf</em>, make the following two changes:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Add the following line inside the <a href="http://cf-learn.info/ref/inputs">inputs</a> attribute in body common control. This instructs CFEngine to load the file: "edit_motd.cf",</p>
+</li>
+<li>
+<p>Add the following line inside the <a href="http://cf-learn.info/ref/bundlesequence">bundlesequence</a> attribute in body common control. This instructs CFEngine to call the bundle: "edit_motd",</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Verify you did not make any mistakes by running this command. If the file is correct, you should not see any output.</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    # cf-promises -f /var/cfengine/masterfiles/promises.cf</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>That’s it! Now your edit_motd bundle will be run automatically as part of the regular CFEngine execution every five minutes, ensuring that the <em>/etc/motd</em> file is constantly kept correctly configured.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<hr>
+<div class="footnote" id="_footnote_1">
+<a href="#_footnoteref_1">1</a>. With CFEngine Community there is no difference at all in the software installed on a hub and on a client, just in their configuration. It is easy to convert a client into a hub (and vice versa) by bootstrapping it again with the correct options, as described in <a href="#bootstrapping-cfengine">Finishing the Installation and Bootstrapping</a>.
+</div>
+</div>
+
+  </div>
+</div>
+
+
+</body>
+</html>
