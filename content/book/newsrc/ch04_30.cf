@@ -1,0 +1,6 @@
+body changes detect_all_change
+{
+        hash           => "best";
+        report_changes => "all";
+        update_hashes  => "yes";
+}

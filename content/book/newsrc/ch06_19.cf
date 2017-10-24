@@ -1,0 +1,10 @@
+body common control {
+      bundlesequence => { "config",   # <1>
+                          "main" };
+}
+
+bundle agent main
+{
+  methods:
+      "$(config.sequence)" usebundle => $(config.sequence);   # <2>
+}

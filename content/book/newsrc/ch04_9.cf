@@ -1,0 +1,17 @@
+bundle agent cron_tasks
+{
+  commands:
+    # Commands to run hourly between minute 00-05
+    Min00_05::
+      "/usr/sbin/updatedb";
+    # Commands to run during hours 00 and 03
+    Hr00::       
+      "/usr/local/sbin/logrotate";
+      "/usr/sbin/tmpclean";
+    Hr03::
+      "/usr/local/sbin/run_backups";
+    Monday::     # Commands to run during Monday
+      "/usr/sbin/usercheck";
+    Lcycle_0.March::   # Commands to run during March every four years
+      "/usr/sbin/random_catastrophic_failure";
+}

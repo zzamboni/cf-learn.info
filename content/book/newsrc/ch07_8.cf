@@ -1,0 +1,7 @@
+body service_method my_services
+{
+    darwin::   # <1>
+        service_bundle => osx_service("$(this.promiser)",
+                                      "$(this.service_policy)");
+      # If not on darwin, the default standard_services bundle will be called
+}

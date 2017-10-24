@@ -1,0 +1,29 @@
+bundle agent wp_vars(params)   # <1>
+{
+  vars:
+      "wp_dir"             string => "$($(params)[_wp_dir])";
+      # Default configuration values. Internal parameters start with _
+      "conf[_tarfile]"      string => "/root/wordpress-latest.tar.gz",   # <2>
+        policy => "overridable";   # <3>
+      "conf[_downloadurl]"  string => "http://wordpress.org/latest.tar.gz",
+        policy => "overridable";
+      "conf[_wp_config]"    string => "$(wp_dir)/wp-config.php",
+        policy => "overridable";
+      "conf[_wp_cfgsample]" string => "$(wp_dir)/wp-config-sample.php",
+        policy => "overridable";
+    debian::   # <4>
+      "conf[_sys_servicecmd]" string => "/usr/sbin/service",
+        policy => "overridable";
+      "conf[_sys_apachesrv]"  string => "apache2",
+        policy => "overridable";
+    redhat::
+      "conf[_sys_servicecmd]" string => "/sbin/service",
+        policy => "overridable";
+      "conf[_sys_apachesrv]"  string => "httpd",
+        policy => "overridable";
+    any::   # <5>
+      # Copy configuration parameters passed, into a local array
+      "param_keys"          slist  => getindices("$(params)");   # <6>
+      "conf[$(param_keys)]" string => "$($(params)[$(param_keys)])",
+        policy => "overridable";
+}

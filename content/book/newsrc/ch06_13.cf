@@ -1,0 +1,17 @@
+bundle agent configfiles
+{
+  vars:
+      # Files to edit
+      "files[sysctl]"     string => "/etc/sysctl.conf";
+      "files[sshd]"       string => "/etc/ssh/sshd_config";
+      "files[inittab]"    string => "/etc/inittab";
+      ...
+
+      "file_id" slist => getindices("files");
+      "bundle_names" slist => maplist("edit_$(this)", "file_id");
+
+  methods:
+      "backup"  usebundle => backup_files("configfiles.files");
+      "$(bundle_names)"  usebundle => $(bundle_names)("configfiles.files");
+      "users"   usebundle => manage_users("configfiles.users");
+}

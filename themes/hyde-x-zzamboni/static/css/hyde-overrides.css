@@ -160,11 +160,43 @@ a[rel ~='external'] {
     line-height: 2.75;
 }
 
+.listingblock {
+    font-size: 14px;
+}
+
 .listingblock .content {
 	  margin-left: 0px;
 	  margin-right: 0px;
 	  padding-top: 10px;
 	  padding-bottom: 10px;
+}
+
+.imageblock {
+    margin-top: 30px;
+    margin-bottom: 30px;
+ 	  border-top: 1px solid #000000;
+ 	  border-bottom: 1px solid #000000;
+}
+
+.imageblock .content {
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.imageblock .content img {
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.openblock .content {
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
 }
 
 .listingblock .pygments .hll { background-color: #ffffcc }

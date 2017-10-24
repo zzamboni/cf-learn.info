@@ -1,0 +1,5 @@
+body depth_search recurse_ignore(d,list)
+{
+        depth => "$(d)";
+        exclude_dirs => { @(list) };
+}

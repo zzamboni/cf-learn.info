@@ -1,0 +1,33 @@
+bundle agent init
+{
+  vars:
+      "states" slist => { "actual", "expected" };   # <1>
+
+      "actual" string =>   # <2>
+      "BEGIN
+line1 plus more text
+END";
+
+      "expected" string =>
+      "BEGIN
+new line 1
+END
+new line 2";
+
+  files:
+      "$(G.testfile).$(states)"   # <3>
+        create => "true",
+        edit_line => init_insert("$(init.$(states))"),
+        edit_defaults => init_empty;
+}
+
+bundle edit_line init_insert(str)   # <4>
+{
+  insert_lines:
+      "$(str)";
+}
+
+body edit_defaults init_empty
+{
+        empty_file_before_editing => "true";
+}

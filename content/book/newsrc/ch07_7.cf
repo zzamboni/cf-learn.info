@@ -1,0 +1,38 @@
+bundle agent standard_services(service,state)   # <1>
+{
+  vars:
+      ...
+    linux::
+
+      "startcommand[cfengine3]" string => "/etc/init.d/cfengine3 start";   # <2>
+      "stopcommand[cfengine3]"  string => "/etc/init.d/cfengine3 stop";
+      "pattern[cfengine3]"      string => ".*cf-execd.*";
+
+      Similar assignments for all supported services
+      ...
+
+  classes:
+
+      "start" expression => strcmp("start","$(state)"),   # <3>
+        comment => "Check if to start a service";
+      "stop"  expression => strcmp("stop","$(state)"),
+        comment => "Check if to stop a service";
+
+  processes:
+
+    start::
+      "$(pattern[$(service)])"   # <4>
+        comment => "Verify that the service appears in the process table",
+        restart_class => "restart_$(service)";
+
+    stop::
+      "$(pattern[$(service)])"   # <5>
+        comment => "Verify that the service does not appear in the process",
+        process_stop => "$(stopcommand[$(service)])",
+        signals => { "term", "kill"};
+
+  commands:
+      "$(startcommand[$(service)])"   # <6>
+        comment => "Execute command to restart the $(service) service",
+        ifvarclass => "restart_$(service)";
+}
