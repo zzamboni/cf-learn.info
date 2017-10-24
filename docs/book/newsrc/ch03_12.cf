@@ -1,0 +1,15 @@
+body copy_from secure_cp(from,server)
+{
+        source      => "$(from)";
+        servers     => { "$(server)" };
+        compare     => "digest";
+        encrypt     => "true";
+        verify      => "true";
+}
+
+body copy_from remote_cp(from,server)
+{
+        servers     => { "$(server)" };
+        source      => "$(from)";
+        compare     => "mtime";
+}

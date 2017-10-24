@@ -78,6 +78,48 @@
     
     <div class="post">
       <h1 class="post-title">
+        <a href="http://cf-learn.info/post/cfengine-tip-#002-how-to-pass-arguments-to-bundles-using-arrays/">CFEngine tip #002: How to pass arguments to bundles using arrays</a>
+      </h1>
+      <span class="post-date">May 7, 2012 &middot; 3 minute read &middot; <a href="http://cf-learn.info/post/cfengine-tip-#002-how-to-pass-arguments-to-bundles-using-arrays/#disqus_thread">Comments</a>
+      
+      <br/>
+      
+      <a class="label" href="http://cf-learn.info/categories/arrays">arrays</a><a class="label" href="http://cf-learn.info/categories/cfengine">cfengine</a><a class="label" href="http://cf-learn.info/categories/cfengine_tip">cfengine_tip</a><a class="label" href="http://cf-learn.info/categories/tips">tips</a>
+      </span>
+      <p>(This tip is based on a section from Chapter 5 of Learning CFEngine 3.)</p>
+
+<p>Many system configuration tasks require groups of name-value pairs as arguments. For example:</p>
+
+<ul>
+<li>Editing configuration files in which parameters and their values need to be stored (ssh configuration files, Windows-style INI files, etc.)</li>
+<li>Setting user parameters. In this case, sets of name-value pairs (home directory, full name, shell, etc.) are associated with a single user, identified by name.</li>
+</ul>
+<p>Having sets of related values in a single array has a number of advantages, since they can be manipulated by a single set of promises just by varying the indices used to access them. To make use of this array, you have to pass it as an argument to a bundle. One of the most useful functions in this technique is <a href="http://cf-learn.info/ref/getindices">getindices()</a>, which returns a list containing the indices of the given array, and can be used to produce an enumeration of the elements over which to iterate. The complementary function to get just the values is <a href="http://cf-learn.info/ref/getvalues">getvalues()</a>. For example, consider <a href="http://cf-learn.info/code/ch04/configfiles2.cf.html">this bundle</a>:</p>
+
+<p>{% gist 2605453 arguments1.cf %}</p>
+
+<p>To pass arrays as arguments we must pass a string with the name of the array, and then dereference it inside the function. The argument we are passing to set_config_values() is “configfiles.sshd”, which refers to the sshd array defined in the configfiles() bundle.  The dereferencing happens in the <a href="https://github.com/cfengine/copbl/blob/master/cfengine_stdlib.cf#L278">set_config_values() bundle</a>:</p>
+
+<p>{% gist 2605453 set_config_values.cf %}</p>
+
+<p>This bundle receives the name of the array as the “v” parameter, so we dereference the array and its values by using <code>$(v)</code> wherever we would normally use the array name. For example, to loop over the array elements using the indices stored in the <code>$(index)</code> list, we use <code>$($(v)[$(index)])</code> instead of <code>$(configfiles.sshd[$(index)])</code>.</p>
+
+<p>To group name/value sets into named groups, we can use two-dimensional arrays, as in <a href="http://cf-learn.info/code/ch04/users_use.cf.html">this example</a>:</p>
+
+<p>{% gist 2605453 users_use.cf %}</p>
+
+<p>In this case the dereferencing can get a little more complicated. For example, let us look at some of the code inside the <a href="http://cf-learn.info/code/ch04/sys_create_users.cf.html">create_users() bundle</a>:</p>
+
+<p>{% gist 2605453 sys_create_users.cf %}</p>
+
+<p>This bundle is being called from the methods: section of the <code>manage_users()</code> bundle, with the string <code>"manage_users.users"</code> as the value of <code>$(info)</code>. We use getindices() directly on this value to get a list of the first-level indices of the array (the user names), which we store in <code>@(user)</code>. Then we use implicit looping over <code>@(user)</code> to cycle through all those values, and we use the following construction to access individual elements of each user’s data: <code>$($(info)[$(user)][field])</code>. This expands to <code>$(manage_users.users[$(user)][field])</code>, on which implicit looping is applied through the <code>$(user)</code> variable. Remember that parenthesis (or curly braces, they mean the same) are required around the whole expression, so that CFEngine recognizes it properly as a variable reference.</p>
+
+<p>While the syntax looks complicated, this data structure allows great flexibility in passing around and using data structures to be used in configuration operations.</p>
+
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
         <a href="http://cf-learn.info/post/get-a-free-copy-of-learning-cfengine-3-in-exchange-for-a-review/">Get a free copy of &#34;Learning CFEngine 3&#34; in exchange for a review</a>
       </h1>
       <span class="post-date">May 4, 2012 &middot; 1 minute read &middot; <a href="http://cf-learn.info/post/get-a-free-copy-of-learning-cfengine-3-in-exchange-for-a-review/#disqus_thread">Comments</a>
@@ -293,27 +335,6 @@
 <p></p>
 <div style="padding-left: 30px;">
 <span style=""> </span>"Achieving IT Infrastructure and Operational Excellence"</div>
-
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="http://cf-learn.info/post/book-status-released/">Book status: released!</a>
-      </h1>
-      <span class="post-date">Mar 23, 2012 &middot; 1 minute read &middot; <a href="http://cf-learn.info/post/book-status-released/#disqus_thread">Comments</a>
-      
-      <br/>
-      
-      <a class="label" href="http://cf-learn.info/categories/announcements">announcements</a><a class="label" href="http://cf-learn.info/categories/booknews">booknews</a>
-      </span>
-      <div><a href="http://shop.oreilly.com/product/0636920022022.do"><div class="p_embed p_image_embed">
-<img alt="Cat" height="236" src="http://cf-learn.info/images/2012/03/23/book-status-released/39333994-cat.gif" width="180">
-</div>
-</a></div>
-<p></p>I am ecstatic to announce that the book is now officially released! You can get it here: <a href="http://shop.oreilly.com/product/0636920022022.do">http://shop.oreilly.com/product/0636920022022.do</a>. If you purchased the Early Release version, you should automatically be able to download the final version from your "Your products" page at <a href="http://oreilly.com">oreilly.com</a>.<p></p>
-<div>It's been an incredible ride, and it's an incredible feeling to see it come to this big milestone (I won't say "the end", because I know this book will keep evolving).</div>
-<p></p>
-<div>There have been so many people who helped me through this process, including my editor (Andy Oram), all the staff at O'Reilly, who have been so professional and helpful, my very competent tech reviewers (Mark Burgess and Jesse Becker), all my colleagues at CFEngine AS, all the readers of intermediate and partial versions of the book, all the people who purchased the Early Release, and of course, my lovely wife and my two beautiful daughters, who were so patient while I worked on "the book". Everyone gave me encouragement, incredible feedback, and tons of guidance and support. Thank you everyone!</div>
 
     </div>
     

@@ -50,6 +50,15 @@ The main audience for this book is experienced system administrators of none-to-
     </item>
     
     <item>
+      <title>Chapter 3: CFEngine Basics</title>
+      <link>http://cf-learn.info/book/chapter03/</link>
+      <pubDate>Tue, 24 Oct 2017 19:41:06 +0200</pubDate>
+      
+      <guid>http://cf-learn.info/book/chapter03/</guid>
+      <description>Table of Contents CFEngine Basics Basic Principles CFEngine Components A First Example CFEngine Policy Structure Clients and Servers CFEngine Information Resources     CFEngine Basics In this chapter we will take a more detailed look at the basic concepts behind CFEngine, including its theoretical foundation, the syntax and constructs of its policy language, and some unique aspects of its behavior. I will also point you to some of the many online resources available for learning and improving your CFEngine skills.</description>
+    </item>
+    
+    <item>
       <title>The Code</title>
       <link>http://cf-learn.info/the-code/</link>
       <pubDate>Mon, 18 May 2015 00:00:00 +0000</pubDate>
@@ -76,6 +85,16 @@ Note that the CFEngine Standard Library is not included here, despite several fr
       
       <guid>http://cf-learn.info/contact/</guid>
       <description> All fields are required  Your Name Email Address Message   </description>
+    </item>
+    
+    <item>
+      <title>Chapter 3 of &#34;Learning CFEngine 3&#34; is Online</title>
+      <link>http://cf-learn.info/post/chapter-3-of-learning-cfengine-3-is-online/</link>
+      <pubDate>Tue, 24 Oct 2017 19:49:43 +0000</pubDate>
+      
+      <guid>http://cf-learn.info/post/chapter-3-of-learning-cfengine-3-is-online/</guid>
+      <description>I am happy to announce that Chapter 3 of the book is now also freely available online.
+Read it now at The Book.</description>
     </item>
     
     <item>

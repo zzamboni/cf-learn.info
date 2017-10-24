@@ -33,6 +33,11 @@
   </url>
   
   <url>
+    <loc>http://cf-learn.info/book/chapter03/</loc>
+    <lastmod>2017-10-24T19:41:06+02:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://cf-learn.info/the-code/</loc>
     <lastmod>2015-05-18T00:00:00+00:00</lastmod>
   </url>
@@ -45,6 +50,11 @@
   <url>
     <loc>http://cf-learn.info/contact/</loc>
     <lastmod>2015-05-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://cf-learn.info/post/chapter-3-of-learning-cfengine-3-is-online/</loc>
+    <lastmod>2017-10-24T19:49:43+00:00</lastmod>
   </url>
   
   <url>

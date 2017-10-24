@@ -1,0 +1,13 @@
+bundle edit_line set_config_values(v)
+{
+  vars:
+      "index" slist => getindices("$(v)"); # <1>
+      "cindex[$(index)]" string => canonify("$(index)");
+  replace_patterns: # <2>
+      "^\s*($(index)\s+(?!$($(v)[$(index)])).*|# ?$(index)\s+.*)$"
+        replace_with => value("$(index) $($(v)[$(index)])"), # <3>
+        classes => always("replace_attempted_$(cindex[$(index)])"); # <4>
+  insert_lines:
+      "$(index) $($(v)[$(index)])" # <5>
+        ifvarclass => "replace_attempted_$(cindex[$(index)])";
+}

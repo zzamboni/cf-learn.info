@@ -1,0 +1,21 @@
+bundle agent wp_tarball_is_unrolled(params)
+{
+  classes: # <1>
+      "wordpress_src_dir_is_present"
+        expression => fileexists("$($(params)[_htmlroot])/wordpress");
+      "wordpress_final_dir_is_present"
+        expression => fileexists("$($(params)[_wp_dir])");
+
+  reports:
+    wordpress_final_dir_is_present::
+      "WordPress directory is present.";
+
+  commands:
+    !wordpress_final_dir_is_present&!wordpress_src_dir_is_present:: # <2>
+      "/bin/tar -xzf $($(params)[_tarfile])"
+        comment => "Unroll WP tar to $($(params)[_htmlroot])/wordpress.",
+        contain => in_dir_shell("$($(params)[_htmlroot])");
+    wordpress_src_dir_is_present&!wordpress_final_dir_is_present::
+      "/bin/mv $($(params)[_htmlroot])/wordpress $($(params)[_wp_dir])"
+        comment => "Rename unrolled directory to $($(params)[_wp_dir])";
+}

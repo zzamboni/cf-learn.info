@@ -1,0 +1,19 @@
+bundle agent neighborhood_watch
+{
+ vars:
+   "neighbors" slist => peers("/var/cfengine/inputs/hostlist","#.*",4),   # <1>
+     comment => "Get my neighbors from a list of all hosts";
+ files:
+   "$(sys.workdir)/nw/$(neighbors)_checksum_digests.tcdb"   # <2>
+     comment => "Watch our peers remote hash tables!",
+     copy_from => remote_cp("$(sys.workdir)/checksum_digests.tcdb",
+                            "$(neighbors)"),   # <3>
+     action => neighbor_report("File changes observed on $(neighbors)"),   # <4>
+     depends_on => { "grant_hash_tables" };   # <5>
+}
+
+body action neighbor_report(msg)
+{
+     ifelapsed => "30";
+     log_string => "$(msg)";
+}

@@ -30,5 +30,14 @@
       <description>Table of Contents Installing CFEngine Which Version of CFEngine? Installing the Community Edition from Source Installing the Community Edition from Binary Packages Installing the Commercial Edition   Finishing the Installation and Bootstrapping Auxiliary Files Your First CFEngine Policy Integrating Your New Policy Into Periodic CFEngine Execution     The first step toward using CFEngine is getting it installed on at least one machine so that you can start playing with it.</description>
     </item>
     
+    <item>
+      <title>Chapter 3: CFEngine Basics</title>
+      <link>http://cf-learn.info/book/chapter03/</link>
+      <pubDate>Tue, 24 Oct 2017 19:41:06 +0200</pubDate>
+      
+      <guid>http://cf-learn.info/book/chapter03/</guid>
+      <description>Table of Contents CFEngine Basics Basic Principles CFEngine Components A First Example CFEngine Policy Structure Clients and Servers CFEngine Information Resources     CFEngine Basics In this chapter we will take a more detailed look at the basic concepts behind CFEngine, including its theoretical foundation, the syntax and constructs of its policy language, and some unique aspects of its behavior. I will also point you to some of the many online resources available for learning and improving your CFEngine skills.</description>
+    </item>
+    
   </channel>
 </rss>

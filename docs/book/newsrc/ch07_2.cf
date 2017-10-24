@@ -1,0 +1,13 @@
+body common control
+{
+     inputs => {
+                "libraries/cfengine_stdlib.cf",
+                "environment_$(environments.active)/env_promises.cf",   # <1>
+     };
+     bundlesequence => {
+                        "environments",   # <2>
+                        "main",
+                        "env_main",   # <3>
+     };
+     version => "Community Promises.cf 1.0.0";
+}

@@ -1,0 +1,26 @@
+body common control {
+      bundlesequence => { "config",   # <1>
+                          @(config.sequence) };
+}
+
+bundle common config
+{
+  vars:
+      "seq_common"    slist => { "dns_config", "ntp_config" };   # <2>
+      "seq_webserver" slist => { }, policy => "free";
+      "seq_dbserver"  slist => { }, policy => "free";
+      "seq_linux"     slist => { }, policy => "free";
+    webserver::   # <3>
+      "seq_webserver" slist => { "apache_config" }, policy => "free";
+    dbserver::
+      "seq_dbserver"  slist => { "mysql_config" }, policy => "free";
+    linux.!dbserver::
+      "seq_linux"     slist => { "sysctl_std_config" }, policy => "free";
+    linux.dbserver::
+      "seq_linux"     slist => { "sysctl_tuned_config" }, policy => "free";
+    any::
+      "sequence" slist => { @(seq_common),   # <4>
+                            @(seq_webserver),
+                            @(seq_dbserver),
+                            @(seq_linux) };
+}

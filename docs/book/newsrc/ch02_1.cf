@@ -1,0 +1,13 @@
+bundle agent edit_motd # <1>
+{
+ vars:   # <2>
+   "motd" string => "/etc/motd";
+
+ files:   # <3>
+   "$(motd)"
+     create => "true",
+     edit_line => addmessage;
+
+ reports:   # <4>
+   "Hello world!";
+}
