@@ -1,13 +1,7 @@
 bundle edit_line set_user_field(user,field,val)
-
-# Set the value of field number "field" in
-# a :-field formatted file like /etc/passwd
-
 {
-  field_edits:
-
-      "$(user):.*"
-
-        comment => "Edit a user attribute in the password file",
-        edit_field => col(":","$(field)","$(val)","set");
+ field_edits:
+   "$(user):.*"
+     comment => "Edit a user attribute in the password file",
+     edit_field => col(":","$(field)","$(val)","set");
 }

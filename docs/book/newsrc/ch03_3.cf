@@ -1,4 +1,10 @@
-  vars:
-      "name"   string => "Diego";
-      "year"   int    => "2011";
-      "colors" slist  => { "red", "green", "blue" };
+ vars:
+   "name"   string => "Diego";
+   "year"   int    => "2011";
+   "colors_rgb" slist  => { "red", "green", "blue" };
+   "colors_cmyk" data => '[ "cyan", "magenta", "yellow", "black" ]';
+   "user" data => '{
+     "name": "Diego Zamboni",
+     "username": "zzamboni",
+     "id": 501
+   }';

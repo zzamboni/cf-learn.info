@@ -39,5 +39,15 @@
       <description>Table of Contents CFEngine Basics Basic Principles CFEngine Components A First Example CFEngine Policy Structure Clients and Servers CFEngine Information Resources     CFEngine Basics In this chapter we will take a more detailed look at the basic concepts behind CFEngine, including its theoretical foundation, the syntax and constructs of its policy language, and some unique aspects of its behavior. I will also point you to some of the many online resources available for learning and improving your CFEngine skills.</description>
     </item>
     
+    <item>
+      <title>Chapter 4: Using CFEngine</title>
+      <link>http://cf-learn.info/book/chapter04/</link>
+      <pubDate>Tue, 20 Feb 2018 07:17:06 +0200</pubDate>
+      
+      <guid>http://cf-learn.info/book/chapter04/</guid>
+      <description>Table of Contents Using CFEngine Initial System Configuration User Management Software Installation Using CFEngine for Security Additional CFEngine Features and Information     Using CFEngine We will now explore how to perform some common configuration tasks using CFEngine. Along the way we will encounter more advanced concepts and structures of the CFEngine language.
+ Initial System Configuration After a system is installed, a number of routine tasks needs to be performed before declaring it ready for use.</description>
+    </item>
+    
   </channel>
 </rss>

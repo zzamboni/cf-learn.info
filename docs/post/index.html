@@ -66,7 +66,7 @@
       
     </ul>
 
-    <div class="sidebar-sticky"><p>&copy; 2017 Diego Zamboni<br/>
+    <div class="sidebar-sticky"><p>&copy; 2018 Diego Zamboni<br/>
         Powered by <a href="http://gohugo.io">Hugo</a></p></div>
   </div>
 </div>
@@ -75,6 +75,19 @@
 <div class="content container">
   <div class="posts">
     
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://cf-learn.info/post/chapter-4-of-learning-cfengine-3-is-online/">Chapter 4 of &#34;Learning CFEngine 3&#34; is Online</a>
+      </h1>
+      <span class="post-date">Feb 20, 2018 &middot; 1 minute read &middot; <a href="http://cf-learn.info/post/chapter-4-of-learning-cfengine-3-is-online/#disqus_thread">Comments</a>
+      </span>
+      <p>After a long hiatus, I am happy to announce that Chapter 4 of the book
+is now also freely available online.</p>
+
+<p><strong>Read it now at <a href="http://cf-learn.info/book">The Book</a>.</strong></p>
+
+    </div>
     
     <div class="post">
       <h1 class="post-title">
@@ -391,39 +404,6 @@ R:  -&gt; Started the scheduler
 
 
 <p>Once this has been done, CFEngine will start running every 5 minutes, updating its policy files from the hub, and executing them afterwards.</p>
-
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="http://cf-learn.info/post/cfengine-tip-#003-the-distinction-between-bodies-and-bundles/">CFEngine tip #003: The distinction between bodies and bundles</a>
-      </h1>
-      <span class="post-date">Jun 4, 2012 &middot; 2 minute read &middot; <a href="http://cf-learn.info/post/cfengine-tip-#003-the-distinction-between-bodies-and-bundles/#disqus_thread">Comments</a>
-      
-      <br/>
-      
-      <a class="label" href="http://cf-learn.info/categories/bodies">bodies</a><a class="label" href="http://cf-learn.info/categories/bundles">bundles</a><a class="label" href="http://cf-learn.info/categories/cfengine">cfengine</a><a class="label" href="http://cf-learn.info/categories/cfengine_tip">cfengine_tip</a><a class="label" href="http://cf-learn.info/categories/tips">tips</a>
-      </span>
-      <p>This is an extract from Chapter 3 of "Learning CFEngine 3", where you can also find a much more comprehensive description of bodies and bundles in the CFEngine 3 policy language.</p>
-<p>The distinction between bundles and bodies can be confusing at first. Remembering these points may help:</p>
-<ul>
-<li>
-<p>Bodies are named groups of attributes, whereas bundles are collections of promises. Promises are the units that actually do something in CFEngine (for example, run a command or add a line to a file), whereas attributes specify characteristics of how things are done (for example, whether to run the command in a shell, or where in the file to add the line).</p>
-</li>
-<li>
-<p>The value of an attribute can be a basic data type (string, integer, list, etc.), it can be the name of a body, or it can be the name of a bundle.</p>
-</li>
-<li>
-<p>The type of an attribute’s value is fixed, and determined by the attribute itself (for example, the value of the depth_search attribute in a files: promise is always a body, and the value of an edit_line attribute is always a bundle).</p>
-</li>
-<li>
-<p>For bodies and bundles, their type is always the name of the attribute to which they correspond. For example, bodies to be used with the depth_search attribute are always declared as “body depth_search xyz”, where xyz is an arbitrary name of your choosing. The same goes for bundles: bundles to be used with the edit_line attribute are always declared as “bundle edit_line xyz".</p>
-<p>There are only four types of “top level” bundles that are not used as arguments to attributes: agent, server, knowledge and monitor.</p>
-</li>
-<li>
-<p>The promise types (sections) that can appear in a bundle are determined by the bundle type. For example, commands: promises can only appear in bundles of type agent. </p>
-</li>
-</ul>
 
     </div>
     

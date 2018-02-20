@@ -66,7 +66,7 @@
       
     </ul>
 
-    <div class="sidebar-sticky"><p>&copy; 2017 Diego Zamboni<br/>
+    <div class="sidebar-sticky"><p>&copy; 2018 Diego Zamboni<br/>
         Powered by <a href="http://gohugo.io">Hugo</a></p></div>
   </div>
 </div>
@@ -509,25 +509,29 @@
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cf3"><span></span>  <span class="tok-kd">vars</span><span class="tok-p">:</span>
-      <span class="tok-c"># SSHD configuration to set</span>
-      <span class="tok-p">&quot;</span><span class="tok-nv">sshd[Protocol]</span><span class="tok-p">&quot;</span>        <span class="tok-kt">string</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;2&quot;</span><span class="tok-p">;</span>
-      <span class="tok-p">&quot;</span><span class="tok-nv">sshd[X11Forwarding]</span><span class="tok-p">&quot;</span>   <span class="tok-kt">string</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;yes&quot;</span><span class="tok-p">;</span>
-      <span class="tok-p">&quot;</span><span class="tok-nv">sshd[UseDNS]</span><span class="tok-p">&quot;</span>          <span class="tok-kt">string</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;no&quot;</span><span class="tok-p">;</span>
-      <span class="tok-p">&quot;</span><span class="tok-nv">sshd[PermitRootLogin]</span><span class="tok-p">&quot;</span> <span class="tok-kt">string</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;no&quot;</span><span class="tok-p">;</span>
+<pre class="pygments highlight"><code data-lang="cf3"><span></span><span class="tok-k">bundle</span> <span class="tok-k">agent</span> <span class="tok-nf">main</span> <span class="tok-p">{</span>
+ <span class="tok-kd">vars</span><span class="tok-p">:</span>
+   <span class="tok-c"># SSHD configuration to set</span>
+   <span class="tok-s">&quot;sshd&quot;</span> <span class="tok-kr">data</span> <span class="tok-o">=&gt;</span> <span class="tok-nf">parsejson</span><span class="tok-p">(</span><span class="tok-err">&#39;</span><span class="tok-p">{</span>
+     <span class="tok-s">&quot;Protocol&quot;</span><span class="tok-err">:</span> <span class="tok-s">&quot;2&quot;</span><span class="tok-p">,</span>
+     <span class="tok-s">&quot;X11Forwarding&quot;</span><span class="tok-err">:</span> <span class="tok-s">&quot;yes&quot;</span><span class="tok-p">,</span>
+     <span class="tok-s">&quot;UseDNS&quot;</span><span class="tok-err">:</span> <span class="tok-s">&quot;no&quot;</span><span class="tok-p">,</span>
+     <span class="tok-s">&quot;PermitRootLogin&quot;</span><span class="tok-err">:</span> <span class="tok-s">&quot;no&quot;</span>
+   <span class="tok-p">}</span><span class="tok-err">&#39;</span><span class="tok-p">);</span>
 
-  <span class="tok-kd">files</span><span class="tok-p">:</span>
-      <span class="tok-s">&quot;/etc/ssh/sshd_config&quot;</span>
-        <span class="tok-kr">handle</span>    <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;sshd_config&quot;</span><span class="tok-p">,</span>
-        <span class="tok-kr">comment</span>   <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;Set sshd configuration&quot;</span><span class="tok-p">,</span>
-        <span class="tok-kr">edit_line</span> <span class="tok-o">=&gt;</span> <span class="tok-nf">set_config_values</span><span class="tok-p">(</span><span class="tok-s">&quot;sshd&quot;</span><span class="tok-p">),</span>
-        <span class="tok-kr">classes</span>   <span class="tok-o">=&gt;</span> <span class="tok-nf">if_repaired</span><span class="tok-p">(</span><span class="tok-s">&quot;restart_sshd&quot;</span><span class="tok-p">);</span>
+<span class="tok-kd">files</span><span class="tok-p">:</span>
+    <span class="tok-s">&quot;/etc/ssh/sshd_config&quot;</span>
+      <span class="tok-kr">handle</span>    <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;sshd_config&quot;</span><span class="tok-p">,</span>
+      <span class="tok-kr">comment</span>   <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;Set sshd configuration&quot;</span><span class="tok-p">,</span>
+      <span class="tok-kr">edit_line</span> <span class="tok-o">=&gt;</span> <span class="tok-nf">set_config_values</span><span class="tok-p">(</span><span class="tok-s">&quot;sshd&quot;</span><span class="tok-p">),</span>
+      <span class="tok-kr">classes</span>   <span class="tok-o">=&gt;</span> <span class="tok-nf">if_repaired</span><span class="tok-p">(</span><span class="tok-s">&quot;restart_sshd&quot;</span><span class="tok-p">);</span>
 
-  <span class="tok-kd">commands</span><span class="tok-p">:</span>
-    <span class="tok-nc">restart_sshd</span><span class="tok-p">::</span>
-      <span class="tok-s">&quot;/etc/init.d/sshd reload&quot;</span>
-        <span class="tok-kr">handle</span>  <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;sshd_restart&quot;</span><span class="tok-p">,</span>
-        <span class="tok-kr">comment</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;Restart sshd if the config file was modified&quot;</span><span class="tok-p">;</span></code></pre>
+<span class="tok-kd">commands</span><span class="tok-p">:</span>
+  <span class="tok-nc">restart_sshd</span><span class="tok-p">::</span>
+    <span class="tok-s">&quot;/etc/init.d/sshd reload&quot;</span>
+      <span class="tok-kr">handle</span>  <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;sshd_restart&quot;</span><span class="tok-p">,</span>
+      <span class="tok-kr">comment</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;Restart sshd if the config file was modified&quot;</span><span class="tok-p">;</span>
+<span class="tok-p">}</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -615,10 +619,16 @@
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cf3"><span></span>  <span class="tok-kd">vars</span><span class="tok-p">:</span>
-      <span class="tok-p">&quot;</span><span class="tok-nv">name</span><span class="tok-p">&quot;</span>   <span class="tok-kt">string</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;Diego&quot;</span><span class="tok-p">;</span>
-      <span class="tok-p">&quot;</span><span class="tok-nv">year</span><span class="tok-p">&quot;</span>   <span class="tok-kt">int</span>    <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;2011&quot;</span><span class="tok-p">;</span>
-      <span class="tok-p">&quot;</span><span class="tok-nv">colors</span><span class="tok-p">&quot;</span> <span class="tok-kt">slist</span>  <span class="tok-o">=&gt;</span> <span class="tok-p">{</span> <span class="tok-s">&quot;red&quot;</span><span class="tok-p">,</span> <span class="tok-s">&quot;green&quot;</span><span class="tok-p">,</span> <span class="tok-s">&quot;blue&quot;</span> <span class="tok-p">};</span></code></pre>
+<pre class="pygments highlight"><code data-lang="cf3"><span></span> <span class="tok-kd">vars</span><span class="tok-p">:</span>
+   <span class="tok-p">&quot;</span><span class="tok-nv">name</span><span class="tok-p">&quot;</span>   <span class="tok-kt">string</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;Diego&quot;</span><span class="tok-p">;</span>
+   <span class="tok-p">&quot;</span><span class="tok-nv">year</span><span class="tok-p">&quot;</span>   <span class="tok-kt">int</span>    <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;2011&quot;</span><span class="tok-p">;</span>
+   <span class="tok-p">&quot;</span><span class="tok-nv">colors_rgb</span><span class="tok-p">&quot;</span> <span class="tok-kt">slist</span>  <span class="tok-o">=&gt;</span> <span class="tok-p">{</span> <span class="tok-s">&quot;red&quot;</span><span class="tok-p">,</span> <span class="tok-s">&quot;green&quot;</span><span class="tok-p">,</span> <span class="tok-s">&quot;blue&quot;</span> <span class="tok-p">};</span>
+   <span class="tok-s">&quot;colors_cmyk&quot;</span> <span class="tok-kr">data</span> <span class="tok-o">=&gt;</span> <span class="tok-err">&#39;[</span> <span class="tok-s">&quot;cyan&quot;</span><span class="tok-p">,</span> <span class="tok-s">&quot;magenta&quot;</span><span class="tok-p">,</span> <span class="tok-s">&quot;yellow&quot;</span><span class="tok-p">,</span> <span class="tok-s">&quot;black&quot;</span> <span class="tok-err">]&#39;</span><span class="tok-p">;</span>
+   <span class="tok-s">&quot;user&quot;</span> <span class="tok-kr">data</span> <span class="tok-o">=&gt;</span> <span class="tok-err">&#39;</span><span class="tok-p">{</span>
+     <span class="tok-s">&quot;name&quot;</span><span class="tok-err">:</span> <span class="tok-s">&quot;Diego Zamboni&quot;</span><span class="tok-p">,</span>
+     <span class="tok-s">&quot;username&quot;</span><span class="tok-err">:</span> <span class="tok-s">&quot;zzamboni&quot;</span><span class="tok-p">,</span>
+     <span class="tok-s">&quot;id&quot;</span><span class="tok-err">:</span> <span class="tok-mi">501</span>
+   <span class="tok-p">}</span><span class="tok-err">&#39;</span><span class="tok-p">;</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -654,23 +664,23 @@
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cf3"><span></span><span class="tok-k">body</span> <span class="tok-k">common</span> <span class="tok-k">control</span>
 <span class="tok-p">{</span>
-        <span class="tok-kr">bundlesequence</span> <span class="tok-o">=&gt;</span> <span class="tok-p">{</span> <span class="tok-s">&quot;test&quot;</span> <span class="tok-p">};</span>
+     <span class="tok-kr">bundlesequence</span> <span class="tok-o">=&gt;</span> <span class="tok-p">{</span> <span class="tok-s">&quot;test&quot;</span> <span class="tok-p">};</span>
 <span class="tok-p">}</span>
 
 <span class="tok-k">bundle</span> <span class="tok-k">agent</span> <span class="tok-nf">test</span>
 <span class="tok-p">{</span>
-  <span class="tok-kd">vars</span><span class="tok-p">:</span>
-      <span class="tok-p">&quot;</span><span class="tok-nv">s1</span><span class="tok-p">&quot;</span> <span class="tok-kt">string</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;one&quot;</span><span class="tok-p">;</span>
-      <span class="tok-p">&quot;</span><span class="tok-nv">s2</span><span class="tok-p">&quot;</span> <span class="tok-kt">string</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;this</span>
-<span class="tok-s">is a</span>
-<span class="tok-s">multine string&quot;</span><span class="tok-p">;</span>
-      <span class="tok-p">&quot;</span><span class="tok-nv">s3</span><span class="tok-p">&quot;</span> <span class="tok-kt">string</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;with </span><span class="tok-se">\&quot;</span><span class="tok-s">quotes</span><span class="tok-se">\&quot;</span><span class="tok-s">&quot;</span><span class="tok-p">;</span>
+ <span class="tok-kd">vars</span><span class="tok-p">:</span>
+   <span class="tok-p">&quot;</span><span class="tok-nv">s1</span><span class="tok-p">&quot;</span> <span class="tok-kt">string</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;one&quot;</span><span class="tok-p">;</span>
+   <span class="tok-p">&quot;</span><span class="tok-nv">s2</span><span class="tok-p">&quot;</span> <span class="tok-kt">string</span> <span class="tok-o">=&gt;</span> <span class="tok-err">&#39;</span><span class="tok-nf">this</span>
+<span class="tok-nf">is</span> <span class="tok-nf">a</span>
+<span class="tok-nf">multine</span> <span class="tok-nf">string</span><span class="tok-err">&#39;</span><span class="tok-p">;</span>
+   <span class="tok-p">&quot;</span><span class="tok-nv">s3</span><span class="tok-p">&quot;</span> <span class="tok-kt">string</span> <span class="tok-o">=&gt;</span> <span class="tok-err">&#39;</span><span class="tok-nf">with</span> <span class="tok-s">&quot;quotes&quot;</span><span class="tok-err">&#39;</span><span class="tok-p">;</span>
 
-  <span class="tok-kd">reports</span><span class="tok-p">:</span>
-    <span class="tok-nc">cfengine</span><span class="tok-p">::</span>
-      <span class="tok-s">&quot;s1 = </span><span class="tok-si">$(s1)</span><span class="tok-s">&quot;</span><span class="tok-p">;</span>
-      <span class="tok-s">&quot;s2 = </span><span class="tok-si">$(s2)</span><span class="tok-s">&quot;</span><span class="tok-p">;</span>
-      <span class="tok-s">&quot;s3 = </span><span class="tok-si">$(s3)</span><span class="tok-s">&quot;</span><span class="tok-p">;</span>
+ <span class="tok-kd">reports</span><span class="tok-p">:</span>
+  <span class="tok-nc">cfengine</span><span class="tok-p">::</span>
+   <span class="tok-s">&quot;s1 = </span><span class="tok-se">\&quot;</span><span class="tok-si">$(s1)</span><span class="tok-se">\&quot;</span><span class="tok-s">&quot;</span><span class="tok-p">;</span>
+   <span class="tok-s">&quot;s2 = </span><span class="tok-si">$(s2)</span><span class="tok-s">&quot;</span><span class="tok-p">;</span>
+   <span class="tok-s">&quot;s3 = </span><span class="tok-si">$(s3)</span><span class="tok-s">&quot;</span><span class="tok-p">;</span>
 <span class="tok-p">}</span></code></pre>
 </div>
 </div>
@@ -805,28 +815,28 @@
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cf3"><span></span><span class="tok-k">body</span> <span class="tok-k">common</span> <span class="tok-k">control</span>
 <span class="tok-p">{</span>
-        <span class="tok-kr">bundlesequence</span> <span class="tok-o">=&gt;</span> <span class="tok-p">{</span> <span class="tok-s">&quot;test&quot;</span> <span class="tok-p">};</span>
+     <span class="tok-kr">bundlesequence</span> <span class="tok-o">=&gt;</span> <span class="tok-p">{</span> <span class="tok-s">&quot;test&quot;</span> <span class="tok-p">};</span>
 <span class="tok-p">}</span>
 
 <span class="tok-k">bundle</span> <span class="tok-k">agent</span> <span class="tok-nf">test</span>
 <span class="tok-p">{</span>
-  <span class="tok-kd">vars</span><span class="tok-p">:</span>
-      <span class="tok-p">&quot;</span><span class="tok-nv">user[name]</span><span class="tok-p">&quot;</span>              <span class="tok-kt">string</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;zamboni&quot;</span><span class="tok-p">;</span>
-      <span class="tok-p">&quot;</span><span class="tok-nv">user[fullname][first]</span><span class="tok-p">&quot;</span>   <span class="tok-kt">string</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;Diego&quot;</span><span class="tok-p">;</span>
-      <span class="tok-p">&quot;</span><span class="tok-nv">user[fullname][last]</span><span class="tok-p">&quot;</span>    <span class="tok-kt">string</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;Zamboni&quot;</span><span class="tok-p">;</span>
-      <span class="tok-p">&quot;</span><span class="tok-nv">user[dirs]</span><span class="tok-p">&quot;</span>              <span class="tok-kt">slist</span> <span class="tok-o">=&gt;</span> <span class="tok-p">{</span> <span class="tok-s">&quot;/home/zamboni&quot;</span><span class="tok-p">,</span>
-                                           <span class="tok-s">&quot;/tmp/zamboni&quot;</span><span class="tok-p">,</span>
-                                           <span class="tok-s">&quot;/export/home/zamboni&quot;</span> <span class="tok-p">};</span>
+ <span class="tok-kd">vars</span><span class="tok-p">:</span>
+   <span class="tok-p">&quot;</span><span class="tok-nv">user[name]</span><span class="tok-p">&quot;</span>              <span class="tok-kt">string</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;zamboni&quot;</span><span class="tok-p">;</span>
+   <span class="tok-p">&quot;</span><span class="tok-nv">user[fullname][first]</span><span class="tok-p">&quot;</span>   <span class="tok-kt">string</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;Diego&quot;</span><span class="tok-p">;</span>
+   <span class="tok-p">&quot;</span><span class="tok-nv">user[fullname][last]</span><span class="tok-p">&quot;</span>    <span class="tok-kt">string</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;Zamboni&quot;</span><span class="tok-p">;</span>
+   <span class="tok-p">&quot;</span><span class="tok-nv">user[dirs]</span><span class="tok-p">&quot;</span>              <span class="tok-kt">slist</span> <span class="tok-o">=&gt;</span> <span class="tok-p">{</span> <span class="tok-s">&quot;/home/zamboni&quot;</span><span class="tok-p">,</span>
+                                        <span class="tok-s">&quot;/tmp/zamboni&quot;</span><span class="tok-p">,</span>
+                                        <span class="tok-s">&quot;/export/home/zamboni&quot;</span> <span class="tok-p">};</span>
 
-      <span class="tok-p">&quot;</span><span class="tok-nv">fields</span><span class="tok-p">&quot;</span>     <span class="tok-kt">slist</span> <span class="tok-o">=&gt;</span> <span class="tok-nf">getindices</span><span class="tok-p">(</span><span class="tok-s">&quot;user&quot;</span><span class="tok-p">);</span>
-      <span class="tok-p">&quot;</span><span class="tok-nv">userfields</span><span class="tok-p">&quot;</span> <span class="tok-kt">slist</span> <span class="tok-o">=&gt;</span> <span class="tok-nf">getindices</span><span class="tok-p">(</span><span class="tok-s">&quot;user[fullname]&quot;</span><span class="tok-p">);</span>
+   <span class="tok-p">&quot;</span><span class="tok-nv">fields</span><span class="tok-p">&quot;</span>     <span class="tok-kt">slist</span> <span class="tok-o">=&gt;</span> <span class="tok-nf">getindices</span><span class="tok-p">(</span><span class="tok-s">&quot;user&quot;</span><span class="tok-p">);</span>
+   <span class="tok-p">&quot;</span><span class="tok-nv">userfields</span><span class="tok-p">&quot;</span> <span class="tok-kt">slist</span> <span class="tok-o">=&gt;</span> <span class="tok-nf">getindices</span><span class="tok-p">(</span><span class="tok-s">&quot;user[fullname]&quot;</span><span class="tok-p">);</span>
 
-  <span class="tok-kd">reports</span><span class="tok-p">:</span>
-    <span class="tok-nc">cfengine</span><span class="tok-p">::</span>
-      <span class="tok-s">&quot;user fields = </span><span class="tok-si">$(fields)</span><span class="tok-s">&quot;</span><span class="tok-p">;</span>
-      <span class="tok-s">&quot;account name = </span><span class="tok-si">$(user[name])</span><span class="tok-s">&quot;</span><span class="tok-p">;</span>
-      <span class="tok-s">&quot;</span><span class="tok-si">$(userfields)</span><span class="tok-s"> name = </span><span class="tok-si">$(user[fullname][$(userfields)])</span><span class="tok-s">&quot;</span><span class="tok-p">;</span>
-      <span class="tok-s">&quot;user dir = </span><span class="tok-si">$(user[dirs])</span><span class="tok-s">&quot;</span><span class="tok-p">;</span>
+ <span class="tok-kd">reports</span><span class="tok-p">:</span>
+  <span class="tok-nc">cfengine</span><span class="tok-p">::</span>
+   <span class="tok-s">&quot;user fields = </span><span class="tok-si">$(fields)</span><span class="tok-s">&quot;</span><span class="tok-p">;</span>
+   <span class="tok-s">&quot;account name = </span><span class="tok-si">$(user[name])</span><span class="tok-s">&quot;</span><span class="tok-p">;</span>
+   <span class="tok-s">&quot;</span><span class="tok-si">$(userfields)</span><span class="tok-s"> name = </span><span class="tok-si">$(user[fullname][$(userfields)])</span><span class="tok-s">&quot;</span><span class="tok-p">;</span>
+   <span class="tok-s">&quot;user dir = </span><span class="tok-si">$(user[dirs])</span><span class="tok-s">&quot;</span><span class="tok-p">;</span>
 <span class="tok-p">}</span></code></pre>
 </div>
 </div>
@@ -1046,19 +1056,19 @@
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cf3"><span></span><span class="tok-k">body</span> <span class="tok-k">common</span> <span class="tok-k">control</span>
 <span class="tok-p">{</span>
-        <span class="tok-kr">bundlesequence</span> <span class="tok-o">=&gt;</span> <span class="tok-p">{</span> <span class="tok-s">&quot;test&quot;</span> <span class="tok-p">};</span>
+     <span class="tok-kr">bundlesequence</span> <span class="tok-o">=&gt;</span> <span class="tok-p">{</span> <span class="tok-s">&quot;test&quot;</span> <span class="tok-p">};</span>
 <span class="tok-p">}</span>
 
 <span class="tok-k">bundle</span> <span class="tok-k">agent</span> <span class="tok-nf">test</span>
 <span class="tok-p">{</span>
-  <span class="tok-kd">vars</span><span class="tok-p">:</span>
-      <span class="tok-p">&quot;</span><span class="tok-nv">words</span><span class="tok-p">&quot;</span> <span class="tok-kt">slist</span> <span class="tok-o">=&gt;</span> <span class="tok-p">{</span> <span class="tok-s">&quot;chair&quot;</span><span class="tok-p">,</span> <span class="tok-s">&quot;darwin&quot;</span><span class="tok-p">,</span> <span class="tok-s">&quot;table&quot;</span><span class="tok-p">,</span> <span class="tok-s">&quot;linux&quot;</span> <span class="tok-p">};</span>
-  <span class="tok-kd">reports</span><span class="tok-p">:</span>
-    <span class="tok-nc">cfengine</span><span class="tok-p">::</span>
-      <span class="tok-s">&quot;Class </span><span class="tok-si">$(words)</span><span class="tok-s"> is defined&quot;</span>
-        <span class="tok-kr">ifvarclass</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;</span><span class="tok-si">$(words)</span><span class="tok-s">&quot;</span><span class="tok-p">;</span>
-      <span class="tok-s">&quot;Class </span><span class="tok-si">$(words)</span><span class="tok-s"> is not defined&quot;</span>
-        <span class="tok-kr">ifvarclass</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;!</span><span class="tok-si">$(words)</span><span class="tok-s">&quot;</span><span class="tok-p">;</span>
+ <span class="tok-kd">vars</span><span class="tok-p">:</span>
+   <span class="tok-p">&quot;</span><span class="tok-nv">words</span><span class="tok-p">&quot;</span> <span class="tok-kt">slist</span> <span class="tok-o">=&gt;</span> <span class="tok-p">{</span> <span class="tok-s">&quot;chair&quot;</span><span class="tok-p">,</span> <span class="tok-s">&quot;darwin&quot;</span><span class="tok-p">,</span> <span class="tok-s">&quot;table&quot;</span><span class="tok-p">,</span> <span class="tok-s">&quot;linux&quot;</span> <span class="tok-p">};</span>
+ <span class="tok-kd">reports</span><span class="tok-p">:</span>
+  <span class="tok-nc">cfengine</span><span class="tok-p">::</span>
+   <span class="tok-s">&quot;Class </span><span class="tok-si">$(words)</span><span class="tok-s"> is defined&quot;</span>
+     <span class="tok-kr">ifvarclass</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;</span><span class="tok-si">$(words)</span><span class="tok-s">&quot;</span><span class="tok-p">;</span>
+   <span class="tok-s">&quot;Class </span><span class="tok-si">$(words)</span><span class="tok-s"> is not defined&quot;</span>
+     <span class="tok-kr">ifvarclass</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;!</span><span class="tok-si">$(words)</span><span class="tok-s">&quot;</span><span class="tok-p">;</span>
 <span class="tok-p">}</span></code></pre>
 </div>
 </div>
@@ -1093,17 +1103,17 @@
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cf3"><span></span><span class="tok-k">bundle</span> <span class="tok-k">agent</span> <span class="tok-nf">test</span>
 <span class="tok-p">{</span>
-  <span class="tok-kd">classes</span><span class="tok-p">:</span>
-    <span class="tok-nc">!cache_is_active</span><span class="tok-p">::</span>
-      <span class="tok-s">&quot;line_exists&quot;</span> <span class="tok-kr">expression</span> <span class="tok-o">=&gt;</span> <span class="tok-nf">regline</span><span class="tok-p">(</span><span class="tok-s">&quot;.*foo.*&quot;</span><span class="tok-p">,</span> <span class="tok-s">&quot;/tmp/test_data.txt&quot;</span><span class="tok-p">),</span>
-        <span class="tok-kr">persistence</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;1&quot;</span><span class="tok-p">;</span>
-      <span class="tok-s">&quot;cache_is_active&quot;</span> <span class="tok-kr">expression</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;any&quot;</span><span class="tok-p">,</span>
-        <span class="tok-kr">persistence</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;1&quot;</span><span class="tok-p">;</span>
-  <span class="tok-kd">reports</span><span class="tok-p">:</span>
-    <span class="tok-nc">line_exists</span><span class="tok-p">::</span>
-      <span class="tok-s">&quot;Line exists in file&quot;</span><span class="tok-p">;</span>
-    <span class="tok-nc">!line_exists</span><span class="tok-p">::</span>
-      <span class="tok-s">&quot;Line does not exist in file&quot;</span><span class="tok-p">;</span>
+ <span class="tok-kd">classes</span><span class="tok-p">:</span>
+  <span class="tok-nc">!cache_is_active</span><span class="tok-p">::</span>
+   <span class="tok-s">&quot;line_exists&quot;</span> <span class="tok-kr">expression</span> <span class="tok-o">=&gt;</span> <span class="tok-nf">regline</span><span class="tok-p">(</span><span class="tok-s">&quot;.*foo.*&quot;</span><span class="tok-p">,</span> <span class="tok-s">&quot;/tmp/test_data.txt&quot;</span><span class="tok-p">),</span>
+     <span class="tok-kr">persistence</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;1&quot;</span><span class="tok-p">;</span>
+   <span class="tok-s">&quot;cache_is_active&quot;</span> <span class="tok-kr">expression</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;any&quot;</span><span class="tok-p">,</span>
+     <span class="tok-kr">persistence</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;1&quot;</span><span class="tok-p">;</span>
+ <span class="tok-kd">reports</span><span class="tok-p">:</span>
+  <span class="tok-nc">line_exists</span><span class="tok-p">::</span>
+   <span class="tok-s">&quot;Line exists in file&quot;</span><span class="tok-p">;</span>
+  <span class="tok-nc">!line_exists</span><span class="tok-p">::</span>
+   <span class="tok-s">&quot;Line does not exist in file&quot;</span><span class="tok-p">;</span>
 <span class="tok-p">}</span></code></pre>
 </div>
 </div>
@@ -1197,11 +1207,11 @@
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cf3"><span></span><span class="tok-k">bundle</span> <span class="tok-k">common</span> <span class="tok-nf">g</span>
 <span class="tok-p">{</span>
-  <span class="tok-kd">vars</span><span class="tok-p">:</span>
-      <span class="tok-p">&quot;</span><span class="tok-nv">localdir</span><span class="tok-p">&quot;</span>    <span class="tok-kt">string</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;/usr/local&quot;</span><span class="tok-p">;</span>
-      <span class="tok-p">&quot;</span><span class="tok-nv">confdir</span><span class="tok-p">&quot;</span>     <span class="tok-kt">string</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;/etc&quot;</span><span class="tok-p">;</span>
-  <span class="tok-kd">classes</span><span class="tok-p">:</span>
-      <span class="tok-s">&quot;testhost&quot;</span>    <span class="tok-kr">or</span> <span class="tok-o">=&gt;</span> <span class="tok-p">{</span> <span class="tok-s">&quot;testhost1&quot;</span><span class="tok-p">,</span> <span class="tok-s">&quot;testhost2&quot;</span> <span class="tok-p">};</span>
+ <span class="tok-kd">vars</span><span class="tok-p">:</span>
+   <span class="tok-p">&quot;</span><span class="tok-nv">localdir</span><span class="tok-p">&quot;</span>    <span class="tok-kt">string</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;/usr/local&quot;</span><span class="tok-p">;</span>
+   <span class="tok-p">&quot;</span><span class="tok-nv">confdir</span><span class="tok-p">&quot;</span>     <span class="tok-kt">string</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;/etc&quot;</span><span class="tok-p">;</span>
+ <span class="tok-kd">classes</span><span class="tok-p">:</span>
+   <span class="tok-s">&quot;testhost&quot;</span>    <span class="tok-kr">or</span> <span class="tok-o">=&gt;</span> <span class="tok-p">{</span> <span class="tok-s">&quot;testhost1&quot;</span><span class="tok-p">,</span> <span class="tok-s">&quot;testhost2&quot;</span> <span class="tok-p">};</span>
 <span class="tok-p">}</span></code></pre>
 </div>
 </div>
@@ -1442,18 +1452,17 @@
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cf3"><span></span><span class="tok-k">bundle</span> <span class="tok-k">agent</span> <span class="tok-nf">test</span>
 <span class="tok-p">{</span>
-  <span class="tok-kd">files</span><span class="tok-p">:</span>
-      <span class="tok-s">&quot;/etc/motd&quot;</span>
-        <span class="tok-kr">edit_lines</span> <span class="tok-o">=&gt;</span>
-      <span class="tok-nf">insert_lines</span><span class="tok-p">(</span><span class="tok-s">&quot;Unauthorized access will be prosecuted.&quot;</span><span class="tok-p">),</span>
-        <span class="tok-kr">action</span> <span class="tok-o">=&gt;</span> <span class="tok-nf">warn_hourly</span><span class="tok-p">;</span>
+ <span class="tok-kd">files</span><span class="tok-p">:</span>
+   <span class="tok-s">&quot;/etc/motd&quot;</span>
+     <span class="tok-kr">edit_lines</span> <span class="tok-o">=&gt;</span> <span class="tok-nf">insert_lines</span><span class="tok-p">(</span><span class="tok-s">&quot;Unauthorized access will be prosecuted.&quot;</span><span class="tok-p">),</span>
+     <span class="tok-kr">action</span> <span class="tok-o">=&gt;</span> <span class="tok-nf">warn_hourly</span><span class="tok-p">;</span>
 <span class="tok-p">}</span>
 
 <span class="tok-k">body</span> <span class="tok-k">action</span> <span class="tok-nf">warn_hourly</span>
 <span class="tok-p">{</span>
-      <span class="tok-c"># Produce warning only, don&#39;t fix anything</span>
-        <span class="tok-kr">action_policy</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;warn&quot;</span><span class="tok-p">;</span>
-        <span class="tok-kr">ifelapsed</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;60&quot;</span><span class="tok-p">;</span>
+   <span class="tok-c"># Produce warning only, don&#39;t fix anything</span>
+     <span class="tok-kr">action_policy</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;warn&quot;</span><span class="tok-p">;</span>
+     <span class="tok-kr">ifelapsed</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;60&quot;</span><span class="tok-p">;</span>
 <span class="tok-p">}</span></code></pre>
 </div>
 </div>
@@ -1466,18 +1475,18 @@
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cf3"><span></span><span class="tok-k">body</span> <span class="tok-k">copy_from</span> <span class="tok-nf">secure_cp</span><span class="tok-p">(</span><span class="tok-nv">from</span><span class="tok-p">,</span><span class="tok-nv">server</span><span class="tok-p">)</span>
 <span class="tok-p">{</span>
-        <span class="tok-kr">source</span>      <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;</span><span class="tok-si">$(from)</span><span class="tok-s">&quot;</span><span class="tok-p">;</span>
-        <span class="tok-kr">servers</span>     <span class="tok-o">=&gt;</span> <span class="tok-p">{</span> <span class="tok-s">&quot;</span><span class="tok-si">$(server)</span><span class="tok-s">&quot;</span> <span class="tok-p">};</span>
-        <span class="tok-kr">compare</span>     <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;digest&quot;</span><span class="tok-p">;</span>
-        <span class="tok-kr">encrypt</span>     <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;true&quot;</span><span class="tok-p">;</span>
-        <span class="tok-kr">verify</span>      <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;true&quot;</span><span class="tok-p">;</span>
+     <span class="tok-kr">source</span>      <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;</span><span class="tok-si">$(from)</span><span class="tok-s">&quot;</span><span class="tok-p">;</span>
+     <span class="tok-kr">servers</span>     <span class="tok-o">=&gt;</span> <span class="tok-p">{</span> <span class="tok-s">&quot;</span><span class="tok-si">$(server)</span><span class="tok-s">&quot;</span> <span class="tok-p">};</span>
+     <span class="tok-kr">compare</span>     <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;digest&quot;</span><span class="tok-p">;</span>
+     <span class="tok-kr">encrypt</span>     <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;true&quot;</span><span class="tok-p">;</span>
+     <span class="tok-kr">verify</span>      <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;true&quot;</span><span class="tok-p">;</span>
 <span class="tok-p">}</span>
 
 <span class="tok-k">body</span> <span class="tok-k">copy_from</span> <span class="tok-nf">remote_cp</span><span class="tok-p">(</span><span class="tok-nv">from</span><span class="tok-p">,</span><span class="tok-nv">server</span><span class="tok-p">)</span>
 <span class="tok-p">{</span>
-        <span class="tok-kr">servers</span>     <span class="tok-o">=&gt;</span> <span class="tok-p">{</span> <span class="tok-s">&quot;</span><span class="tok-si">$(server)</span><span class="tok-s">&quot;</span> <span class="tok-p">};</span>
-        <span class="tok-kr">source</span>      <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;</span><span class="tok-si">$(from)</span><span class="tok-s">&quot;</span><span class="tok-p">;</span>
-        <span class="tok-kr">compare</span>     <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;mtime&quot;</span><span class="tok-p">;</span>
+     <span class="tok-kr">servers</span>     <span class="tok-o">=&gt;</span> <span class="tok-p">{</span> <span class="tok-s">&quot;</span><span class="tok-si">$(server)</span><span class="tok-s">&quot;</span> <span class="tok-p">};</span>
+     <span class="tok-kr">source</span>      <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;</span><span class="tok-si">$(from)</span><span class="tok-s">&quot;</span><span class="tok-p">;</span>
+     <span class="tok-kr">compare</span>     <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;mtime&quot;</span><span class="tok-p">;</span>
 <span class="tok-p">}</span></code></pre>
 </div>
 </div>
@@ -1495,8 +1504,8 @@
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cf3"><span></span><span class="tok-k">body</span> <span class="tok-k">depth_search</span> <span class="tok-nf">recurse_ignore</span><span class="tok-p">(</span><span class="tok-nv">d</span><span class="tok-p">,</span><span class="tok-nv">list</span><span class="tok-p">)</span>
 <span class="tok-p">{</span>
-        <span class="tok-kr">depth</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;</span><span class="tok-si">$(d)</span><span class="tok-s">&quot;</span><span class="tok-p">;</span>
-        <span class="tok-kr">exclude_dirs</span> <span class="tok-o">=&gt;</span> <span class="tok-p">{</span> <span class="tok-nv">@(list)</span> <span class="tok-p">};</span>
+     <span class="tok-kr">depth</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;</span><span class="tok-si">$(d)</span><span class="tok-s">&quot;</span><span class="tok-p">;</span>
+     <span class="tok-kr">exclude_dirs</span> <span class="tok-o">=&gt;</span> <span class="tok-p">{</span> <span class="tok-nv">@(list)</span> <span class="tok-p">};</span>
 <span class="tok-p">}</span></code></pre>
 </div>
 </div>
@@ -1510,13 +1519,13 @@
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cf3"><span></span><span class="tok-k">bundle</span> <span class="tok-k">agent</span> <span class="tok-nf">update_inputs</span>
 <span class="tok-p">{</span>
-  <span class="tok-kd">vars</span><span class="tok-p">:</span>
-      <span class="tok-p">&quot;</span><span class="tok-nv">server</span><span class="tok-p">&quot;</span>  <span class="tok-kt">string</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;10.1.1.1&quot;</span><span class="tok-p">;</span>
-      <span class="tok-p">&quot;</span><span class="tok-nv">inputs</span><span class="tok-p">&quot;</span> <span class="tok-kt">string</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;/var/cfengine/masterfiles/inputs&quot;</span><span class="tok-p">;</span>
-  <span class="tok-kd">files</span><span class="tok-p">:</span>
-      <span class="tok-s">&quot;</span><span class="tok-si">$(sys.workdir)</span><span class="tok-s">/inputs&quot;</span>
-        <span class="tok-kr">copy_from</span> <span class="tok-o">=&gt;</span> <span class="tok-nf">remote_cp</span><span class="tok-p">(</span><span class="tok-s">&quot;</span><span class="tok-si">$(server)</span><span class="tok-s">&quot;</span><span class="tok-p">,</span> <span class="tok-s">&quot;</span><span class="tok-si">$(inputs)</span><span class="tok-s">&quot;</span><span class="tok-p">),</span>
-        <span class="tok-kr">depth_search</span> <span class="tok-o">=&gt;</span> <span class="tok-nf">recurse_ignore</span><span class="tok-p">(</span><span class="tok-s">&quot;inf&quot;</span><span class="tok-p">,</span> <span class="tok-p">{</span> <span class="tok-s">&quot;_.*&quot;</span> <span class="tok-p">});</span>
+ <span class="tok-kd">vars</span><span class="tok-p">:</span>
+   <span class="tok-p">&quot;</span><span class="tok-nv">server</span><span class="tok-p">&quot;</span>  <span class="tok-kt">string</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;10.1.1.1&quot;</span><span class="tok-p">;</span>
+   <span class="tok-p">&quot;</span><span class="tok-nv">inputs</span><span class="tok-p">&quot;</span> <span class="tok-kt">string</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;/var/cfengine/masterfiles/inputs&quot;</span><span class="tok-p">;</span>
+ <span class="tok-kd">files</span><span class="tok-p">:</span>
+   <span class="tok-s">&quot;</span><span class="tok-si">$(sys.workdir)</span><span class="tok-s">/inputs&quot;</span>
+     <span class="tok-kr">copy_from</span> <span class="tok-o">=&gt;</span> <span class="tok-nf">remote_cp</span><span class="tok-p">(</span><span class="tok-s">&quot;</span><span class="tok-si">$(server)</span><span class="tok-s">&quot;</span><span class="tok-p">,</span> <span class="tok-s">&quot;</span><span class="tok-si">$(inputs)</span><span class="tok-s">&quot;</span><span class="tok-p">),</span>
+     <span class="tok-kr">depth_search</span> <span class="tok-o">=&gt;</span> <span class="tok-nf">recurse_ignore</span><span class="tok-p">(</span><span class="tok-s">&quot;inf&quot;</span><span class="tok-p">,</span> <span class="tok-p">{</span> <span class="tok-s">&quot;_.*&quot;</span> <span class="tok-p">});</span>
 <span class="tok-p">}</span></code></pre>
 </div>
 </div>
@@ -1532,18 +1541,18 @@
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cf3"><span></span><span class="tok-k">bundle</span> <span class="tok-k">agent</span> <span class="tok-nf">editexample</span>
 <span class="tok-p">{</span>
-  <span class="tok-kd">files</span><span class="tok-p">:</span>
-      <span class="tok-s">&quot;/etc/motd&quot;</span>
-        <span class="tok-kr">create</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;true&quot;</span><span class="tok-p">,</span>
-        <span class="tok-kr">edit_line</span> <span class="tok-o">=&gt;</span> <span class="tok-nf">insert_lines</span><span class="tok-p">(</span><span class="tok-s">&quot;Unauthorized use will be prosecuted&quot;</span><span class="tok-p">),</span>
-        <span class="tok-kr">edit_defaults</span> <span class="tok-o">=&gt;</span> <span class="tok-nf">backup_timestamp</span><span class="tok-p">;</span>
+ <span class="tok-kd">files</span><span class="tok-p">:</span>
+   <span class="tok-s">&quot;/etc/motd&quot;</span>
+     <span class="tok-kr">create</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;true&quot;</span><span class="tok-p">,</span>
+     <span class="tok-kr">edit_line</span> <span class="tok-o">=&gt;</span> <span class="tok-nf">insert_lines</span><span class="tok-p">(</span><span class="tok-s">&quot;Unauthorized use will be prosecuted&quot;</span><span class="tok-p">),</span>
+     <span class="tok-kr">edit_defaults</span> <span class="tok-o">=&gt;</span> <span class="tok-nf">backup_timestamp</span><span class="tok-p">;</span>
 <span class="tok-p">}</span>
 
 <span class="tok-k">body</span> <span class="tok-k">edit_defaults</span> <span class="tok-nf">backup_timestamp</span>
 <span class="tok-p">{</span>
-        <span class="tok-kr">empty_file_before_editing</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;false&quot;</span><span class="tok-p">;</span>
-        <span class="tok-kr">edit_backup</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;timestamp&quot;</span><span class="tok-p">;</span>
-        <span class="tok-kr">max_file_size</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;300000&quot;</span><span class="tok-p">;</span>
+     <span class="tok-kr">empty_file_before_editing</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;false&quot;</span><span class="tok-p">;</span>
+     <span class="tok-kr">edit_backup</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;timestamp&quot;</span><span class="tok-p">;</span>
+     <span class="tok-kr">max_file_size</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;300000&quot;</span><span class="tok-p">;</span>
 <span class="tok-p">}</span></code></pre>
 </div>
 </div>
@@ -1556,13 +1565,13 @@
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cf3"><span></span><span class="tok-k">body</span> <span class="tok-k">edit_field</span> <span class="tok-nf">col</span><span class="tok-p">(</span><span class="tok-nv">split</span><span class="tok-p">,</span><span class="tok-nv">col</span><span class="tok-p">,</span><span class="tok-nv">newval</span><span class="tok-p">,</span><span class="tok-nv">method</span><span class="tok-p">)</span>
 <span class="tok-p">{</span>
-        <span class="tok-kr">field_separator</span>    <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;</span><span class="tok-si">$(split)</span><span class="tok-s">&quot;</span><span class="tok-p">;</span>
-        <span class="tok-kr">select_field</span>       <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;</span><span class="tok-si">$(col)</span><span class="tok-s">&quot;</span><span class="tok-p">;</span>
-        <span class="tok-kr">value_separator</span>    <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;,&quot;</span><span class="tok-p">;</span>
-        <span class="tok-kr">field_value</span>        <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;</span><span class="tok-si">$(newval)</span><span class="tok-s">&quot;</span><span class="tok-p">;</span>
-        <span class="tok-kr">field_operation</span>    <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;</span><span class="tok-si">$(method)</span><span class="tok-s">&quot;</span><span class="tok-p">;</span>
-        <span class="tok-kr">extend_fields</span>      <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;true&quot;</span><span class="tok-p">;</span>
-        <span class="tok-kr">allow_blank_fields</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;true&quot;</span><span class="tok-p">;</span>
+     <span class="tok-kr">field_separator</span>    <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;</span><span class="tok-si">$(split)</span><span class="tok-s">&quot;</span><span class="tok-p">;</span>
+     <span class="tok-kr">select_field</span>       <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;</span><span class="tok-si">$(col)</span><span class="tok-s">&quot;</span><span class="tok-p">;</span>
+     <span class="tok-kr">value_separator</span>    <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;,&quot;</span><span class="tok-p">;</span>
+     <span class="tok-kr">field_value</span>        <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;</span><span class="tok-si">$(newval)</span><span class="tok-s">&quot;</span><span class="tok-p">;</span>
+     <span class="tok-kr">field_operation</span>    <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;</span><span class="tok-si">$(method)</span><span class="tok-s">&quot;</span><span class="tok-p">;</span>
+     <span class="tok-kr">extend_fields</span>      <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;true&quot;</span><span class="tok-p">;</span>
+     <span class="tok-kr">allow_blank_fields</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;true&quot;</span><span class="tok-p">;</span>
 <span class="tok-p">}</span></code></pre>
 </div>
 </div>
@@ -1575,17 +1584,11 @@
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cf3"><span></span><span class="tok-k">bundle</span> <span class="tok-k">edit_line</span> <span class="tok-nf">set_user_field</span><span class="tok-p">(</span><span class="tok-nv">user</span><span class="tok-p">,</span><span class="tok-nv">field</span><span class="tok-p">,</span><span class="tok-nv">val</span><span class="tok-p">)</span>
-
-<span class="tok-c"># Set the value of field number &quot;field&quot; in</span>
-<span class="tok-c"># a :-field formatted file like /etc/passwd</span>
-
 <span class="tok-p">{</span>
-  <span class="tok-kd">field_edits</span><span class="tok-p">:</span>
-
-      <span class="tok-s">&quot;</span><span class="tok-si">$(user)</span><span class="tok-s">:.*&quot;</span>
-
-        <span class="tok-kr">comment</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;Edit a user attribute in the password file&quot;</span><span class="tok-p">,</span>
-        <span class="tok-kr">edit_field</span> <span class="tok-o">=&gt;</span> <span class="tok-nf">col</span><span class="tok-p">(</span><span class="tok-s">&quot;:&quot;</span><span class="tok-p">,</span><span class="tok-s">&quot;</span><span class="tok-si">$(field)</span><span class="tok-s">&quot;</span><span class="tok-p">,</span><span class="tok-s">&quot;</span><span class="tok-si">$(val)</span><span class="tok-s">&quot;</span><span class="tok-p">,</span><span class="tok-s">&quot;set&quot;</span><span class="tok-p">);</span>
+ <span class="tok-kd">field_edits</span><span class="tok-p">:</span>
+   <span class="tok-s">&quot;</span><span class="tok-si">$(user)</span><span class="tok-s">:.*&quot;</span>
+     <span class="tok-kr">comment</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;Edit a user attribute in the password file&quot;</span><span class="tok-p">,</span>
+     <span class="tok-kr">edit_field</span> <span class="tok-o">=&gt;</span> <span class="tok-nf">col</span><span class="tok-p">(</span><span class="tok-s">&quot;:&quot;</span><span class="tok-p">,</span><span class="tok-s">&quot;</span><span class="tok-si">$(field)</span><span class="tok-s">&quot;</span><span class="tok-p">,</span><span class="tok-s">&quot;</span><span class="tok-si">$(val)</span><span class="tok-s">&quot;</span><span class="tok-p">,</span><span class="tok-s">&quot;set&quot;</span><span class="tok-p">);</span>
 <span class="tok-p">}</span></code></pre>
 </div>
 </div>
@@ -1893,16 +1896,16 @@ CFEngine to replace the old value of the field with the new one.</p>
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cf3"><span></span><span class="tok-k">body</span> <span class="tok-k">common</span> <span class="tok-k">control</span>
 <span class="tok-p">{</span>
-        <span class="tok-kr">bundlesequence</span> <span class="tok-o">=&gt;</span> <span class="tok-p">{</span> <span class="tok-s">&quot;test&quot;</span> <span class="tok-p">};</span>
+     <span class="tok-kr">bundlesequence</span> <span class="tok-o">=&gt;</span> <span class="tok-p">{</span> <span class="tok-s">&quot;test&quot;</span> <span class="tok-p">};</span>
 <span class="tok-p">}</span>
 
 <span class="tok-k">bundle</span> <span class="tok-k">agent</span> <span class="tok-nf">test</span>
 <span class="tok-p">{</span>
-  <span class="tok-kd">vars</span><span class="tok-p">:</span>
-      <span class="tok-p">&quot;</span><span class="tok-nv">colors</span><span class="tok-p">&quot;</span> <span class="tok-kt">slist</span> <span class="tok-o">=&gt;</span> <span class="tok-p">{</span> <span class="tok-s">&quot;red&quot;</span><span class="tok-p">,</span> <span class="tok-s">&quot;green&quot;</span><span class="tok-p">,</span> <span class="tok-s">&quot;blue&quot;</span> <span class="tok-p">};</span>
-  <span class="tok-kd">reports</span><span class="tok-p">:</span>
-    <span class="tok-nc">cfengine</span><span class="tok-p">::</span>
-      <span class="tok-s">&quot;</span><span class="tok-si">$(colors)</span><span class="tok-s">&quot;</span><span class="tok-p">;</span>
+ <span class="tok-kd">vars</span><span class="tok-p">:</span>
+   <span class="tok-p">&quot;</span><span class="tok-nv">colors</span><span class="tok-p">&quot;</span> <span class="tok-kt">slist</span> <span class="tok-o">=&gt;</span> <span class="tok-p">{</span> <span class="tok-s">&quot;red&quot;</span><span class="tok-p">,</span> <span class="tok-s">&quot;green&quot;</span><span class="tok-p">,</span> <span class="tok-s">&quot;blue&quot;</span> <span class="tok-p">};</span>
+ <span class="tok-kd">reports</span><span class="tok-p">:</span>
+  <span class="tok-nc">cfengine</span><span class="tok-p">::</span>
+   <span class="tok-s">&quot;</span><span class="tok-si">$(colors)</span><span class="tok-s">&quot;</span><span class="tok-p">;</span>
 <span class="tok-p">}</span></code></pre>
 </div>
 </div>
@@ -1966,26 +1969,26 @@ CFEngine to replace the old value of the field with the new one.</p>
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cf3"><span></span><span class="tok-k">body</span> <span class="tok-k">common</span> <span class="tok-k">control</span>
 <span class="tok-p">{</span>
-        <span class="tok-kr">bundlesequence</span> <span class="tok-o">=&gt;</span> <span class="tok-p">{</span> <span class="tok-s">&quot;find_netif&quot;</span> <span class="tok-p">};</span>
+     <span class="tok-kr">bundlesequence</span> <span class="tok-o">=&gt;</span> <span class="tok-p">{</span> <span class="tok-s">&quot;find_netif&quot;</span> <span class="tok-p">};</span>
 <span class="tok-p">}</span>
 
 <span class="tok-k">bundle</span> <span class="tok-k">agent</span> <span class="tok-nf">find_netif</span>
 <span class="tok-p">{</span>
-  <span class="tok-kd">vars</span><span class="tok-p">:</span>
-      <span class="tok-p">&quot;</span><span class="tok-nv">nics</span><span class="tok-p">&quot;</span> <span class="tok-kt">slist</span> <span class="tok-o">=&gt;</span> <span class="tok-nf">getindices</span><span class="tok-p">(</span><span class="tok-s">&quot;sys.ipv4&quot;</span><span class="tok-p">);</span> <b class="conum">(1)</b>
-      <span class="tok-c"># Regex we want to match on the IP address</span>
-      <span class="tok-p">&quot;</span><span class="tok-nv">ipregex</span><span class="tok-p">&quot;</span> <span class="tok-kt">string</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;192</span><span class="tok-se">\.</span><span class="tok-s">168</span><span class="tok-se">\.</span><span class="tok-s">1</span><span class="tok-se">\.</span><span class="tok-s">.*&quot;</span><span class="tok-p">;</span>
+ <span class="tok-kd">vars</span><span class="tok-p">:</span>
+   <span class="tok-p">&quot;</span><span class="tok-nv">nics</span><span class="tok-p">&quot;</span> <span class="tok-kt">slist</span> <span class="tok-o">=&gt;</span> <span class="tok-nf">getindices</span><span class="tok-p">(</span><span class="tok-s">&quot;sys.ipv4&quot;</span><span class="tok-p">);</span> <b class="conum">(1)</b>
+   <span class="tok-c"># Regex we want to match on the IP address</span>
+   <span class="tok-p">&quot;</span><span class="tok-nv">ipregex</span><span class="tok-p">&quot;</span> <span class="tok-kt">string</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;192</span><span class="tok-se">\.</span><span class="tok-s">168</span><span class="tok-se">\.</span><span class="tok-s">1</span><span class="tok-se">\.</span><span class="tok-s">.*&quot;</span><span class="tok-p">;</span>
 
-  <span class="tok-kd">classes</span><span class="tok-p">:</span>
-      <span class="tok-s">&quot;ismatch_</span><span class="tok-si">$(nics)</span><span class="tok-s">&quot;</span> <span class="tok-kr">expression</span> <span class="tok-o">=&gt;</span> <span class="tok-nf">regcmp</span><span class="tok-p">(</span><span class="tok-s">&quot;</span><span class="tok-si">$(ipregex)</span><span class="tok-s">&quot;</span><span class="tok-p">,</span>
-                                             <span class="tok-s">&quot;</span><span class="tok-si">$(sys.ipv4[$(nics)])</span><span class="tok-s">&quot;</span><span class="tok-p">);</span> <b class="conum">(2)</b>
+ <span class="tok-kd">classes</span><span class="tok-p">:</span>
+   <span class="tok-s">&quot;ismatch_</span><span class="tok-si">$(nics)</span><span class="tok-s">&quot;</span> <span class="tok-kr">expression</span> <span class="tok-o">=&gt;</span> <span class="tok-nf">regcmp</span><span class="tok-p">(</span><span class="tok-s">&quot;</span><span class="tok-si">$(ipregex)</span><span class="tok-s">&quot;</span><span class="tok-p">,</span>
+                                          <span class="tok-s">&quot;</span><span class="tok-si">$(sys.ipv4[$(nics)])</span><span class="tok-s">&quot;</span><span class="tok-p">);</span> <b class="conum">(2)</b>
 
-  <span class="tok-kd">reports</span><span class="tok-p">:</span>
-    <span class="tok-nc">cfengine</span><span class="tok-p">::</span>
-      <span class="tok-s">&quot;NICs found: </span><span class="tok-si">$(nics)</span><span class="tok-s"> (</span><span class="tok-si">$(sys.ipv4[$(nics)])</span><span class="tok-s">)&quot;</span><span class="tok-p">;</span>
+ <span class="tok-kd">reports</span><span class="tok-p">:</span>
+  <span class="tok-nc">cfengine</span><span class="tok-p">::</span>
+   <span class="tok-s">&quot;NICs found: </span><span class="tok-si">$(nics)</span><span class="tok-s"> (</span><span class="tok-si">$(sys.ipv4[$(nics)])</span><span class="tok-s">)&quot;</span><span class="tok-p">;</span>
 
-      <span class="tok-s">&quot;Matched NIC: </span><span class="tok-si">$(nics)</span><span class="tok-s"> (</span><span class="tok-si">$(sys.ipv4[$(nics)])</span><span class="tok-s">)&quot;</span>
-        <span class="tok-kr">ifvarclass</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;ismatch_</span><span class="tok-si">$(nics)</span><span class="tok-s">&quot;</span><span class="tok-p">;</span> <b class="conum">(3)</b>
+   <span class="tok-s">&quot;Matched NIC: </span><span class="tok-si">$(nics)</span><span class="tok-s"> (</span><span class="tok-si">$(sys.ipv4[$(nics)])</span><span class="tok-s">)&quot;</span>
+     <span class="tok-kr">ifvarclass</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;ismatch_</span><span class="tok-si">$(nics)</span><span class="tok-s">&quot;</span><span class="tok-p">;</span> <b class="conum">(3)</b>
 <span class="tok-p">}</span></code></pre>
 </div>
 </div>
@@ -2158,19 +2161,19 @@ many of the examples in this book.</p>
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cf3"><span></span><span class="tok-k">body</span> <span class="tok-k">server</span> <span class="tok-k">control</span>
 <span class="tok-p">{</span>
-        <span class="tok-kr">denybadclocks</span>         <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;false&quot;</span><span class="tok-p">;</span>
-        <span class="tok-kr">allowconnects</span>         <span class="tok-o">=&gt;</span> <span class="tok-p">{</span> <span class="tok-s">&quot;127.0.0.1&quot;</span> <span class="tok-p">,</span> <span class="tok-s">&quot;::1&quot;</span><span class="tok-p">,</span> <span class="tok-nv">@(def.acl)</span> <span class="tok-p">};</span>
-        <span class="tok-kr">allowallconnects</span>      <span class="tok-o">=&gt;</span> <span class="tok-p">{</span> <span class="tok-s">&quot;127.0.0.1&quot;</span> <span class="tok-p">,</span> <span class="tok-s">&quot;::1&quot;</span><span class="tok-p">,</span> <span class="tok-nv">@(def.acl)</span> <span class="tok-p">};</span>
-        <span class="tok-kr">trustkeysfrom</span>         <span class="tok-o">=&gt;</span> <span class="tok-p">{</span> <span class="tok-s">&quot;127.0.0.1&quot;</span> <span class="tok-p">,</span> <span class="tok-s">&quot;::1&quot;</span><span class="tok-p">,</span> <span class="tok-nv">@(def.acl)</span> <span class="tok-p">};</span>
-        <span class="tok-kr">skipverify</span>            <span class="tok-o">=&gt;</span> <span class="tok-p">{</span> <span class="tok-s">&quot;.*</span><span class="tok-si">$(def.domain)</span><span class="tok-s">&quot;</span><span class="tok-p">,</span> <span class="tok-s">&quot;127.0.0.1&quot;</span> <span class="tok-p">,</span> <span class="tok-s">&quot;::1&quot;</span><span class="tok-p">,</span>
-                                   <span class="tok-nv">@(def.acl)</span> <span class="tok-p">};</span>
-        <span class="tok-kr">allowusers</span>            <span class="tok-o">=&gt;</span> <span class="tok-p">{</span> <span class="tok-s">&quot;root&quot;</span> <span class="tok-p">};</span>
-        <span class="tok-kr">maxconnections</span>        <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;100&quot;</span><span class="tok-p">;</span>
+     <span class="tok-kr">denybadclocks</span>         <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;false&quot;</span><span class="tok-p">;</span>
+     <span class="tok-kr">allowconnects</span>         <span class="tok-o">=&gt;</span> <span class="tok-p">{</span> <span class="tok-s">&quot;127.0.0.1&quot;</span> <span class="tok-p">,</span> <span class="tok-s">&quot;::1&quot;</span><span class="tok-p">,</span> <span class="tok-nv">@(def.acl)</span> <span class="tok-p">};</span>
+     <span class="tok-kr">allowallconnects</span>      <span class="tok-o">=&gt;</span> <span class="tok-p">{</span> <span class="tok-s">&quot;127.0.0.1&quot;</span> <span class="tok-p">,</span> <span class="tok-s">&quot;::1&quot;</span><span class="tok-p">,</span> <span class="tok-nv">@(def.acl)</span> <span class="tok-p">};</span>
+     <span class="tok-kr">trustkeysfrom</span>         <span class="tok-o">=&gt;</span> <span class="tok-p">{</span> <span class="tok-s">&quot;127.0.0.1&quot;</span> <span class="tok-p">,</span> <span class="tok-s">&quot;::1&quot;</span><span class="tok-p">,</span> <span class="tok-nv">@(def.acl)</span> <span class="tok-p">};</span>
+     <span class="tok-kr">skipverify</span>            <span class="tok-o">=&gt;</span> <span class="tok-p">{</span> <span class="tok-s">&quot;.*</span><span class="tok-si">$(def.domain)</span><span class="tok-s">&quot;</span><span class="tok-p">,</span> <span class="tok-s">&quot;127.0.0.1&quot;</span> <span class="tok-p">,</span> <span class="tok-s">&quot;::1&quot;</span><span class="tok-p">,</span>
+                                <span class="tok-nv">@(def.acl)</span> <span class="tok-p">};</span>
+     <span class="tok-kr">allowusers</span>            <span class="tok-o">=&gt;</span> <span class="tok-p">{</span> <span class="tok-s">&quot;root&quot;</span> <span class="tok-p">};</span>
+     <span class="tok-kr">maxconnections</span>        <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;100&quot;</span><span class="tok-p">;</span>
 
-      <span class="tok-c"># Uncomment the line below to allow remote users to run</span>
-      <span class="tok-c"># cf-agent through cf-runagent</span>
+   <span class="tok-c"># Uncomment the line below to allow remote users to run</span>
+   <span class="tok-c"># cf-agent through cf-runagent</span>
 
-      <span class="tok-c"># cfruncommand          =&gt; &quot;$(sys.cf_agent)&quot;;</span>
+   <span class="tok-c"># cfruncommand          =&gt; &quot;$(sys.cf_agent)&quot;;</span>
 <span class="tok-p">}</span></code></pre>
 </div>
 </div>
@@ -2198,13 +2201,13 @@ many of the examples in this book.</p>
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cf3"><span></span><span class="tok-k">bundle</span> <span class="tok-k">server</span> <span class="tok-nf">access_rules</span><span class="tok-p">()</span>
 <span class="tok-p">{</span>
-  <span class="tok-kd">access</span><span class="tok-p">:</span>
-    <span class="tok-nc">any</span><span class="tok-p">::</span>
-      <span class="tok-s">&quot;</span><span class="tok-si">$(def.dir_masterfiles)</span><span class="tok-s">&quot;</span>
-        <span class="tok-kr">handle</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;server_access_rule_grant_access_policy&quot;</span><span class="tok-p">,</span>
-        <span class="tok-kr">comment</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;Grant access to the policy updates&quot;</span><span class="tok-p">,</span>
-        <span class="tok-kr">admit</span> <span class="tok-o">=&gt;</span> <span class="tok-p">{</span> <span class="tok-s">&quot;.*</span><span class="tok-se">\.</span><span class="tok-si">$(def.domain)</span><span class="tok-s">&quot;</span><span class="tok-p">,</span> <span class="tok-nv">@(def.acl)</span> <span class="tok-p">};</span>
-  <span class="tok-kd">roles</span><span class="tok-p">:</span>
+ <span class="tok-kd">access</span><span class="tok-p">:</span>
+  <span class="tok-nc">any</span><span class="tok-p">::</span>
+   <span class="tok-s">&quot;</span><span class="tok-si">$(def.dir_masterfiles)</span><span class="tok-s">&quot;</span>
+     <span class="tok-kr">handle</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;server_access_rule_grant_access_policy&quot;</span><span class="tok-p">,</span>
+     <span class="tok-kr">comment</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;Grant access to the policy updates&quot;</span><span class="tok-p">,</span>
+     <span class="tok-kr">admit</span> <span class="tok-o">=&gt;</span> <span class="tok-p">{</span> <span class="tok-s">&quot;.*</span><span class="tok-se">\.</span><span class="tok-si">$(def.domain)</span><span class="tok-s">&quot;</span><span class="tok-p">,</span> <span class="tok-nv">@(def.acl)</span> <span class="tok-p">};</span>
+ <span class="tok-kd">roles</span><span class="tok-p">:</span>
 <span class="tok-p">}</span></code></pre>
 </div>
 </div>
@@ -2218,18 +2221,16 @@ many of the examples in this book.</p>
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cf3"><span></span><span class="tok-k">bundle</span> <span class="tok-k">common</span> <span class="tok-nf">def</span>
 <span class="tok-p">{</span>
-  <span class="tok-kd">vars</span><span class="tok-p">:</span>
-      <span class="tok-p">&quot;</span><span class="tok-nv">domain</span><span class="tok-p">&quot;</span>  <span class="tok-kt">string</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;example.com&quot;</span><span class="tok-p">,</span>  <b class="conum">(1)</b>
-        <span class="tok-kr">comment</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;Define a global domain for all hosts&quot;</span><span class="tok-p">,</span>
-        <span class="tok-kr">handle</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;common_def_vars_domain&quot;</span><span class="tok-p">;</span>
-      <span class="tok-p">&quot;</span><span class="tok-nv">acl</span><span class="tok-p">&quot;</span> <span class="tok-kt">slist</span> <span class="tok-o">=&gt;</span> <span class="tok-p">{</span>
-                       <span class="tok-s">&quot;</span><span class="tok-si">$(sys.policy_hub)</span><span class="tok-s">/16&quot;</span>  <b class="conum">(2)</b>
-                     <span class="tok-p">},</span>
-        <span class="tok-kr">comment</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;Define an acl for the machines to be granted accesses&quot;</span><span class="tok-p">,</span>
-        <span class="tok-kr">handle</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;common_def_vars_acl&quot;</span><span class="tok-p">;</span>
-      <span class="tok-p">&quot;</span><span class="tok-nv">dir_masterfiles</span><span class="tok-p">&quot;</span> <span class="tok-kt">string</span> <span class="tok-o">=&gt;</span> <span class="tok-nf">translatepath</span><span class="tok-p">(</span><span class="tok-s">&quot;</span><span class="tok-si">$(sys.workdir)</span><span class="tok-s">/masterfiles&quot;</span><span class="tok-p">),</span>
-        <span class="tok-kr">comment</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;Define masterfiles path&quot;</span><span class="tok-p">,</span>
-        <span class="tok-kr">handle</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;common_def_vars_dir_masterfiles&quot;</span><span class="tok-p">;</span>
+ <span class="tok-kd">vars</span><span class="tok-p">:</span>
+   <span class="tok-p">&quot;</span><span class="tok-nv">domain</span><span class="tok-p">&quot;</span>  <span class="tok-kt">string</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;example.com&quot;</span><span class="tok-p">,</span>  <b class="conum">(1)</b>
+     <span class="tok-kr">comment</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;Define a global domain for all hosts&quot;</span><span class="tok-p">,</span>
+     <span class="tok-kr">handle</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;common_def_vars_domain&quot;</span><span class="tok-p">;</span>
+   <span class="tok-p">&quot;</span><span class="tok-nv">acl</span><span class="tok-p">&quot;</span> <span class="tok-kt">slist</span> <span class="tok-o">=&gt;</span> <span class="tok-p">{</span> <span class="tok-s">&quot;</span><span class="tok-si">$(sys.policy_hub)</span><span class="tok-s">/16&quot;</span> <span class="tok-p">},</span> <b class="conum">(2)</b>
+     <span class="tok-kr">comment</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;Define an acl for the machines to be granted accesses&quot;</span><span class="tok-p">,</span>
+     <span class="tok-kr">handle</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;common_def_vars_acl&quot;</span><span class="tok-p">;</span>
+   <span class="tok-p">&quot;</span><span class="tok-nv">dir_masterfiles</span><span class="tok-p">&quot;</span> <span class="tok-kt">string</span> <span class="tok-o">=&gt;</span> <span class="tok-nf">translatepath</span><span class="tok-p">(</span><span class="tok-s">&quot;</span><span class="tok-si">$(sys.workdir)</span><span class="tok-s">/masterfiles&quot;</span><span class="tok-p">),</span>
+     <span class="tok-kr">comment</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;Define masterfiles path&quot;</span><span class="tok-p">,</span>
+     <span class="tok-kr">handle</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;common_def_vars_dir_masterfiles&quot;</span><span class="tok-p">;</span>
 <span class="tok-p">}</span></code></pre>
 </div>
 </div>
@@ -2293,23 +2294,23 @@ accordingly.</p>
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cf3"><span></span><span class="tok-k">bundle</span> <span class="tok-k">agent</span> <span class="tok-nf">cfe_internal_update</span>
 <span class="tok-p">{</span>
-  <span class="tok-kd">vars</span><span class="tok-p">:</span>
-      <span class="tok-p">&quot;</span><span class="tok-nv">inputs_dir</span><span class="tok-p">&quot;</span>
-        <span class="tok-kt">string</span> <span class="tok-o">=&gt;</span> <span class="tok-nf">translatepath</span><span class="tok-p">(</span><span class="tok-s">&quot;</span><span class="tok-si">$(sys.workdir)</span><span class="tok-s">/inputs&quot;</span><span class="tok-p">),</span>   <b class="conum">(1)</b>
-        <span class="tok-kr">comment</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;Directory containing Cfengine policies&quot;</span><span class="tok-p">,</span>
-        <span class="tok-kr">handle</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;update_vars_inputs_dir&quot;</span><span class="tok-p">;</span>
-      <span class="tok-p">&quot;</span><span class="tok-nv">master_location</span><span class="tok-p">&quot;</span>
-        <span class="tok-kt">string</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;/var/cfengine/masterfiles&quot;</span><span class="tok-p">,</span>   <b class="conum">(2)</b>
-        <span class="tok-kr">comment</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;The master cfengine policy directory on the policy host&quot;</span><span class="tok-p">,</span>
-        <span class="tok-kr">handle</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;update_vars_master_location&quot;</span><span class="tok-p">;</span>
-  <span class="tok-kd">files</span><span class="tok-p">:</span>
-      <span class="tok-s">&quot;</span><span class="tok-si">$(inputs_dir)</span><span class="tok-s">&quot;</span>   <b class="conum">(3)</b>
-        <span class="tok-kr">comment</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;Copy policy updates from master source on policy server&quot;</span><span class="tok-p">,</span>
-        <span class="tok-kr">handle</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;update_files_inputs_dir&quot;</span><span class="tok-p">,</span>
-        <span class="tok-kr">copy_from</span> <span class="tok-o">=&gt;</span> <span class="tok-nf">u_rcp</span><span class="tok-p">(</span><span class="tok-s">&quot;</span><span class="tok-si">$(master_location)</span><span class="tok-s">&quot;</span><span class="tok-p">,</span><span class="tok-s">&quot;</span><span class="tok-si">$(sys.policy_hub)</span><span class="tok-s">&quot;</span><span class="tok-p">),</span>  <b class="conum">(4)</b>
-        <span class="tok-kr">depth_search</span> <span class="tok-o">=&gt;</span> <span class="tok-nf">u_recurse</span><span class="tok-p">(</span><span class="tok-s">&quot;inf&quot;</span><span class="tok-p">),</span>   <b class="conum">(5)</b>
-        <span class="tok-kr">file_select</span>  <span class="tok-o">=&gt;</span> <span class="tok-nf">u_input_files</span><span class="tok-p">,</span>   <b class="conum">(6)</b>
-        <span class="tok-kr">classes</span> <span class="tok-o">=&gt;</span> <span class="tok-nf">u_if_repaired</span><span class="tok-p">(</span><span class="tok-s">&quot;update_report&quot;</span><span class="tok-p">);</span>   <b class="conum">(7)</b>
+ <span class="tok-kd">vars</span><span class="tok-p">:</span>
+   <span class="tok-p">&quot;</span><span class="tok-nv">inputs_dir</span><span class="tok-p">&quot;</span>
+     <span class="tok-kt">string</span> <span class="tok-o">=&gt;</span> <span class="tok-nf">translatepath</span><span class="tok-p">(</span><span class="tok-s">&quot;</span><span class="tok-si">$(sys.workdir)</span><span class="tok-s">/inputs&quot;</span><span class="tok-p">),</span>   <b class="conum">(1)</b>
+     <span class="tok-kr">comment</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;Directory containing Cfengine policies&quot;</span><span class="tok-p">,</span>
+     <span class="tok-kr">handle</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;update_vars_inputs_dir&quot;</span><span class="tok-p">;</span>
+   <span class="tok-p">&quot;</span><span class="tok-nv">master_location</span><span class="tok-p">&quot;</span>
+     <span class="tok-kt">string</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;/var/cfengine/masterfiles&quot;</span><span class="tok-p">,</span>   <b class="conum">(2)</b>
+     <span class="tok-kr">comment</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;The master cfengine policy directory on the policy host&quot;</span><span class="tok-p">,</span>
+     <span class="tok-kr">handle</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;update_vars_master_location&quot;</span><span class="tok-p">;</span>
+ <span class="tok-kd">files</span><span class="tok-p">:</span>
+   <span class="tok-s">&quot;</span><span class="tok-si">$(inputs_dir)</span><span class="tok-s">&quot;</span>   <b class="conum">(3)</b>
+     <span class="tok-kr">comment</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;Copy policy updates from master source on policy server&quot;</span><span class="tok-p">,</span>
+     <span class="tok-kr">handle</span> <span class="tok-o">=&gt;</span> <span class="tok-s">&quot;update_files_inputs_dir&quot;</span><span class="tok-p">,</span>
+     <span class="tok-kr">copy_from</span> <span class="tok-o">=&gt;</span> <span class="tok-nf">u_rcp</span><span class="tok-p">(</span><span class="tok-s">&quot;</span><span class="tok-si">$(master_location)</span><span class="tok-s">&quot;</span><span class="tok-p">,</span><span class="tok-s">&quot;</span><span class="tok-si">$(sys.policy_hub)</span><span class="tok-s">&quot;</span><span class="tok-p">),</span>  <b class="conum">(4)</b>
+     <span class="tok-kr">depth_search</span> <span class="tok-o">=&gt;</span> <span class="tok-nf">u_recurse</span><span class="tok-p">(</span><span class="tok-s">&quot;inf&quot;</span><span class="tok-p">),</span>   <b class="conum">(5)</b>
+     <span class="tok-kr">file_select</span>  <span class="tok-o">=&gt;</span> <span class="tok-nf">u_input_files</span><span class="tok-p">,</span>   <b class="conum">(6)</b>
+     <span class="tok-kr">classes</span> <span class="tok-o">=&gt;</span> <span class="tok-nf">u_if_repaired</span><span class="tok-p">(</span><span class="tok-s">&quot;update_report&quot;</span><span class="tok-p">);</span>   <b class="conum">(7)</b>
 <span class="tok-p">}</span></code></pre>
 </div>
 </div>

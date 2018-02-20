@@ -66,7 +66,7 @@
       
     </ul>
 
-    <div class="sidebar-sticky"><p>&copy; 2017 Diego Zamboni<br/>
+    <div class="sidebar-sticky"><p>&copy; 2018 Diego Zamboni<br/>
         Powered by <a href="http://gohugo.io">Hugo</a></p></div>
   </div>
 </div>
@@ -75,6 +75,141 @@
 <div class="content container">
   <div class="posts">
     
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="http://cf-learn.info/post/cf-cmd-a-command-line-tool-for-running-cfengine-snippets/">cf-cmd: A command-line tool for running CFEngine snippets</a>
+      </h1>
+      <span class="post-date">Dec 27, 2011 &middot; 3 minute read &middot; <a href="http://cf-learn.info/post/cf-cmd-a-command-line-tool-for-running-cfengine-snippets/#disqus_thread">Comments</a>
+      
+      <br/>
+      
+      <a class="label" href="http://cf-learn.info/categories/cfengine">cfengine</a><a class="label" href="http://cf-learn.info/categories/testing">testing</a><a class="label" href="http://cf-learn.info/categories/tools">tools</a>
+      </span>
+      <div><span style="font-size: small;">While writing this book, I've had to run hundreds of little CFEngine snippets to run tests, develop examples, verify functionality, or get a solid idea of what some constructs did. After building the typical "test bundle" scaffolding in an editor for the hundredth time, I decided to do something about it. The result is the cf-cmd command. I will let it speak for itself:</span></div>
+<p></p>
+<blockquote style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 20px; border-left-style: none; font-family: Courier New;">
+<div>
+<div>
+<span style="font-family: Courier New; font-size: x-small;"> </span>
+<div><span style="font-size: small;">$ <strong>cf-cmd help</strong></span></div>
+<div><span style="font-size: small;">cf-cmd v1.0 - Diego Zamboni diego@zzamboni.org&gt;</span></div>
+<p></p>
+<div><span style="font-size: small;">cf-cmd is a tool that allows you to run small CFEngine snippets quickly,</span></div>
+<div><span style="font-size: small;">by automatically wrapping them around a standard "test" bundle.</span></div>
+<p></p>
+<div><span style="font-size: small;">The CFEngine Standard Library is automatically included.</span></div>
+<p></p>
+<div><span style="font-size: small;">The following inputs are understood by this tool:</span></div>
+<p></p>
+<div><span style="font-size: small;">help     Print this message</span></div>
+<div><span style="font-size: small;">list     Print current policy</span></div>
+<div><span style="font-size: small;">clear    Clear current policy</span></div>
+<div><span style="font-size: small;">go|run   Execute current policy using cf-agent</span></div>
+<div><span style="font-size: small;">type:    Switch to the given promise type</span></div>
+<div><span style="font-size: small;">         (classes:, commands:, databases:, environments:, files:, interfaces:,</span></div>
+<div><span style="font-size: small;">         methods:, outputs:, packages:, processes:, reports:, services:,</span></div>
+<div><span style="font-size: small;">         storage:, vars:)</span></div>
+<div><span style="font-size: small;">           The current promise type is shown in the prompt.</span></div>
+<p></p>
+<div><span style="font-size: small;">All other lines are added literally to the current promise type.</span></div>
+<p></p>
+<div><span style="font-size: small;">Commands can be abbreviated to any part of their name (for example,</span></div>
+<div><span style="font-size: small;">"r" or "ru" for "run").</span></div>
+<p></p>
+<div><span style="font-size: small;">You can add lines to any of the standard promise types inside the test</span></div>
+<div><span style="font-size: small;">bundle by switching to the appropriate promise type first.</span></div>
+<p></p>
+<div><span style="font-size: small;">The default promise type is "reports:", to make it easier to quickly print</span></div>
+<div><span style="font-size: small;">the value of expressions.</span></div>
+<p></p>
+<div><span style="font-size: small;">You can give the inputs also on the command line, they are interpreted</span></div>
+<div><span style="font-size: small;">in exactly the same way (make sure to quote things correctly).</span></div>
+<p></p>
+<div><span style="font-size: small;">Examples:</span></div>
+<div><span style="font-size: small;">  cf-cmd '"Flavor: $(sys.flavor)";' list run</span></div>
+<div><span style="font-size: small;">  cf-cmd '"var1 = $(var1)";' vars: '"var1" string =&gt; "test";' l r</span></div>
+<div><span style="font-size: small;">  cf-cmd h</span></div>
+</div>
+</div>
+</blockquote>
+<p></p>
+<div><span style="font-size: small;">You should try out those examples at the end to see what they do. An example interactive session looks like this (I have bolded the inputs to make them easier to see):</span></div>
+<p></p>
+<div>
+<span style="font-size: 12px;"> </span>
+<div>
+<blockquote style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 20px; border-left-style: none;">
+<div style="font-family: Courier New;"><span style="font-size: small;">$ cf-cmd </span></div>
+<div style="font-family: Courier New;"><span style="font-size: small;">reports: &gt; <strong>"this is a test";</strong></span></div>
+<div style="font-family: Courier New;"><span style="font-size: small;">reports: &gt; <strong>list</strong></span></div>
+<div style="font-family: Courier New;"><span style="font-size: small;">body common control {</span></div>
+<div style="font-family: Courier New;"><span style="font-size: small;">   inputs =&gt; { "/var/cfengine/inputs/cfengine_stdlib.cf" };</span></div>
+<div style="font-family: Courier New;"><span style="font-size: small;">   bundlesequence =&gt; { "test" };</span></div>
+<div style="font-family: Courier New;"><span style="font-size: small;">}</span></div>
+<p></p>
+<div style="font-family: Courier New;"><span style="font-size: small;">bundle agent test</span></div>
+<div style="font-family: Courier New;"><span style="font-size: small;">{</span></div>
+<div style="font-family: Courier New;"><span style="font-size: small;">reports:</span></div>
+<div style="font-family: Courier New;"><span style="font-size: small;">cfengine::</span></div>
+<div style="font-family: Courier New;"><span style="font-size: small;">  "this is a test";</span></div>
+<div style="font-family: Courier New;"><span style="font-size: small;">}</span></div>
+<div style="font-family: Courier New;"><span style="font-size: small;">reports: &gt; <strong>run</strong></span></div>
+<div style="font-family: Courier New;"><span style="font-size: small;">-&gt; Running policy with 'cf-agent -KI -f ./test.cf'</span></div>
+<div style="font-family: Courier New;"><span style="font-size: small;">R: this is a test</span></div>
+<div style="font-family: Courier New;"><span style="font-size: small;">reports: &gt; <strong>clear</strong></span></div>
+<div><span style="font-size: small;"><span style="font-family: Courier New;">reports: &gt; </span><strong style="font-family: Courier New;">l    </strong><em>(abbreviation of "list")</em></span></div>
+<div style="font-family: Courier New;"><span style="font-size: small;">body common control {</span></div>
+<div style="font-family: Courier New;"><span style="font-size: small;">   inputs =&gt; { "/var/cfengine/inputs/cfengine_stdlib.cf" };</span></div>
+<div style="font-family: Courier New;"><span style="font-size: small;">   bundlesequence =&gt; { "test" };</span></div>
+<div style="font-family: Courier New;"><span style="font-size: small;">}</span></div>
+<p></p>
+<div style="font-family: Courier New;"><span style="font-size: small;">bundle agent test</span></div>
+<div style="font-family: Courier New;"><span style="font-size: small;">{</span></div>
+<div style="font-family: Courier New;"><span style="font-size: small;">}</span></div>
+<div style="font-family: Courier New;"><span style="font-size: small;">reports: &gt; <strong>files: </strong></span></div>
+<div style="font-family: Courier New;"><span style="font-size: small;">-&gt; Switching to files: promise type.</span></div>
+<div style="font-family: Courier New;"><span style="font-size: small;">files: &gt; <strong>"/tmp/test"</strong></span></div>
+<div style="font-family: Courier New;"><span style="font-size: small;">files: &gt; <strong>  create =&gt; "true",</strong></span></div>
+<div style="font-family: Courier New;"><span style="font-size: small;">files: &gt; <strong>  classes =&gt; if_repaired("done");</strong></span></div>
+<div style="font-family: Courier New;"><span style="font-size: small;">files: &gt; <strong>reports: </strong></span></div>
+<div style="font-family: Courier New;"><span style="font-size: small;">-&gt; Switching to reports: promise type.</span></div>
+<div style="font-family: Courier New;"><span style="font-size: small;">reports: &gt; <strong>done::</strong></span></div>
+<div style="font-family: Courier New;"><span style="font-size: small;">reports: &gt; <strong>"Success";</strong></span></div>
+<div style="font-family: Courier New;"><span style="font-size: small;">reports: &gt; <strong>l</strong></span></div>
+<div style="font-family: Courier New;"><span style="font-size: small;">body common control {</span></div>
+<div style="font-family: Courier New;"><span style="font-size: small;">   inputs =&gt; { "/var/cfengine/inputs/cfengine_stdlib.cf" };</span></div>
+<div style="font-family: Courier New;"><span style="font-size: small;">   bundlesequence =&gt; { "test" };</span></div>
+<div style="font-family: Courier New;"><span style="font-size: small;">}</span></div>
+<p></p>
+<div style="font-family: Courier New;"><span style="font-size: small;">bundle agent test</span></div>
+<div style="font-family: Courier New;"><span style="font-size: small;">{</span></div>
+<div style="font-family: Courier New;"><span style="font-size: small;">files:</span></div>
+<div style="font-family: Courier New;"><span style="font-size: small;">  "/tmp/test"</span></div>
+<div style="font-family: Courier New;"><span style="font-size: small;">    create =&gt; "true",</span></div>
+<div style="font-family: Courier New;"><span style="font-size: small;">    classes =&gt; if_repaired("done");</span></div>
+<div style="font-family: Courier New;"><span style="font-size: small;">reports:</span></div>
+<div style="font-family: Courier New;"><span style="font-size: small;">  done::</span></div>
+<div style="font-family: Courier New;"><span style="font-size: small;">  "Success";</span></div>
+<div style="font-family: Courier New;"><span style="font-size: small;">}</span></div>
+<div style="font-family: Courier New;"><span style="font-size: small;">reports: &gt; <strong>run</strong></span></div>
+<div style="font-family: Courier New;"><span style="font-size: small;">-&gt; Running policy with 'cf-agent -KI -f ./test.cf'</span></div>
+<div style="font-family: Courier New;"><span style="font-size: small;"> -&gt; Created file /tmp/test, mode = 600</span></div>
+<div style="font-family: Courier New;"><span style="font-size: small;">R: Success</span></div>
+<div style="font-family: Courier New;"><span style="font-size: small;">reports: &gt; </span></div>
+</blockquote>
+</div>
+<p></p>
+<div>The interactive prompt supports editing and completion of all commands and promise types - press Tab to view available completions.</div>
+<p></p>
+<div>You can download the script {% gist 1525722  %}.</div>
+<p></p>
+<div>Just put it somewhere in your path. If needed, modify the location of the <a href="http://cfengine.com/manuals/cfengine_stdlib.cf">cfengine_stdlib.cf</a> file on your system (by default it looks for it under /var/cfengine/inputs/). You need Ruby installed (I tested with version 1.9.3).</div>
+<p></p>
+<div>If you find it useful, or if you find any problems or have any suggestions, please let me know. I'd be happy to hear from you.</div>
+</div>
+
+    </div>
     
     <div class="post">
       <h1 class="post-title">
