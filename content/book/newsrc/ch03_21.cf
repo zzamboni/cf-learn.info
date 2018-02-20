@@ -1,10 +1,10 @@
 bundle server access_rules()
 {
-  access:
-    any::
-      "$(def.dir_masterfiles)"
-        handle => "server_access_rule_grant_access_policy",
-        comment => "Grant access to the policy updates",
-        admit => { ".*\.$(def.domain)", @(def.acl) };
-  roles:
+ access:
+  any::
+   "$(def.dir_masterfiles)"
+     handle => "server_access_rule_grant_access_policy",
+     comment => "Grant access to the policy updates",
+     admit => { ".*\.$(def.domain)", @(def.acl) };
+ roles:
 }

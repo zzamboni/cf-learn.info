@@ -44,25 +44,25 @@ p.clip-attribute {
 /* From http://askthecssguy.com/articles/showing-hyperlink-cues-with-css/ */
 
 /* all A tags whose HREF attribute ends in .pdf */
-a[href$='.pdf'] { 
+a[href$='.pdf'] {
 	padding-left: 18px;
 	background: transparent url(/new/icons/icon_pdf.gif) no-repeat center left;
 }
 
 /* all A tags whose REL attribute equals pdf */
-a[rel='pdf'] { 
+a[rel='pdf'] {
 	padding-left: 18px;
 	background: transparent url(/new/icons/icon_pdf.gif) no-repeat center left;
 }
 
 /*  all A tags whose REL attributes has the letters pdf somewhere mixed in*/
-a[rel*='pdf'] { 
+a[rel*='pdf'] {
 	padding-left: 18px;
 	background: transparent url(/new/icons/icon_pdf.gif) no-repeat center left;
 }
 
 /* all A tags whose REL attribute contains the value pdf, seperated from other values with a space */
-a[rel~='pdf'] { 
+a[rel~='pdf'] {
 	padding-left: 18px;
 	background: transparent url(/new/icons/icon_pdf.gif) no-repeat center left;
 }
@@ -71,7 +71,7 @@ a[rel~='pdf'] {
 a[href ^="mailto:"] {
 	padding-left: 18px;
     background: transparent url(/new/icons/icon_mailto.gif) no-repeat center left;
-   
+
 }
 
 /* all A tags whose CLASS attribute is popup */
@@ -81,11 +81,11 @@ a[class ="popup"] {
 }
 
 
-a[href$='.doc'] { 
+a[href$='.doc'] {
 	padding-left: 18px;
 	background: transparent url(/new/icons/icon_doc.gif) no-repeat center left;
 }
-a[href$='.xls'] { 
+a[href$='.xls'] {
 	padding-left: 18px;
 	background: transparent url(/new/icons/icon_xls.gif) no-repeat center left;
 }
@@ -165,6 +165,17 @@ a[rel ~='external'] {
 }
 
 .listingblock .content {
+	  margin-left: 0px;
+	  margin-right: 0px;
+	  padding-top: 10px;
+	  padding-bottom: 10px;
+}
+
+.literalgblock {
+    font-size: 14px;
+}
+
+.literalblock .content {
 	  margin-left: 0px;
 	  margin-right: 0px;
 	  padding-top: 10px;

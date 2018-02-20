@@ -1,20 +1,20 @@
 bundle agent cfe_internal_update
 {
-  vars:
-      "inputs_dir"
-        string => translatepath("$(sys.workdir)/inputs"),   # <1>
-        comment => "Directory containing Cfengine policies",
-        handle => "update_vars_inputs_dir";
-      "master_location"
-        string => "/var/cfengine/masterfiles",   # <2>
-        comment => "The master cfengine policy directory on the policy host",
-        handle => "update_vars_master_location";
-  files:
-      "$(inputs_dir)"   # <3>
-        comment => "Copy policy updates from master source on policy server",
-        handle => "update_files_inputs_dir",
-        copy_from => u_rcp("$(master_location)","$(sys.policy_hub)"),  # <4>
-        depth_search => u_recurse("inf"),   # <5>
-        file_select  => u_input_files,   # <6>
-        classes => u_if_repaired("update_report");   # <7>
+ vars:
+   "inputs_dir"
+     string => translatepath("$(sys.workdir)/inputs"),   # <1>
+     comment => "Directory containing Cfengine policies",
+     handle => "update_vars_inputs_dir";
+   "master_location"
+     string => "/var/cfengine/masterfiles",   # <2>
+     comment => "The master cfengine policy directory on the policy host",
+     handle => "update_vars_master_location";
+ files:
+   "$(inputs_dir)"   # <3>
+     comment => "Copy policy updates from master source on policy server",
+     handle => "update_files_inputs_dir",
+     copy_from => u_rcp("$(master_location)","$(sys.policy_hub)"),  # <4>
+     depth_search => u_recurse("inf"),   # <5>
+     file_select  => u_input_files,   # <6>
+     classes => u_if_repaired("update_report");   # <7>
 }

@@ -7,7 +7,8 @@ bundle agent test
 {
  vars:
    "colors" slist => { "red", "green", "blue" };
+   "tone"   slist => { "dark", "light" };
  reports:
-  cfengine::
-   "$(colors)";
+  cfengine_3::
+   "$(tone) $(colors)";
 }
