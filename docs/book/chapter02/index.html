@@ -888,26 +888,36 @@ removed.</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Add the following line inside the <a href="http://cf-learn.info/ref/inputs">inputs</a> attribute in body common control. This instructs CFEngine to load the file: "edit_motd.cf",</p>
+<p>Add the following line inside the <a href="http://cf-learn.info/ref/inputs">inputs</a> attribute in body common control. This instructs CFEngine to load the file:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cf3"><span></span><span class="tok-s">&quot;edit_motd.cf&quot;</span><span class="tok-p">,</span></code></pre>
+</div>
+</div>
 </li>
 <li>
-<p>Add the following line inside the <a href="http://cf-learn.info/ref/bundlesequence">bundlesequence</a> attribute in body common control. This instructs CFEngine to call the bundle: "edit_motd",</p>
+<p>Add the following line inside the <a href="http://cf-learn.info/ref/bundlesequence">bundlesequence</a> attribute in body common control. This instructs CFEngine to call the bundle:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cf3"><span></span><span class="tok-s">&quot;edit_motd&quot;</span><span class="tok-p">,</span></code></pre>
+</div>
+</div>
 </li>
 </ol>
 </div>
 </li>
 <li>
 <p>Verify you did not make any mistakes by running this command. If the file is correct, you should not see any output.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="console"><span></span><span class="tok-gp">#</span> cf-promises -f /var/cfengine/masterfiles/promises.cf</code></pre>
+</div>
+</div>
 </li>
 </ol>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre>    # cf-promises -f /var/cfengine/masterfiles/promises.cf</pre>
-</div>
-</div>
 <div class="paragraph">
-<p>That’s it! Now your edit_motd bundle will be run automatically as part of the regular CFEngine execution every five minutes, ensuring that the <em>/etc/motd</em> file is constantly kept correctly configured.</p>
+<p>That’s it! Now your <code>edit_motd</code> bundle will be run automatically as part of the regular CFEngine execution every five minutes, ensuring that the <em>/etc/motd</em> file is constantly kept correctly configured.</p>
 </div>
 </div>
 </div>
