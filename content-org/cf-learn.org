@@ -1,0 +1,52 @@
+#+hugo_base_dir: ../
+#+seq_todo: TODO DRAFT DONE
+#+options: creator:t
+#+property: header-args :eval never-export
+
+#+macro: updatetime {{{time(%B %e\, %Y)}}}
+
+#+title: cf-learn.info source file
+#+author: Diego Zamboni
+#+email: diego@zzamboni.org
+
+This file is the source for all new and updated content on [[http://cf-learn.info/][cf-learn.info]] since April 2018. Content here may be in progress or incomplete. This file gets converted to [[http://gohugo.io/][Hugo]] files by the excellent [[https://ox-hugo.scripter.co/][ox-hugo]].
+
+*You really should not read it here but at [[http://cf-learn.info/][cf-learn.info]]*.
+
+* Table of Contents                                            :TOC_3:noexport:
+- [[#pages][Pages]]
+- [[#book-pages][Book pages]]
+- [[#ideas][Ideas]]
+- [[#posts][Posts]]
+  - [[#book-updates][Book updates]]
+    - [[#chapters-5-and-6-of-learning-cfengine-3-are-online][Chapters 5 and 6 of "Learning CFEngine 3" are Online]]
+
+* Pages
+
+This section contains all the static pages.
+
+* Book pages
+
+The individual pages for each book.
+
+* Ideas
+
+Ideas for things to write about.
+
+* Posts
+:PROPERTIES:
+:export_hugo_section: post
+:END:
+
+Blog posts.
+
+** Book updates                                                  :@booknews:
+*** DONE Chapters 5 and 6 of "Learning CFEngine 3" are Online
+CLOSED: [2018-04-03 Tue 10:45]
+:PROPERTIES:
+:export_file_name: 2018-04-03-chapters-5-6-online
+:END:
+
+I am happy to announce that Chapters 5 and 6 of the book are now also freely available online.
+
+*Read them now at [[/book][The Book]].*
