@@ -6,10 +6,20 @@
     <description>Recent content in Booknews on Learning CFEngine 3</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 19 May 2015 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 03 Apr 2018 10:45:00 +0200</lastBuildDate>
     
 	<atom:link href="http://cf-learn.info/categories/booknews/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Chapters 5 and 6 of &#34;Learning CFEngine 3&#34; are Online</title>
+      <link>http://cf-learn.info/post/chapters-5-and-6-of-learning-cfengine-3-are-online/</link>
+      <pubDate>Tue, 03 Apr 2018 10:45:00 +0200</pubDate>
+      
+      <guid>http://cf-learn.info/post/chapters-5-and-6-of-learning-cfengine-3-are-online/</guid>
+      <description>I am happy to announce that Chapters 5 and 6 of the book are now also freely available online.
+Read them now at The Book.</description>
+    </item>
     
     <item>
       <title>Finally, an update about “Learning CFEngine 3”!</title>

@@ -78,6 +78,22 @@
     
     <div class="post">
       <h1 class="post-title">
+        <a href="http://cf-learn.info/post/chapters-5-and-6-of-learning-cfengine-3-are-online/">Chapters 5 and 6 of &#34;Learning CFEngine 3&#34; are Online</a>
+      </h1>
+      <span class="post-date">Apr 3, 2018 &middot; 1 minute read &middot; <a href="http://cf-learn.info/post/chapters-5-and-6-of-learning-cfengine-3-are-online/#disqus_thread">Comments</a>
+      
+      <br/>
+      
+      <a class="label" href="http://cf-learn.info/categories/booknews">booknews</a>
+      </span>
+      <p>I am happy to announce that Chapters 5 and 6 of the book are now also freely available online.</p>
+
+<p><strong>Read them now at <a href="http://cf-learn.info/book">The Book</a>.</strong></p>
+
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
         <a href="http://cf-learn.info/post/chapter-4-of-learning-cfengine-3-is-online/">Chapter 4 of &#34;Learning CFEngine 3&#34; is Online</a>
       </h1>
       <span class="post-date">Feb 20, 2018 &middot; 1 minute read &middot; <a href="http://cf-learn.info/post/chapter-4-of-learning-cfengine-3-is-online/#disqus_thread">Comments</a>
@@ -317,93 +333,6 @@ message</a>.</p>
 </ul>
 <div>I hope you enjoy this update! And if you have any feedback, please feel free to contact me.</div>
 </div>
-
-    </div>
-    
-    <div class="post">
-      <h1 class="post-title">
-        <a href="http://cf-learn.info/post/cfengine-tip-#004-how-to-bootstrap-a-cfengine-client/">CFEngine tip #004: How to bootstrap a CFEngine client</a>
-      </h1>
-      <span class="post-date">Sep 25, 2012 &middot; 3 minute read &middot; <a href="http://cf-learn.info/post/cfengine-tip-#004-how-to-bootstrap-a-cfengine-client/#disqus_thread">Comments</a>
-      
-      <br/>
-      
-      <a class="label" href="http://cf-learn.info/categories/bootstrap">bootstrap</a><a class="label" href="http://cf-learn.info/categories/cfengine_tip">cfengine_tip</a>
-      </span>
-      <p>My apologies for the long delay since the last tip! Today we come back with a simple tip: how to bootstrap a CFEngine client.</p>
-
-<h2>First, some background</h2>
-
-<p>CFEngine is designed to operate in a fully distributed fashion – each CFEngine client (i.e. a machine running <code>cf-agent</code>) can operate fully autonomously, using only the policy files stored locally. For regular operation, <code>cf-agent</code> does not require any type of network connectivity.</p>
-
-<p>In real deployments, of course, maintaining each machine’s policy independently would be impractical, so CFEngine has the concept of a <em>policy hub</em>. In CFEngine Community, the policy hub is simply a file server, a machine from which others can download policy files. This allows having a single point of distribution, so that changes made there can be distributed to a large number of clients. In CFEngine Enterprise, the hub has a more complex role, acting also as an aggregator of data from the clients, for the purposes of reporting and analysis.</p>
-
-<p>All CFEngine clients will copy to their local <code>/var/cfengine/inputs/</code> directory the contents of <code>/var/cfengine/masterfiles/</code> in the policy hub, so that is where you should make any changes that you want distributed to all the machines.</p>
-
-<h2>Bootstrapping</h2>
-
-<p>When a new client is installed, it needs to be told which machine is the policy hub to which it should connect. This is done using the following command:</p>
-
-<div class="CodeRay">
-  <div class="code"><pre># cf-agent --bootstrap --policy-server=10.0.2.15</pre></div>
-</div>
-
-
-<p>You should, of course, replace 10.0.2.15 with the actual IP address of the hub to which you want to bootstrap. The first machine you install will be the policy hub itself, and it should bootstrap to itself. In this case, you have to use its own external IP address, and not “localhost” or 127.0.0.1.</p>
-
-<p>When you issue this command on the policy hub, you will see a message like this, that indicates the host recognizes itself as a policy hub:</p>
-
-<div class="CodeRay">
-  <div class="code"><pre># cf-agent --bootstrap --policy-server=10.0.2.15
-** CFEngine BOOTSTRAP probe initiated
-
-   @@@     
-   @@@      CFEngine
-
- @ @@@ @    CFEngine Core 3.3.5
- @ @@@ @   
- @ @@@ @   
- @     @   
-   @@@     
-   @ @     
-   @ @     
-   @ @     
-
-Copyright (C) CFEngine AS 2008-2012
-See Licensing at http://cfengine.com/3rdpartylicenses
-
- -&gt; This host is: precise32
- -&gt; Operating System Type is linux
- -&gt; Operating System Release is 3.2.0-23-generic-pae
- -&gt; Architecture = i686
- -&gt; Internal soft-class is linux
- -&gt; No previous policy has been cached on this host
- -&gt; Assuming the policy distribution point at: 10.0.2.15:/var/cfengine/masterfiles
- -&gt; Attempting to initiate promised autonomous services...
-
- ** This host recognizes itself as a CFEngine Policy Hub, with policy distribution and knowledge base.
- -&gt; The system is now converging. Full initialisation and self-analysis could take up to 30 minutes
-
-R: This host assumes the role of policy distribution host
-R:  -&gt; Updated local policy from policy server
-R:  -&gt; Started the server
-R:  -&gt; Started the scheduler
--&gt; Bootstrap to 10.0.2.15 completed successfully</pre></div>
-</div>
-
-
-<p>If you issue it on a client, you will see a similar message, but indicating that it is bootstrapping from a different machine.</p>
-
-<p>Regardless of what you use, after bootstrap you should see <code>/var/cfengine/inputs/</code> populated with the default set of policy files, and both <code>cf-execd</code> and <code>cf-serverd</code>  should be running:</p>
-
-<div class="CodeRay">
-  <div class="code"><pre># ps axw | grep [c]f-
-16099 ?        Ss     0:00 /var/cfengine/bin/cf-execd
-16102 ?        Ss     0:00 /var/cfengine/bin/cf-serverd</pre></div>
-</div>
-
-
-<p>Once this has been done, CFEngine will start running every 5 minutes, updating its policy files from the hub, and executing them afterwards.</p>
 
     </div>
     
