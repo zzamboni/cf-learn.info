@@ -49,5 +49,23 @@
  Initial System Configuration After a system is installed, a number of routine tasks needs to be performed before declaring it ready for use.</description>
     </item>
     
+    <item>
+      <title>Chapter 5: The CFEngine Design Center</title>
+      <link>http://cf-learn.info/book/chapter05/</link>
+      <pubDate>Mon, 02 Apr 2018 18:56:06 +0200</pubDate>
+      
+      <guid>http://cf-learn.info/book/chapter05/</guid>
+      <description>Table of Contents The CFEngine Design Center Getting Started with the Design Center Contributing to the Design Center Learning More About the Design Center     The CFEngine Design Center The CFEngine Design Center is a repository of pre-made, ready-to-use components called sketches that allow entirely data-driven system management. You can install, configure, and deploy sketches across your infrastructure without modifying or even looking at the code used to implement them.</description>
+    </item>
+    
+    <item>
+      <title>Chapter 6: CFEngine Tips, Tricks, and Patterns</title>
+      <link>http://cf-learn.info/book/chapter06/</link>
+      <pubDate>Mon, 02 Apr 2018 18:56:06 +0200</pubDate>
+      
+      <guid>http://cf-learn.info/book/chapter06/</guid>
+      <description>Table of Contents CFEngine Tips, Tricks, and Patterns Hierarchical Copying Passing Name-Value Pairs to Bundles Setting Default Values for Bundle Parameters Using Classes as Configuration Mechanisms Generic Tasks Using Lists and Array Indices Defining Classes for Groups of Hosts Controlling Promise Execution Order Dynamic Loading and Execution     CFEngine Tips, Tricks, and Patterns In previous chapters we have seen a number of CFEngine policies to achieve different specific tasks, with the intention of introducing you to a number of basic CFEngine concepts.</description>
+    </item>
+    
   </channel>
 </rss>
