@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>CFEngine tip #003: The distinction between bodies and bundles &middot; Diego Zamboni</title>
+
+  
+  <link rel="stylesheet" href="http://cf-learn.info/css/poole.css">
+  <link rel="stylesheet" href="http://cf-learn.info/css/hyde.css">
+  <link rel="stylesheet" href="http://cf-learn.info/css/poole-overrides.css">
+  <link rel="stylesheet" href="http://cf-learn.info/css/hyde-overrides.css">
+  <link rel="stylesheet" href="http://cf-learn.info/css/hyde-x.css">
+  <link rel="stylesheet" type="text/css" href="http://cf-learn.info/css/socialicious.css" media="screen" />
+  
+  <link href='http://fonts.googleapis.com/css?family=Quattrocento|Quattrocento+Sans' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="http://cf-learn.info/css/tachyons.min.css"/>
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://cf-learn.info/apple-touch-icon-144-precomposed.png">
+  <link href="http://cf-learn.info/favicon.png" rel="icon">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="Learning CFEngine 3 &middot; Diego Zamboni" />
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  
+</head>
+<body class="lh-copy">
+<div class="sidebar">
+  <div class="container">
+    <div class="sidebar-about">
+      
+      <h1>Learning CFEngine 3</h1>
+      
+    </div>
+
+    <ul class="sidebar-nav">
+      
+        <li class="sidebar-nav-item"><a  href="http://cf-learn.info/home/">Home</a></li>
+      
+        <li class="sidebar-nav-item"><a  href="http://cf-learn.info/the-author/">The Author</a></li>
+      
+        <li class="sidebar-nav-item"><a  href="http://cf-learn.info/post/">The Blog</a></li>
+      
+        <li class="sidebar-nav-item"><a  href="http://cf-learn.info/book/">The Book</a></li>
+      
+        <li class="sidebar-nav-item"><a  href="http://cf-learn.info/the-code/">The Code</a></li>
+      
+        <li class="sidebar-nav-item"><a  href="http://cf-learn.info/the-raves/">The Raves</a></li>
+      
+        <li class="sidebar-nav-item"><a  href="http://cf-learn.info/contact/">Contact</a></li>
+      
+    </ul>
+
+    <ul class="sidebar-nav">
+      
+      
+      <a href="http://twitter.com/LearningCF3"><li class="icon-twitter"></li></a>&nbsp;
+      
+      
+    </ul>
+
+    <div class="sidebar-sticky"><p>&copy; 2018 Diego Zamboni<br/>
+        Powered by <a href="http://gohugo.io">Hugo</a></p></div>
+  </div>
+</div>
+
+
+<div class="content container">
+  <div class="post">
+    <h1>CFEngine tip #003: The distinction between bodies and bundles</h1>
+    <span class="post-date">Jun 4, 2012 &middot; 2 minute read &middot; <a href="http://cf-learn.info/post/cfengine-tip-003-the-distinction-between-bodi/#disqus_thread">Comments</a>
+    
+    <br/>
+    
+    <a class="label" href="http://cf-learn.info/categories/bodies">bodies</a><a class="label" href="http://cf-learn.info/categories/bundles">bundles</a><a class="label" href="http://cf-learn.info/categories/cfengine">cfengine</a><a class="label" href="http://cf-learn.info/categories/cfengine_tip">cfengine_tip</a><a class="label" href="http://cf-learn.info/categories/tips">tips</a>
+    </span>
+    <p>This is an extract from Chapter 3 of "Learning CFEngine 3", where you can also find a much more comprehensive description of bodies and bundles in the CFEngine 3 policy language.</p>
+<p>The distinction between bundles and bodies can be confusing at first. Remembering these points may help:</p>
+<ul>
+<li>
+<p>Bodies are named groups of attributes, whereas bundles are collections of promises. Promises are the units that actually do something in CFEngine (for example, run a command or add a line to a file), whereas attributes specify characteristics of how things are done (for example, whether to run the command in a shell, or where in the file to add the line).</p>
+</li>
+<li>
+<p>The value of an attribute can be a basic data type (string, integer, list, etc.), it can be the name of a body, or it can be the name of a bundle.</p>
+</li>
+<li>
+<p>The type of an attribute’s value is fixed, and determined by the attribute itself (for example, the value of the depth_search attribute in a files: promise is always a body, and the value of an edit_line attribute is always a bundle).</p>
+</li>
+<li>
+<p>For bodies and bundles, their type is always the name of the attribute to which they correspond. For example, bodies to be used with the depth_search attribute are always declared as “body depth_search xyz”, where xyz is an arbitrary name of your choosing. The same goes for bundles: bundles to be used with the edit_line attribute are always declared as “bundle edit_line xyz".</p>
+<p>There are only four types of “top level” bundles that are not used as arguments to attributes: agent, server, knowledge and monitor.</p>
+</li>
+<li>
+<p>The promise types (sections) that can appear in a bundle are determined by the bundle type. For example, commands: promises can only appear in bundles of type agent. </p>
+</li>
+</ul>
+
+  </div>
+  <div id="disqus_thread"></div>
+</div>
+
+
+<script type="text/javascript">
+var disqus_shortname = "cf-learn";
+(function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+}());
+</script>
+
+
+
+<script type="text/javascript">
+    var disqus_shortname = "cf-learn";
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+</body>
+</html>
+

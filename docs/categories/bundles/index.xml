@@ -13,10 +13,10 @@
     
     <item>
       <title>CFEngine tip #003: The distinction between bodies and bundles</title>
-      <link>http://cf-learn.info/post/cfengine-tip-#003-the-distinction-between-bodies-and-bundles/</link>
+      <link>http://cf-learn.info/post/cfengine-tip-003-the-distinction-between-bodi/</link>
       <pubDate>Mon, 04 Jun 2012 00:00:00 +0000</pubDate>
       
-      <guid>http://cf-learn.info/post/cfengine-tip-#003-the-distinction-between-bodies-and-bundles/</guid>
+      <guid>http://cf-learn.info/post/cfengine-tip-003-the-distinction-between-bodi/</guid>
       <description>This is an extract from Chapter 3 of &#34;Learning CFEngine 3&#34;, where you can also find a much more comprehensive description of bodies and bundles in the CFEngine 3 policy language.
 The distinction between bundles and bodies can be confusing at first. Remembering these points may help:
   Bodies are named groups of attributes, whereas bundles are collections of promises. Promises are the units that actually do something in CFEngine (for example, run a command or add a line to a file), whereas attributes specify characteristics of how things are done (for example, whether to run the command in a shell, or where in the file to add the line).</description>

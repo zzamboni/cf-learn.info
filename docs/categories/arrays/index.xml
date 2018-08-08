@@ -13,10 +13,10 @@
     
     <item>
       <title>CFEngine tip #002: How to pass arguments to bundles using arrays</title>
-      <link>http://cf-learn.info/post/cfengine-tip-#002-how-to-pass-arguments-to-bundles-using-arrays/</link>
+      <link>http://cf-learn.info/post/cfengine-tip-002-how-to-pass-arguments-to-bun/</link>
       <pubDate>Mon, 07 May 2012 00:00:00 +0000</pubDate>
       
-      <guid>http://cf-learn.info/post/cfengine-tip-#002-how-to-pass-arguments-to-bundles-using-arrays/</guid>
+      <guid>http://cf-learn.info/post/cfengine-tip-002-how-to-pass-arguments-to-bun/</guid>
       <description>(This tip is based on a section from Chapter 5 of Learning CFEngine 3.)
 Many system configuration tasks require groups of name-value pairs as arguments. For example:
  Editing configuration files in which parameters and their values need to be stored (ssh configuration files, Windows-style INI files, etc.) Setting user parameters. In this case, sets of name-value pairs (home directory, full name, shell, etc.) are associated with a single user, identified by name.</description>

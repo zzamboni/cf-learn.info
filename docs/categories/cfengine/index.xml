@@ -13,10 +13,10 @@
     
     <item>
       <title>CFEngine tip #003: The distinction between bodies and bundles</title>
-      <link>http://cf-learn.info/post/cfengine-tip-#003-the-distinction-between-bodies-and-bundles/</link>
+      <link>http://cf-learn.info/post/cfengine-tip-003-the-distinction-between-bodi/</link>
       <pubDate>Mon, 04 Jun 2012 00:00:00 +0000</pubDate>
       
-      <guid>http://cf-learn.info/post/cfengine-tip-#003-the-distinction-between-bodies-and-bundles/</guid>
+      <guid>http://cf-learn.info/post/cfengine-tip-003-the-distinction-between-bodi/</guid>
       <description>This is an extract from Chapter 3 of &#34;Learning CFEngine 3&#34;, where you can also find a much more comprehensive description of bodies and bundles in the CFEngine 3 policy language.
 The distinction between bundles and bodies can be confusing at first. Remembering these points may help:
   Bodies are named groups of attributes, whereas bundles are collections of promises. Promises are the units that actually do something in CFEngine (for example, run a command or add a line to a file), whereas attributes specify characteristics of how things are done (for example, whether to run the command in a shell, or where in the file to add the line).</description>
@@ -24,10 +24,10 @@ The distinction between bundles and bodies can be confusing at first. Rememberin
     
     <item>
       <title>CFEngine tip #002: How to pass arguments to bundles using arrays</title>
-      <link>http://cf-learn.info/post/cfengine-tip-#002-how-to-pass-arguments-to-bundles-using-arrays/</link>
+      <link>http://cf-learn.info/post/cfengine-tip-002-how-to-pass-arguments-to-bun/</link>
       <pubDate>Mon, 07 May 2012 00:00:00 +0000</pubDate>
       
-      <guid>http://cf-learn.info/post/cfengine-tip-#002-how-to-pass-arguments-to-bundles-using-arrays/</guid>
+      <guid>http://cf-learn.info/post/cfengine-tip-002-how-to-pass-arguments-to-bun/</guid>
       <description>(This tip is based on a section from Chapter 5 of Learning CFEngine 3.)
 Many system configuration tasks require groups of name-value pairs as arguments. For example:
  Editing configuration files in which parameters and their values need to be stored (ssh configuration files, Windows-style INI files, etc.) Setting user parameters. In this case, sets of name-value pairs (home directory, full name, shell, etc.) are associated with a single user, identified by name.</description>
@@ -44,10 +44,10 @@ Many system configuration tasks require groups of name-value pairs as arguments.
     
     <item>
       <title>CFEngine tip #001: Modularize complex policies using methods: calls</title>
-      <link>http://cf-learn.info/post/cfengine-tip-#001-modularize-complex-policies-using-methods-calls/</link>
+      <link>http://cf-learn.info/post/cfengine-tip-001-modularize-complex-policies/</link>
       <pubDate>Mon, 23 Apr 2012 00:00:00 +0000</pubDate>
       
-      <guid>http://cf-learn.info/post/cfengine-tip-#001-modularize-complex-policies-using-methods-calls/</guid>
+      <guid>http://cf-learn.info/post/cfengine-tip-001-modularize-complex-policies/</guid>
       <description>Welcome to the new &#34;CFEngine tip&#34; series. In this series of posts I will explore different tips, tricks and techniques for making better use of CFEngine. For now I will post weekly, but the frequency may change as time goes by. If you have any suggestions for topics that I should cover in this series, please let me know! 
 For our first installment, we will talk about methods: promises, and how they can be used to make policies both clearer and more extensible.</description>
     </item>
@@ -64,10 +64,10 @@ To help in this respect, I have created a cross-referenced index of all the sect
     
     <item>
       <title>Code examples for &#34;Learning CFEngine 3&#34; now available</title>
-      <link>http://cf-learn.info/post/code-examples-for-learning-cfengine-3-now-available/</link>
+      <link>http://cf-learn.info/post/code-examples-for-learning-cfengine-3-now-ava/</link>
       <pubDate>Sun, 08 Jan 2012 00:00:00 +0000</pubDate>
       
-      <guid>http://cf-learn.info/post/code-examples-for-learning-cfengine-3-now-available/</guid>
+      <guid>http://cf-learn.info/post/code-examples-for-learning-cfengine-3-now-ava/</guid>
       <description>I&#39;m happy to announce that the code examples from Learning CFEngine 3 are now available for browsing and download at http://cf-learn.info/code.html. You can view or download individual files, and also the whole collection. You can also get them from the GitHub repository. 
 These examples are extracted automatically from the source files for the book, and as such reflect exactly the current state of what you will find in it. This also means, of course, that as the book evolves you will see changes in the files.</description>
     </item>
@@ -84,10 +84,10 @@ These examples are extracted automatically from the source files for the book, a
     
     <item>
       <title>cf-cmd: A command-line tool for running CFEngine snippets</title>
-      <link>http://cf-learn.info/post/cf-cmd-a-command-line-tool-for-running-cfengine-snippets/</link>
+      <link>http://cf-learn.info/post/cf-cmd-a-command-line-tool-for-running-cfengi/</link>
       <pubDate>Tue, 27 Dec 2011 00:00:00 +0000</pubDate>
       
-      <guid>http://cf-learn.info/post/cf-cmd-a-command-line-tool-for-running-cfengine-snippets/</guid>
+      <guid>http://cf-learn.info/post/cf-cmd-a-command-line-tool-for-running-cfengi/</guid>
       <description>While writing this book, I&#39;ve had to run hundreds of little CFEngine snippets to run tests, develop examples, verify functionality, or get a solid idea of what some constructs did. After building the typical &#34;test bundle&#34; scaffolding in an editor for the hundredth time, I decided to do something about it. The result is the cf-cmd command. I will let it speak for itself: 
    $ cf-cmd help cf-cmd v1.</description>
     </item>

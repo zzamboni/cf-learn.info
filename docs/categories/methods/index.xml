@@ -13,10 +13,10 @@
     
     <item>
       <title>CFEngine tip #001: Modularize complex policies using methods: calls</title>
-      <link>http://cf-learn.info/post/cfengine-tip-#001-modularize-complex-policies-using-methods-calls/</link>
+      <link>http://cf-learn.info/post/cfengine-tip-001-modularize-complex-policies/</link>
       <pubDate>Mon, 23 Apr 2012 00:00:00 +0000</pubDate>
       
-      <guid>http://cf-learn.info/post/cfengine-tip-#001-modularize-complex-policies-using-methods-calls/</guid>
+      <guid>http://cf-learn.info/post/cfengine-tip-001-modularize-complex-policies/</guid>
       <description>Welcome to the new &#34;CFEngine tip&#34; series. In this series of posts I will explore different tips, tricks and techniques for making better use of CFEngine. For now I will post weekly, but the frequency may change as time goes by. If you have any suggestions for topics that I should cover in this series, please let me know! 
 For our first installment, we will talk about methods: promises, and how they can be used to make policies both clearer and more extensible.</description>
     </item>
