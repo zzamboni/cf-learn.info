@@ -1,0 +1,649 @@
+---
+title: "Chapter 2: Getting Started with CFEngine"
+date: 2017-10-09T07:30:06+02:00
+menu: book
+weight: 2
+---
+:toc: auto
+:source-highlighter: pygments
+:experimental:
+
+The first step toward using CFEngine is getting it installed on at least one machine so that you can start playing with it. CFEngine has fairly simple requirements, so you should be able to build it yourself easily. In this chapter we will go through the process of installing CFEngine on your machine, setting it up, and writing and running your first policy. Don’t worry if you do not understand at first glance what all the different pieces mean—the idea of this chapter is to get you going. We will step back in the next chapter to examine all the different CFEngine components.
+
+I ((("policy hub")))((("hub", see="policy hub")))((("server", see="policy hub")))((("configuration of hubs and clients")))((("architecture of hubs and clients")))((("CFEngine", "configuration of hubs and clients")))will mention one concept that you need to understand before we start. Your first CFEngine host will act as the __policy hub__, which is a server from where other CFEngine clients fetch their policy files. If you are just going to start playing with CFEngine, most likely you will be using it on a single host at the beginning, so the hub and the client can be on the same machine. As you grow your CFEngine installation, other machines will connect to the hub as well. Most CFEngine installations use a “star” configuration, with a single hub serving multiple machines. However, this is not a requirement—CFEngine allows you to connect its components in any architecture you desirefootnote:[With CFEngine Community there is no difference at all in the software installed on a hub and on a client, just in their configuration. It is easy to convert a client into a hub (and vice versa) by bootstrapping it again with the correct options, as described in <<bootstrapping-cfengine>>.].
+
+[[I_sect12_d1e648]]
+== Installing CFEngine
+
+Remember ((("CFEngine", "installation of", id="ch2-install", range="startofrange")))((("installation of CFEngine", id="ch2-install2", range="startofrange")))that CFEngine exists in two versions: community edition and commercial edition. Therefore, I will describe three options for installing CFEngine:
+
+
+* Community edition (free), installed from source code
+
+
+* Community edition (free), installed from a binary package
+
+
+* Commercial edition, installed from a binary package
+
+
+=== Which Version of CFEngine?
+
+I ((("CFEngine", "version numbers of")))strongly suggest you to install the latest released version of CFEngine. Some operating systems include in their repositories older versions of CFEngine, but each new release includes new features, bug fixes and other improvements which make it worth staying up to date. In particular, please avoid versions older than CFEngine 3.3.0 to avoid any incompatibilities with the examples shown in the book. Throughout this book I assume version 3.5.2, but will point out differences to previous versions when appropriate.
+
+[[installing-the-community-edition-from-source]]
+=== Installing the Community Edition from Source
+
+You((("installation of CFEngine", "Community Edition", "from source", id="ch2-src", range="startofrange")))((("Community Edition", "installing from source", id="ch2-src2", range="startofrange"))) can download the CFEngine((("online resources", "Community Edition source code"))) source code in a compressed tar file from link:https://cfengine.com/source-code[] (as of this writing, the latest released version is 3.5.2). If you are feeling adventurous, you can also fetch the very latest code from the CFEngine git repository by issuing the following command:
+
+[source,console]
+----
+$ git clone git://github.com/cfengine/core.git
+----
+
+CFEngine((("packages required by CFEngine")))((("CFEngine", "packages required by"))) requires the following packages (with their development-related content, such as header files):
+
+
+* link:http://openssl.org/[OpenSSL] (installed((("OpenSSL package"))) by default in most Linux and Unix systems)
+
+
+* One((("Tokyo Cabinet package")))((("QDBM package"))) of: link:http://fallabs.com/qdbm/[QDBM] or link:http://fallabs.com/tokyocabinet/[Tokyo Cabinet]
+
+
+* PCRE, the((("Perl-compatible Regular Expressions (PCRE) Library")))((("PCRE (Perl-compatible Regular Expressions) Library"))) Perl-Compatible Regular Expressions Library (link:http://www.pcre.org/[])
+
+In ((("libraries supported by CFEngine")))((("CFEngine", "libraries supported by")))addition, the following libraries are supported for enabling optional features. If they are installed, the CFEngine ++configure++ script will automatically enable the corresponding features.
+
+
+* link:http://xmlsoft.org[libxml2] for((("XML files", "libxml2 library for")))((("libxml2 library"))) the ability to edit XML files.
+
+
+* link:http://savannah.nongnu.org/projects/acl/[libacl] for((("ACLs", "libacl library for")))((("POSIX ACLs", seealso="ACLs")))((("libacl library"))) the ability to manipulate POSIX ACLs.
+
+
+* link:http://libvirt.org[libvirt] for((("virtual machines", "libvirt library for")))((("libvirt library"))) the ability to manage virtual machines.
+
+
+* link:http://mysql.com[MySQL client library] for((("MySQL", "client library support for"))) the ability to manage MySQL databases.
+
+
+* link:http://postgresql.org[PostgreSQL client library] for((("PostgreSQL client library"))) the ability to manage PostgreSQL databases.
+
+[[compiling-on-linux]]
+==== Compiling on Linux
+
+Compiling((("Linux", "compiling Community Edition source", id="ch2-linux", range="startofrange"))) CFEngine on Linux is very easy, as all of the requirements are either included or very easy to install on most major distributions. Depending on your distribution, you may need to explicitly install the development version of each package (for example, in Red Hat Linux you need to install both ++openssl++ and ++openssl-devel++).
+
+Once((("configure script"))) the required packages are installed, compiling and installing CFEngine is as easy as running the following commands in the CFEngine source directory:
+
+
+[source,console]
+----
+$ ./configure
+$ make
+$ sudo make install
+----
+
+
+[TIP]
+====
+If you checked out the source code from the git repository, use the following sequence (++autogen.sh++ understands the same options as ++configure++, in case you want to provide any):
+
+
+[source,console]
+----
+$ ./autogen.sh
+$ make
+$ sudo make install
+----
+
+====
+
+This((("/var/cfengine/ directory"))) will compile CFEngine and install all its binaries and support files under __/var/cfengine/__. The((("/var/cfengine/bin/ directory"))) binaries will all be located in __/var/cfengine/bin/__, so ((("PATH environment variable")))you should add this directory to your ++PATH++ environment variable to be able to invoke the binaries conveniently.
+
+
+[TIP]
+====
+The configure script prints, near the end of its execution, a summary of all the CFEngine features that have been enabled, according to the optional libraries that were found. You can use this to verify that all the features you want are there, before compiling. For example, you can see here that XML support is disabled, which is most likely an indication that the libxml2 library is not installed:
+
+[source,null]
+----
+Summary of options...
+> Required libraries
+-> OpenSSL: default path
+-> PCRE: default path
+-> DB: Tokyo Cabinet: default path
+> Optional libraries
+-> MySQL connector: default path
+-> PostgreSQL connector: default path
+-> libvirt: default path
+-> libacl: default path
+-> libxml2: disabled
+-> Workdir: /var/cfengine
+----
+
+====
+
+The((("QDBM package")))((("Tokyo Cabinet package")))((("configure script"))) configure script by default tries to use Tokyo Cabinet as the DB engine. To use Qdbm, you have to specify it as an option:
+
+
+[source,console]
+----
+$ ./configure --with-qdbm
+----
+
+You can run ++./configure --help++ to get a list of all the valid (((range="endofrange", startref="ch2-linux")))options.
+
+[[compiling-on-macosx]]
+==== Compiling on Mac OS X
+
+Mac OS X ((("Mac OS X", "compiling Community Edition source", id="ch2-osx", range="startofrange")))((("OS X", see="Mac OS X")))is Unix under the hood, so in principle compiling CFEngine is no different from Linux or other versions of Unix. The main difficulty in installing under OS X is that there is no standard package-management system like in many other versions of Unix, so there are several possible ways of handling the installation of both CFEngine and its prerequisites. The((("Homebrew package manager")))((("MacPorts package manager")))((("Fink package manager"))) most common package managers for OS X are link:http://www.finkproject.org/[Fink], link:http://www.macports.org/[MacPorts], and link:http://mxcl.github.com/homebrew/[Homebrew], and of course you can also compile everything yourself.
+
+As of this writing, Homebrew is the only repository that has the latest version of CFEngine (3.5.2). MacPorts has a slightly older version (3.4.2), and Fink has only CFEngine 2. All the optional libraries can also be compiled on OS X, and many are available in the package manager repositories.
+
+Once you have the prerequisites installed, you can either use your package manager of choice to install CFEngine (if it is available), or compile it from source using the method described in <<compiling-on-linux>>.
+
+If you use any of the package managers, please make sure you search for CFEngine in the latest version of the repository, in case it has been added since the time of this (((range="endofrange", startref="ch2-osx")))writing.
+
+[[compiling-on-windows-with-cygwin]]
+==== Compiling on Windows with cygwin
+
+If ((("cygwin utilities", id="ch2-cyg", range="startofrange")))((("Windows", "compiling Community Edition source", id="ch2-cyg2", range="startofrange")))you use link:http://cygwin.com/[cygwin] under Windows, it is also very easy to compile CFEngine. Using((("CFEngine", "packages required by")))((("packages required by CFEngine"))) the cygwin ++setup.exe++ utility, install the following packages as prerequisites (whenever ++setup.exe++ asks if you want to install other packages as dependencies, answer "yes"):
+
+
+* make
+
+
+* gcc
+
+
+* openssl-devel
+
+
+* libpcre-devel
+
+
+* libxml2-devel
+
+
+* libmysqlclient-devel
+
+
+* libpq-devel
+
+
+[WARNING]
+====
+Keep in mind that CFEngine Community is unsupported under Windows, so compilation under cygwin is not regularly tested by the development team. Depending on the particular version you try to compile, these instructions may not work due to changes in the CFEngine code.
+====
+
+You((("QDBM package"))) also need to install the link:http://fallabs.com/qdbm/[QDBM] database manager, but as of this writing, there is no cygwin package for it, so you need to compile it from source. First, you((("online resources", "QDBM source"))) need to download the source package from link:http://fallabs.com/qdbm/[]. The latest version is __qdbm-1.8.78.tar.gz__. Once you have downloaded it, you need to open a Cygwin terminal window, compile and install it as follows:
+
+
+[source,console]
+----
+$ tar zxvf qdbm-1.8.78.tar.gz
+$ cd qdbm-1.8.78
+$ ./configure
+$ make
+$ make install
+----
+
+This will leave QDBM installed under __/usr/local/__. Once this is done, the steps for compiling CFEngine are similar as under Unix, but you need to specify the use of QDBM, and you don’t need to use the ++sudo++ command to install it:
+
+
+[source,console]
+----
+$ tar zxvf cfengine-3.5.2.tar.gz
+$ cd cfengine-3.5.2
+$ ./configure --with-qdbm=/usr/local
+$ make
+$ make install
+----
+
+Remember that there is some functionality missing in the community edition under Windows (for ((("Windows", "userexists() function, problems with")))((("userexists() function")))example, the link:http://cf-learn.info/ref/userexists[++userexists()++] function does not return correct results). If you want full Windows support (including native features like registry editing, etc.) you have to use the commercial edition of CFEngine. But for all the examples in this book, the Community edition works just(((range="endofrange", startref="ch2-cyg2")))(((range="endofrange", startref="ch2-cyg")))(((range="endofrange", startref="ch2-src2")))(((range="endofrange", startref="ch2-src"))) fine.
+
+[[installing-the-community-edition-from-binary-packages]]
+=== Installing the Community Edition from Binary Packages
+
+CFEngine AS, ((("CFEngine AS company")))((("installation of CFEngine", "Community Edition", "from binary", id="ch2-combin2", range="startofrange")))((("Community Edition", "installing from binary", id="ch2-combin", range="startofrange")))((("Linux", "installing Community Edition binary", id="ch2-combin3", range="startofrange")))the company that provides commercial services and support for CFEngine, also makes available free binary packages of the Community Edition for several popular Linux distributions. For Debian- and RedHat-based distributions, __cfengine.com__ hosts package repositories that make it really easy to install the latest version of CFEngine, simply by configuring the appropriate repository on your system. You can find the detailed instructions for different distributions and packaging mechanisms at link:https://cfengine.com/cfengine-linux-distros[]. For example, for Debian-based systems (including both Debian and Ubuntu), you can install the repository with the following commands:
+
+[source,console]
+----
+# wget http://cfengine.com/pub/gpg.key -O - | apt-key add -
+# echo "deb http://cfengine.com/pub/apt $(lsb_release -cs) main" > /etc/apt/sources.list.d/cfengine-community.list
+# apt-get update
+----
+
+Once this is done, you can install CFEngine with a single command:
+
+[source,console]
+----
+# apt-get install cfengine-community
+----
+
+Alternatively, you can download the individual package files for different Linux distributions from link:https://cfengine.com/inside/myspace[]. Once you download the appropriate package, install it using the corresponding tool for your operating system (for example, ++rpm++ or ++dpkg++).
+
+As easy as it is to compile CFEngine from source, these packages are useful to speed up deployment on multiple machines, or to install it on systems in which you cannot install the development tools and libraries needed to compile it.
+
+
+[WARNING]
+====
+Many((("Linux", "CFEngine versions as default packages")))((("CFEngine", "version numbers of"))) Linux distributions contain CFEngine in their default package repositories. However, in many cases the packages are for very old versions of CFEngine (for example, the Ubuntu 12.04 repository currently includes CFEngine 3.1.5, which is more than two years old as of this writing). Please make sure you install a recent version of CFEngine (preferably the latest) to have access to all the features we will discuss. Furthermore, some distributions’ CFEngine packages install CFEngine outside its standard structure under __/var/cfengine__. If you decide to use your distribution’s package, you should double check where things are installed, and modify the examples from this book (((range="endofrange", startref="ch2-combin3")))(((range="endofrange", startref="ch2-combin2")))(((range="endofrange", startref="ch2-combin")))accordingly.
+
+====
+
+[[installing-the-commercial-version]]
+=== Installing the Commercial Edition
+
+If ((("Commercial/Enterprise Edition", "installing from binary", id="ch2-entbin", range="startofrange")))((("installation of CFEngine", "Commercial Edition, from binary", id="ch2-entbin2", range="startofrange")))you have purchased the commercial edition of CFEngine, you will get access to the binary packages of CFEngine Enterprise for all the supported operating systems, including a native Windows installer. You((("registering policy hub")))((("license key, for policy hub")))((("policy hub", "license key for"))) will also need to register your CFEngine policy server to get a license key for it, so that it can operate with all the full features of the commercial edition.
+
+
+[TIP]
+====
+Since((("Commercial/Enterprise Edition", "free version of"))) CFEngine 3 Enterprise verson 2.2 (the latest is Enterprise 3.5.2), you can use it for free for up to 25 nodes. This is an excellent opportunity to learn and explore the commercial features of CFEngine before committing to purchasing it. You can download this version from link:https://cfengine.com/enterprise-download[]
+
+====
+
+The policy language in the commercial edition of CFEngine is a strict superset of the Community Edition, so you can start by practicing with the Community Edition, and move to the commercial edition as you gain more experience and need more advanced features, knowing that your existing policies will work just as before.
+
+The ((("cfengine-nova-hub package")))((("cfengine-nova package")))((("policy hub", "package file for Commercial Edition")))current commercial version of CFEngine (Enterprise 3.5.2) comes in two package files, called ++cfengine-nova++ and ++cfengine-nova-hub++. The first one should be installed on CFEngine client machines, and the second one on the __policy hub__, the central host from where clients will fetch their policies, and where the CFEngine graphical console available with Enterprise is installed. The hub software must be installed on a 64-bit machine, so the hub packages are only available in 64-bit versions.
+
+
+[NOTE]
+====
+CFEngine Enterprise was formerly called “CFEngine Nova”, which is why you will find many references to this name, including the package filenames.
+
+====
+
+For example, in a 64-bit Ubuntu machine that will be the policy server, you can install CFEngine Enterprise using the following commands:
+
+
+[source,console]
+----
+# dpkg --install cfengine-nova-hub_3.5.2-1_amd64.deb
+----
+
+If ((("license key, for policy hub")))((("policy hub", "license key for")))you have a commercial license (this is, you are not using the Free-25 version), you((("license.dat file"))) need to install the license key __license.dat__ that you got from CFEngine((("/var/cfengine/masterfiles/ directory"))) by storing it in __/var/cfengine/masterfiles/__ in the policy server.
+
+After this, you can continue with the bootstrap process as described(((range="endofrange", startref="ch2-entbin2")))(((range="endofrange", startref="ch2-entbin")))(((range="endofrange", startref="ch2-install2")))(((range="endofrange", startref="ch2-install"))) next.
+
+[[bootstrapping-cfengine]]
+== Finishing the Installation and Bootstrapping
+
+After((("bootstrapping policy hub", id="ch2-boot", range="startofrange")))((("policy hub", "bootstrapping", id="ch2-boot2", range="startofrange"))) installing CFEngine, you need to bootstrap the system to a CFEngine policy server by following these steps:
+
+. Run((("cf-key command"))) the command ++/var/cfengine/bin/cf-key++. This will generate a private- and public-key pair for the current host.
++
+[source,console]
+----
+# /var/cfengine/bin/cf-key
+Making a key pair for cfengine, please wait, this could take a minute...
+----
++
+These((("/var/cfengine/ directory"))) keys are necessary when operating in a distributed CFEngine environment. This command also sets up under __/var/cfengine/__ the basic directory structure used by CFEngine. The((("/var/cfengine/ppkeys/ directory"))) generated keys will be stored in __/var/cfengine/ppkeys/__.
++
+If the keys already exist (CFEngine-provided binary packages run this command automatically during the installation) you will see the following message:
++
+[source,console]
+----
+# /var/cfengine/bin/cf-key
+A key file already exists at /var/cfengine/ppkeys/localhost.pub
+----
+
+. CFEngine((("/var/cfengine/bin/ directory"))) installs its binaries by default in __/var/cfengine/bin/__. Some ((("/usr/local/sbin/ directory")))binary packages may also copy them to __/usr/local/sbin/__ to have them in the same directory as other system utilities. You((("PATH environment variable"))) may want to add __/var/cfengine/bin__ to your path.
+
+
+. On((("/var/cfengine/masterfiles/ directory")))((("policy hub", "directories on"))) the policy hub, CFEngine expects to find its “master files” under __/var/cfengine/masterfiles/__. This((("/var/cfengine/inputs/ directory"))) is meant to be the master copy of its policy files, from where they will be copied to the work directory (__/var/cfengine/inputs/__ by default). If the __/var/cfengine/masterfiles/__ directory is empty or nonexistent (this will be the case if you installed from source), you need to populate it with the sample __masterfiles__ directory from the CFEngine((("/var/cfengine/share/CoreBase/ directory"))) distribution, which normally gets installed in __/var/cfengine/share/CoreBase/__:
++
+[source,console]
+----
+# ls /var/cfengine/masterfiles
+# cp -Rp /var/cfengine/share/CoreBase/* /var/cfengine/masterfiles/
+# ls -F /var/cfengine/masterfiles/
+cf-sketch-runfile.cf  controls/  def.cf     libraries/
+promises.cf           services/  update.cf
+----
++
+We will examine these files in detail later on.
+
+. Finally, CFEngine needs to be “bootstrapped.” This ((("/var/cfengine/inputs/ directory")))((("cf-execd process")))means copying the masterfiles to their final working location in __/var/cfengine/inputs/__ and starting the base link:http://cf-learn.info/ref/cf-execd[++cf-execd++] daemon. This((("cf-agent command"))) process controls the periodic execution of link:http://cf-learn.info/ref/cf-agent[++cf-agent++], which is the one that actually executes the promises in the provided policies (we will look in more detail at the different components in <<sec-cfengine-components>>).
++
+First, ((("ipconfig command")))((("ifconfig command")))find the IP address of your policy server, using the ++ifconfig++ command (++ipconfig++ under Windows). Let’s assume it is 10.0.2.15. Run((("cf-agent command", "--bootstrap option"))) the link:http://cf-learn.info/ref/cf-agent[++cf-agent++] command with the ++--bootstrap++ option, as shown here:
++
+[source,console]
+----
+# /var/cfengine/bin/cf-agent --bootstrap 10.0.2.15
+2013-07-03T06:12:34+0000   notice: Q: "...f-serverd"":
+2013-07-03T06:12:34+0000   notice: Server is starting...
+2013-07-03T06:12:34+0000   notice: R: This host assumes the role of
+                                   policy server
+2013-07-03T06:12:34+0000   notice: R: Updated local policy from
+                                   policy server
+2013-07-03T06:12:34+0000   notice: R: Started the server
+2013-07-03T06:12:34+0000   notice: R: Started the scheduler
+2013-07-03T06:12:35+0000   notice: Bootstrap to '10.0.2.15'
+                                   completed successfully!
+----
++
+[WARNING]
+====
+Prior to CFEngine 3.5.0 the bootstrapping options were different. This is the command you have to run for older versions:
+
+[source,console]
+----
+# /var/cfengine/bin/cf-agent --bootstrap \
+   --policy-server 10.0.2.15
+----
+====
++
+The((("cf-agent command", "--policy-server option"))) ++cf-agent++ command recognizes you are using the machine’s own IP address to bootstrap, and configures it as a policy server. You can verify the success of this command by looking at the process list. You should see at least the link:http://cf-learn.info/ref/cf-execd[++cf-execd++] process, and maybe some others that are started at different times by cf-execd:
++
+[source,console]
+----
+# ps ax | grep cf
+84284 ??         0:00.22 /var/cfengine/bin/cf-execd
+84287 ??         0:00.15 /var/cfengine/bin/cf-serverd
+----
++
+If you already have a policy hub running, you should provide its IP address to the ++--bootstrap++ option when you bootstrap CFEngine on other machines.
+
+[TIP]
+====
+If you are using the commercial edition, it is advisable to give the policy hub a few minutes after bootstrap to finish its initial setup. CFEngine itself will check and install all the necessary dependencies, configure and start the necessary processes for the web-based interface known as the CFEngine Mission Portal. Usually a wait of five minutes is (((range="endofrange", startref="ch2-boot2")))(((range="endofrange", startref="ch2-boot")))enough.
+====
+
+[[auxiliary-files]]
+== Auxiliary Files
+
+The((("/var/cfengine/share/doc/ directory")))((("documentation for CFEngine")))((("CFEngine", "documentation for")))((("CFEngine", "examples for")))((("examples", "included with CFEngine"))) CFEngine distribution includes not only the binaries, but also a large library of documentation and examples. The examples normally get installed in __/var/cfengine/share/doc/__ (in previous versions they were installed under __/usr/local/share/cfengine/__ or __/usr/local/share/doc/cfengine/__, and can be of big help for getting started. These directories include examples of CFEngine configurations for different tasks and demonstrate the use of different CFEngine constructs. The __examples__ directory contains a large number of mostly-self-contained files that demonstrate and exercise different CFEngine abilities.
+
+[[getting-started-with-cfengine---your-first-policy]]
+== Your First CFEngine Policy
+
+Now((("CFEngine", "policies in", see="policies")))((("policies", "creating", id="ch2-policy", range="startofrange"))) that you have CFEngine installed and running, let us start by writing a first simple policy. If ((("CFEngine", "installation of")))((("installation of CFEngine", "checking")))((("cf-agent command", "--version option")))you have finished the bootstrapping process described in <<bootstrapping-cfengine>>, you can be sure that CFEngine is properly installed. You can also check this by running the following command:
+
+
+[source,console]
+----
+# /var/cfengine/bin/cf-agent --version
+CFEngine Core 3.5.2
+----
+
+For our first policy, let us tackle a task that is simple to explain, yet can be useful in real systems. We((("/etc/motd file"))) will add a line to the __/etc/motd__ file to indicate that CFEngine is running on this machine. And to keep with the tradition, we will also print out a “Hello world!” message to the console when the policy is run.
+
+All ((("bundlesequence attribute")))((("policies", "bundlesequence attribute for")))((("bodies", "common control")))((("policies", "bodies in", see="bodies")))((("common control bodies")))((("control bodies", "common control")))CFEngine policies must have a “control body” that contains general configuration and execution information. The only mandatory element in this section is link:http://cf-learn.info/ref/bundlesequence[++bundlesequence++], which tells CFEngine which __bundles__ (containers of promises) to execute, and in which order. For our sample policy, we will have a single bundle executed:
+
+
+[source,cf3]
+----
+body common control
+{
+        bundlesequence => { "edit_motd" };
+}
+----
+
+
+[TIP]
+====
+You ((("cf-agent command", "--bundlesequence option")))may omit the link:http://cf-learn.info/ref/bundlesequence[++bundlesequence++] declaration if you specify it from the command line when executing ++cf-agent++, using the ++--bundlesequence++ command-line option.
+
+====
+
+This tells CFEngine that upon execution, this policy must run the bundle called ++edit_motd++. Here it is:
+
+
+[source,cf3]
+----
+bundle agent edit_motd # <1>
+{
+  vars:   # <2>
+      "motd" string => "/etc/motd";
+
+  files:   # <3>
+      "$(motd)"
+        create => "true",
+        edit_line => addmessage;
+
+  reports:   # <4>
+    cfengine::
+      "Hello world!";
+}
+----
+
+This is the part of the policy that tells CFEngine what to do. Here is how it works:
+
+
+<1> In((("policies","bundles in",see="bundles")))((("bundles","agent
+  type",id="ch2-agent",range="startofrange")))((("agent
+  bundles",id="ch2-agent2",range="startofrange"))) CFEngine, a bundle
+  of type `agent` (identified by its declaration `bundle agent`,
+  followed by an arbitrary identifier, in this case edit_motd) could
+  be considered the equivalent of a subroutine, and contains promises
+  that CFEngine evaluates and acts on, if needed. It is split into
+  sections that correspond to different types of promises, which are
+  the lines that start with a word and end with a single colon. In
+  this bundle, we have three sections:
+  http://cf-learn.info/ref/vars[`vars:`],
+  http://cf-learn.info/ref/files[`files:`], and
+  http://cf-learn.info/ref/reports[`reports:`].
+
+<2> The((("promises","vars: type")))((("vars: promises"))) http://cf-learn.info/ref/vars[`vars:`] section is used to declare variables. CFEngine has several variable types, including strings, lists, arrays, and numbers (both integers and floating-point numbers are supported). Here we are declaring a single string value named motd, which contains the path of the file we want to edit. If you are testing this on a system where you don't have `root` privilege, you should change this path to some file you can edit, for example __/tmp/motd__.
++
+In a CFEngine policy, everything is expressed as promises, even variable declarations. In this case, "motd" promises to be a string variable containing the value `"/etc/motd"`. We will reference this variable later in the policy. In CFEngine, scalar variable references are indicated by a dollar sign followed by the variable name enclosed in either parentheses or braces. Both `${motd}` and `$(motd)` refer to the same variable.
+
+<3> In((("promises","files: type")))((("files: promises"))) the
+http://cf-learn.info/ref/files[`files:`] section we indicate the
+file-related operations we want to perform. In this case, the
+promiser is `"$(motd)"` which expands the motd variable into its
+value, so the promiser becomes `"/etc/motd"`, telling CFEngine which
+file to edit.
++
+The((("edit_line attribute")))((("create
+attribute"))) rest of the promise, up until the semicolon, is called
+the _body_ of the promise, and is formed by `attribute => value`
+pairs, separated by commas. In this case we have two attribute
+specifications: `create => "true"` and `edit_line =>
+addmessage`. The former simply indicates that the file needs to be
+created if it doesn’t exist yet. The latter means that lines
+in _/etc/motd_ will be edited according to the specification given
+by a bundle named addmessage.
++
+Casting this into CFEngine terminology: All _promisers_ in the
+http://cf-learn.info/ref/files[`files:`] section are interpreted by
+CFEngine as files on the system, so the promise in our sample policy
+means that the _/etc/motd_ file _promises_ to be edited according to
+the instructions given by the body of the promise. The value of the
+http://cf-learn.info/ref/edit_line[`edit_line`] parameter is the
+name of an http://cf-learn.info/ref/edit_line[`edit_line`]
+__bundle__. This means that it’s not a single value, but rather the
+name of a separate bundle that specifies the behavior of the
+http://cf-learn.info/ref/edit_line[`edit_line`] attribute. Here is
+its definition:
++
+[source,cf3]
+----
+bundle edit_line addmessage {
+  insert_lines:
+    "This system is managed by CFEngine 3";
+}
+----
++
+This((("bundles","edit_line type")))((("edit_line bundles"))) is
+another bundle, which means it is also a container of promises, and
+is also divided in sections. The type of each bundle is given by the
+second word in its declaration (in this case, `edit_line`). You can
+see that the edit_motd bundle had
+http://cf-learn.info/ref/agent[`agent`] as its type, which means
+it’s an “execution” bundle that can be called directly (in this
+case, from the
+http://cf-learn.info/ref/bundlesequence[`bundlesequence`]
+declaration, although there are other means for executing agent
+bundles that we will cover later). Thus, the first line assigns the
+type http://cf-learn.info/ref/edit_line[`edit_line`] to the
+`addmessage` bundle, meaning that addmessage can be used only as the
+value of an http://cf-learn.info/ref/edit_line[`edit_line`]
+attribute.  Additionally, the type of a bundle defines what sections
+are valid in it, and how the promises in it are interpreted. An
+http://cf-learn.info/ref/edit_line[`edit_line`] bundle must contain
+promises that perform edits on a
+file. In((("promises","insert_lines: type")))((("insert_lines:
+promises"))) this case, it contains an
+http://cf-learn.info/ref/insert_lines[`insert_lines:`] section, so
+promises are interpreted as lines to be inserted in the file. The
+only promise in this bundle is a string that contains the message we
+want to insert in the file. This promise has no body (the string
+itself is the promiser, and no additional attributes are given),
+which means the line will always be inserted into the file, _unless
+it is there already_ (this is CFEngine’s way of ensuring convergent
+behavior: if it always inserted a line, the file would never
+converge to a stable state).
++
+In summary, what this means is that the given line will be inserted
+into _/etc/motd_ if it’s not there already.
+
+<4> Finally, ((("promises","reports: type")))((("reports:
+  promises")))the edit_motd bundle has a
+  http://cf-learn.info/ref/reports[`reports:`] section, which is meant
+  to produce output during the execution of the policy. Promises in a
+  http://cf-learn.info/ref/reports[`reports:`] section indicate
+  messages and how they will be handled. By default, the promised
+  message will be printed to the console. In our case, we will print
+  the message `Hello world!` to the console every single time the
+  policy is executed.
+  +
+  You ((("class expressions","cfengine::")))((("cfengine&#58;&#58;
+  class expression")))may notice the additional line `cfengine::` that
+  precedes the message. This is a __class expression__, and tells
+  CFEngine under which conditions the promises that follow it will be
+  executed. In this example, `cfengine` is a class that is defined if
+  the policy is being executed by CFEngine, so it will always be true,
+  and the message will always be printed. But we can use other
+  classes.  For example, if you replace `cfengine::` with `Monday::`,
+  the message will be printed only on Mondays. CFEngine defines many
+  classes, such as days of the week, and a policy can define any
+  number of arbitrary classes. We will look at this in much more
+  detail in <<classes-and-decision-making>>.
+
+[CAUTION]
+====
+Very old versions of CFEngine 3 (in the 3.0.x versions) did not define
+the `cfengine` class, only `cfengine_3`. If you find that the message
+is not being printed, this could be the cause. Please verify your
+CFEngine version, and upgrade to a newer one!
+====
+
+[TIP]
+====
+Starting in CFEngine 3.5.0, the class expression line `cfengine::` is
+no longer necessary. Previous versions of CFEngine required
+http://cf-learn.info/ref/reports[`reports:`] promises to be
+conditioned to something other than `any` (another class which is
+always set) to avoid accidental notification explosions, but in 3.5.0
+this restriction was
+(((range="endofrange",startref="ch2-agent2")))(((range="endofrange",startref="ch2-agent")))removed.
+====
+
+So, let us look at the policy in one piece:
+
+[source,cf3]
+----
+body common control
+{
+        bundlesequence => { "edit_motd" };
+}
+
+bundle agent edit_motd
+{
+  vars:
+      "motd" string => "/etc/motd";
+
+  files:
+      "$(motd)"
+        create => "true",
+        edit_line => addmessage;
+
+  reports:
+    cfengine::
+      "Hello world!";
+}
+
+bundle edit_line addmessage
+{
+  insert_lines:
+      "This system is managed by CFEngine 3";
+}
+----
+
+Type this in and save it to a file, for example __edit_motd.cf__. You can then execute it with the following command:
+
+[source,console]
+----
+# cf-agent --no-lock --inform --file ./edit_motd.cf
+2013-07-04T05:27:55+0000 info: /edit_motd/files/'$(motd)':
+                         Edit file '/etc/motd'
+2013-07-04T05:27:55+0000 notice: R: Hello world!
+----
+
+The((("cf-agent command", "--file option")))((("cf-agent command", "--inform option")))((("cf-agent command", "--no-lock option"))) ++--no-lock++ (abbreviated as ++-K++) option means “Ignore locking constraints during execution,” which in practice means “always execute all promises.” Normally, CFEngine obeys certain time periods between successive evaluations of the same promise, to avoid overloading the systems. The ++--no-lock++ option disables those constraints, and so is useful for testing policies that you may run several times in quick succession. The ++--inform++ (short ++-I++) option means “Print basic information about changes made to the system,” essentially telling CFEngine to show you the actions that it is taking. If not specified, CFEngine’s output is quite terse, limited only to reports explicitly printed by the policies and a few other essential messages. The ++--file++ (short ++-f++) option tells CFEngine to use the specified file as its input. Otherwise it will try to read __/var/cfengine/inputs/promises.cf__ (since CFEngine 3.5.0, you can omit the ++-f++ and simply give the filename as the last argument to the command).
+
+[[I_sidebar2_d1e1662]]
+.Running CFEngine as a Regular User
+****
+Most ((("CFEngine", "running as regular user")))of the examples in this book are shown running as root, since that is the normal conditions under which CFEngine should be executed to have the privileges necessary to exercise changes to the system. However, during development and testing it is perfectly possible to run CFEngine as a regular user. When you run it like this, CFEngine((("$HOME/.cfagent/ directory"))) does not look under __/var/cfengine/__ for its input files, rather it looks under __$HOME/.cfagent/__, so if you run ++cf-agent++ without specifying an input file, it will try to read __$HOME/.cfagent/inputs/promises.cf__.
+
+
+****
+
+
+Now examine the ++/etc/motd++ file, and you will see that a string like the following has been added to it:
+
+
+----
+This system is managed by CFEngine 3
+----
+
+If you run the command again, the output changes:
+
+
+[source,console]
+----
+# cf-agent --no-lock --inform --file ./edit_motd.cf
+2013-07-04T05:32:34+0000   notice: R: Hello world!
+----
+
+The file already contains the message, so it is not edited again. Now try editing it by hand and removing or modifying the existing line. If you run link:http://cf-learn.info/ref/cf-agent[++cf-agent++] again, the message will reappear.
+
+Congratulations! You have written and executed your first CFEngine policy. This is very basic operation, but its structure is very similar to that of any CFEngine policy, and allows enough flexibility and expressibility to tackle the most complex configuration (((range="endofrange", startref="ch2-policy")))operations.
+
+[[sec-integrating-into-promisescf]]
+=== Integrating Your New Policy Into Periodic CFEngine Execution
+
+In((("policies", "integrating into CFEngine execution", id="ch2-polint", range="startofrange"))) the example we just saw, you were running the policy file by hand using ++cf-agent++. But of course, CFEngine is meant to save you from running things by hand! For development and testing it is fine to run your policies by hand, but once they are done, you need to integrate them into the main CFEngine execution loop so that they are evaluated continuously and automatically. This((("promises.cf file"))) is done by integrating them into __promises.cf__, which is the file that CFEngine loads and executes by default.
+
+As an example, integrate the ++edit_motd++ bundle into CFEngine’s regular execution:
+
+
+. Remove or comment out the entire ++body common control++ block. There can be only one such block per policy, and __promises.cf__ already has one.
+. Copy __edit_motd.cf__ to __/var/cfengine/masterfiles/__ so that CFEngine can find it.
+. In __/var/cfengine/masterfiles/promises.cf__, make the following two changes:
+.. Add the following line inside the link:http://cf-learn.info/ref/inputs[++inputs++] attribute in ++body common control++. This instructs CFEngine to load the file:
++
+[source,cf3]
+----
+"edit_motd.cf",
+----
+.. Add the following line inside the link:http://cf-learn.info/ref/bundlesequence[++bundlesequence++] attribute in ++body common control++. This instructs CFEngine to call the bundle:
++
+[source,cf3]
+----
+"edit_motd",
+----
+. Verify you did not make any mistakes by running this command. If the file is correct, you should not see any output.
++
+[source,console]
+----
+# cf-promises -f /var/cfengine/masterfiles/promises.cf
+----
+
+That’s it! Now your `edit_motd` bundle will be run automatically as part of the regular CFEngine execution every five minutes, ensuring that the __/etc/motd__ file is constantly kept correctly (((range="endofrange", startref="ch2-polint")))configured.

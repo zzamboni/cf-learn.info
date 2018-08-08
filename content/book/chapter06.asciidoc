@@ -1,0 +1,860 @@
+---
+title: "Chapter 6: CFEngine Tips, Tricks, and Patterns"
+date: 2018-04-02T18:56:06+02:00
+menu: book
+weight: 6
+---
+:toc: auto
+:source-highlighter: pygments
+:sourcedir: content/book/newsrc
+:figdir: ../figs
+:experimental:
+
+[[ch-tips-tricks-patterns]]
+== CFEngine Tips, Tricks, and Patterns
+
+In previous chapters we have seen a number of CFEngine policies to achieve different specific tasks, with the intention of introducing you to a number of basic CFEngine concepts. Now that you know those basic concepts, I would like to introduce you to several generic techniques and patterns that are generally useful when writing CFEngine policies. Mastering these techniques will help you write more concise and efficient CFEngine code.
+
+[[hierarchical-copying]]
+=== Hierarchical Copying
+
+One((("copying files", id="ch6-hier", range="startofrange")))((("hierarchical copying of files", id="ch6-hier2", range="startofrange")))((("files", "hierarchical copying of", id="ch6-hier3", range="startofrange"))) of the common uses of CFEngine is to copy files (configuration files, binaries, libraries, documentation, etc.) into systems. If you maintain a heterogeneous network consisting of different system types, operating systems, architectures, and applications, you will at some point need to copy different sets of files onto different systems. The most straightforward way of achieving this would be to have different promises((("promises", "files: type")))((("files: promises"))) in your link:http://cf-learn.info/ref/files[++files:++] section for different hard classes that reflect the different system categories you want to differentiate. For example, you may want to copy different __/etc/hosts__ files depending on the operating system:
+
+
+[source,cf3]
+----
+include::{sourcedir}/ch06_1.cf[]
+----
+
+This ((("$(sys.flavor) variable")))example can be easily simplified if you know that the built-in CFEngine variable ++$(sys.flavor)++ contains the type and version of the operating system, so we could rewrite this example as follows:
+
+
+[source,cf3]
+----
+"/etc/hosts"
+    copy_from => mycopy("$(repository)/etc.$(sys.flavor)");
+----
+
+You could use any variable, whether defined by you or pre-defined by CFEngine, for a rule like this. All the built-in variables are documented in the link:https://cfengine.com/manuals/cf3-reference#Special-Variables[CFEngine Reference Guide].
+
+However, this method suffers from several drawbacks:
+
+
+* You need to have a separate file for every possible value of the variable you are using (++$(sys.flavor)++ in this case). For example, if you have hosts that are running SuSE 10, SuSE 11 and Ubuntu 10, you will need to have the files __hosts.suse_10__, __hosts.suse_11__ and __hosts.ubuntu_10__ in the repository, even if they are all the same. There is no easy way to implement a “catch all” clause for copying a generic file.
+
+
+* You are restricted to using a single variable to differentiate among systems. If you want some files to be different according to architecture, or domain name, or any other information, you need to write separate promises.
+
+What we would like to do is to implement the copy operation according to arbitrary criteria, as contained in CFEngine classes and variables. For example, consider the network shown in <<fig-sample-network>>. We would like to copy different versions of the __/etc/hosts__ file to different hosts, according to criteria such as their hostname, their domain name, their type of operating system (Windows, Linux, etc.) and their specific OS “flavor” (e.g. SuSE 9, RedHat 5, etc.). It’s worth noting that all of these attributes are discovered automatically by CFEngine and stored both in variables and in hard classes. For example, in a SuSE 9 system the classes ++linux++, ++suse++, and ++suse_9++ will be defined, and the variables ++$(sys.class)++ and ++$(sys.flavor)++ will contain ++"linux"++ and ++"suse_9"++, respectively.
+
+For the sake of this example, let’s assume that __$(repository)/etc/__ contains the following files (listed in alphabetical order):
+
+----
+hosts
+hosts.justiceleague.com
+hosts.lex
+hosts.ssosv.com
+hosts.suse_9
+hosts.windows
+hosts.wonderwoman.justiceleague.com
+----
+
+[[fig-sample-network]]
+.Sample network with multiple domains and operating systems
+image::{figdir}/web/lcfe_0501.png[]
+
+Using this information, we can hardcode these rules in promises like these:
+
+
+[source,cf3]
+----
+include::{sourcedir}/ch06_2.cf[]
+----
+
+Assuming the ++$(repository)++ variable has been set elsewhere, this works as follows:
+
+
+<1>   First, we have to enable “single copy” on all the files we want to
+  process. This is a configuration parameter that tells CFEngine to copy
+  each file at most once, ignoring successive copy operations for the
+  same destination file. The files_single_copy parameter in the
+  http://cf-learn.info/ref/agent[`agent`] control body specifies a list
+  of regular expressions to match filenames to which single-copy should
+  apply. By setting it to `".*"` we match all filenames. You could
+  customize this to apply it only to certain files, although in my
+  opinion this would tend to complicate understanding of the promises by
+  having different copy behavior for different files.
+<2>   In((("promises","files: type")))((("files: promises"))) the
+  http://cf-learn.info/ref/files[`files:`] promise section, we list
+  multiple file-copy promises conditioned by each one of the classes
+  with which we want to differentiate the hosts. Again, remember that
+  all of these classes (wonderwoman_justiceleague_com, lex,
+  justiceleague_com, suse_9, etc.) are hard classes that will be
+  automatically set by CFEngine on systems with the corresponding
+  characteristics. We have listed the classes from most specific to more
+  general (with the any class expression at the end, which will catch
+  anything that is not matched by the previous sections). CFEngine will
+  process these promises in the order they appear. The first one to
+  match (this is, for which the corresponding class is defined in the
+  current host) will execute, resulting in the copy operation from the
+  appropriate file in the repository. More general classes may match,
+  but because of the files_single_copy parameter, they will be ignored
+  after the file is copied for the first time.
+
+This works, but suffers from many of the same problems we saw before: it is verbose and the class names and filenames are hard-coded in the policy.
+
+A more flexible way to achieve this task is known in CFEngine terminology as “hierarchical copy.” In this pattern, you specify an arbitrary list of variables by which you want files to be differentiated, and the order in which they should be considered, from most specific to most general. When the copy promise is executed, the most specific file found will be copied.
+
+This pattern is very simple to implement:
+
+
+[source,cf3]
+----
+include::{sourcedir}/ch06_3.cf[]
+----
+
+As you can see, we are defining a list variable called ++@(suffixes)++ that contains the criteria by which we want to differentiate the files. All the variables contained in the list are automatically defined by CFEngine, and correspond to the classes we used in the previous example. Then we simply include that variable, as a scalar, in our link:http://cf-learn.info/ref/copy_from[++copy_from++] parameter. Because CFEngine does automatic list expansion, it will try each variable in turn, executing the copy promise multiple times (one for each value in the list) and copy the first file that exists. For example, in our Linux SuSE 11 machine called ++superman.justiceleague.com++, the ++@(suffixes)++ variable will contain the following values:
+
+
+[source,cf3]
+----
+{ ".superman.justiceleague.com", ".superman", ".justiceleague.com",
+  ".suse_11", ".linux", "" }
+----
+
+When the file-copy promise is executed, implicit looping will cause these strings to be appended in sequence to ++"$(repository)/etc/hosts"++, so the following filenames will be attempted in sequence: __hosts.superman.justiceleague.com__, __hosts.justiceleague.com__, __hosts.suse_11__, __hosts.linux__ and __hosts__. The first one to exist (in this case, __hosts.justiceleague.com__) will be copied over __/etc/hosts__ in the client, and the rest will be skipped. Of course, for this to work, we also need to set the link:http://cf-learn.info/ref/files_single_copy[++files_single_copy++] parameter as described before.
+
+Now, for our host ++darkseid.ssosv.com++, which is a Windows machine, the list will contain the following values:
+
+
+[source,cf3]
+----
+{ ".darkseid.ssosv.com", ".darkseid", ".ssosv.com",
+  ".windows_7", ".windows", "" }
+----
+
+All the values will be attempted until __hosts.windows__ is found and copied over.
+
+Wonder Woman needs a specific hosts file for her machine (perhaps so that she can reach certain hosts in Paradise Island), and so she gets __hosts.wonderwoman.justiceleague.com__, the first try on the list. Similarly, the lists for Lex Luthor’s machines look like this:
+
+
+[source,cf3]
+----
+For lex.ssosv.com:
+   { ".lex.ssosv.com", ".lex", ".ssosv.com", ".suse_9", ".linux", "" }
+For lex.lexcorp.com:
+   { ".lex.lexcorp.com", ".lex", ".lexcorp.com",
+     ".windows_7", ".windows", "" }
+----
+
+Therefore, both machines get the same file (__hosts.lex__) because that is the first one that exists when going through the lists.
+
+For hosts that don’t match any of the existing files, the last item on the list (an empty string) will cause the generic __hosts__ file to be copied. Note that the dot for each of the filenames is included in ++$(suffixes)++, except for the last element.
+
+As you can see, this allows us to have different files copied according to arbitrary criteria. Using this technique, you can drastically reduce the number of file-copying promises in your policy, while still having a lot of flexibility in which files are copied.
+
+
+[NOTE]
+====
+This technique, by its very nature, frequently tries to copy non-existent files (until it finds one that exists, and stops there). This results in messages from ++cf-agent++ about the files it cannot find. You may see messages like these as the different possibilities are attempted:
+
+----
+Can't stat /var/cfengine/masterfiles/files/etc/hosts.darkseid.ssosv.com
+  in files.copyfrom promise
+Can't stat /var/cfengine/masterfiles/files/etc/hosts.darkseid
+  in files.copyfrom promise
+Can't stat /var/cfengine/masterfiles/files/etc/hosts.ssosv.com
+  in files.copyfrom promise
+Can't stat /var/cfengine/masterfiles/files/etc/hosts.windows_7
+  in files.copyfrom promise
+ -> Copying from 10.6.5.4:/var/cfengine/masterfiles/files/etc/hosts.windows
+----
+
+This can result in noisy logs, but these messages can, of course, be safely ignored.
+
+====
+
+Now let’s put this pattern in a more complex example. We will put the files and directories to copy in lists, so that we can apply implicit looping on them as well, and add a few more bells and whistles:
+
+
+[source,cf3]
+----
+include::{sourcedir}/ch06_4.cf[]
+----
+
+This is how it works:
+
+
+<1>   As before, we set the files_single_copy parameter to ensure each file
+  is copied at most once.
+<2>   We store in @(suffixes) the list of file suffixes to try. Just as
+  before, we will be selecting the most-specific file according to
+  fully-qualified host name ($(sys.fqhost)), plain host name
+  ($(sys.uqhost)), domain name ($(sys.domain)), operating system name
+  and version ($(sys.flavor)) and top-level operating system type
+  ($(sys.ostype)). Finally, the empty element will select the generic
+  file (without any suffix) to be copied.
+<3>   We store in @(filestocopy) the list of individual files to copy from
+  the repository, and in @(dirstocopy) the list of directories to copy.
+  From the point of view of CFEngine syntax, files and directories could
+  be in the same list, but there is an important semantic difference:
+  When a full directory is copied, the suffix is expected to appear in
+  the directory name (for example, _/usr/local/bin.suse_9_ or
+  __/usr/local/bin.windows__), and the selected directory will be copied
+  in its entirety, without any further filtering on the files it
+  contains. This is useful for directories among which there exist no
+  common files (as may be the case for directories containing executable
+  files).
+<4>   We store in $(repo) the top-level source location for the files. In
+  this example, all files are being copied locally. Depending on your
+  implementation details, you may need to define a source host as well,
+  and modify the copy_from attributes to use CFEngine’s remote-file-copy
+  capabilities.
+<5>   We store in $(dest) the top-level destination for the files. In this
+  case, for testing purposes, all the files wil be copied under
+  __/tmp/testdest__. In production, most likely this variable would be
+  empty, so that files are copied to their real locations.
+<6>   We finally get to the file-copy promises. The first one takes care of
+copying individual files. We are using the standard library’s
+local_dcp() definition, which does a local copy using a cryptographic
+hash as the comparison, and receives the source file name as its only
+argument:
++
+[source,cf3]
+----
+{
+        source      => "$(from)";
+        compare     => "digest";
+}
+----
++
+In this promise, the destination file is specified as
+`"$(dest)$(filestocopy)"`, which means that implicit looping will
+happen over the contents of the @(filestocopy) list, and each one will
+be prepended with the destination directory. For example, when
+$(filestocopy) has the value `"/etc/hosts"`, the destination file will
+be `"/tmp/testdest/etc/hosts"`. When the policy goes in production and
+we modify $(dest) to be an empty string, the destination file will be
+simply `"/etc/hosts"`.
++
+The source file (the argument to local_dcp()) is a bit more
+complicated. In this case we are doing implicit looping over two
+lists: @(filestocopy) and @(suffixes), and the file-copy promise will
+be evaluated repeatedly for each combination. For example, if
+@(suffixes) contains the following values:
++
+[source,cf3]
+----
+{ ".lex.lexcorp.com", ".lex", ".lexcorp.com",
+  ".windows_7", ".windows", "" }
+----
++
+Then when $(filestocopy) has the value `"/etc/hosts"`, the argument to
+local_dcp() will take the following values in sequence:
++
+* `"/mnt/fileserver/cfengine/files/etc/hosts.lex.lexcorp.com"`
+* `"/mnt/fileserver/cfengine/files/etc/hosts.lex"`
+* `"/mnt/fileserver/cfengine/files/etc/hosts.lexcorp.com"`
+* `"/mnt/fileserver/cfengine/files/etc/hosts.windows_7"`
+* `"/mnt/fileserver/cfengine/files/etc/hosts.windows"`
+* `"/mnt/fileserver/cfengine/files/etc/hosts"`
++
+Only the first file found will be copied to __/etc/hosts__, and the
+rest will be skipped.
+
+<7> The promise to copy whole directories works the same way, with the difference that it loops over the contents of @(dirstocopy), and the file-copy promise is given the additional attribute depth_search, with an argument that indicates a recursive copy should be done (recurse() is also defined in the standard library). As I mentioned before, we could even merge these two promises, since depth_search is simply ignored for plain files, but I like having the conceptual distinction between them.
++
+CFEngine keeps track of already-copied files only at the individual file level and not at the directory level. If one of the less-specific directories contains files that do not exist in a more-specific directory, they will be copied as well, even if the more-specific directory gets copied too. For example, if _$(repo)/usr/local/bin/_ contains a file called _latex_ and this file does not exist in __$(repo)/usr/local/bin.lex.lexcorp.com/__, it will be copied to the destination __/usr/local/bin/__, because that specific file is not flagged as “already copied” by CFEngine. This can lead to unexpected consequences, although it can also be used to reduce repetition among directories. For example, you could put all the binaries in __$(repo)/usr/local/bin.lex.lexcorp.com/__, and leave all the platform-independent shell scripts in __$(repo)/usr/local/bin/__. The resulting _/usr/local/bin/_ in the clients will contain the merger of both directories.
+
+Hierarchical copy is a powerful technique that can greatly simplify the structure of your CFEngine policies. File manipulation is one of the most powerful and complex topics in CFEngine. I strongly advise you to carefully read the relevant sections of the Reference Guide, to get an idea of the multiple capabilities that CFEngine offers in this (((range="endofrange", startref="ch6-hier3")))(((range="endofrange", startref="ch6-hier2")))(((range="endofrange", startref="ch6-hier")))respect.
+
+[[passing-name-value-pairs-to-bundles]]
+=== Passing Name-Value Pairs to Bundles
+
+Many ((("arrays", "passing to bundles", id="ch6-nv", range="startofrange")))((("bundles", "passing name-value pairs to", id="ch6-nv2", range="startofrange")))system configuration tasks require groups of name-value pairs to be associated with a single entity. Some of these tasks include:
+
+
+* Editing configuration files in which parameters and their values need to be stored. The pairs may be further associated with a single portion of the file identified by a name (for example, Windows-style INI files contain parameters grouped in named sections).
+
+
+* Setting user parameters. In this case, sets of pairs are associated with a single user, identified by name.
+
+This is a technique that you have seen used many times in this book. The name-value pairs are stored in a CFEngine array, with the parameter names used as indices, and with the values stored in each element of the array. For example, for configuring __/etc/ssh/sshd_config__ and __/etc/sysctl.conf__ in <<system-configuration>>, we defined two arrays (named ++sshd++ and ++sysctl++) in the ++configfiles()++ bundle. We also used an array to store the filenames of the files we were going to edit:
+
+
+[source,cf3]
+----
+include::{sourcedir}/ch06_5.cf[]
+----
+
+Having sets of related values in a single array has a number of advantages, since they can be manipulated by a single set of promises just by varying the indices used to access them. To make use of this array, you have to pass it as an argument to a bundle. One((("getindices() function"))) of the most useful functions in this technique is link:http://cf-learn.info/ref/getindices[++getindices()++], which returns a list containing the indices of the given array, and can be used to produce an enumeration of the elements over which to iterate (the complementary((("getvalues() function"))) function to get just the values is link:http://cf-learn.info/ref/getvalues[++getvalues()++]). For example, remember from the ++edit_sshd()++ bundle:
+
+
+[source,cf3]
+----
+include::{sourcedir}/ch06_6.cf[]
+----
+
+To pass arrays as arguments we must pass a string with the name of the array, and then dereference it inside the function (in this case, the dereferencing is happening in the ++set_config_values()++ bundle). The argument we are passing to ++set_config_values()++ is ++"configfiles.sshd"++, which refers to the ++sshd++ array defined in the ++configfiles()++ bundle.
+
+To group name/value sets into named groups, we can use two-dimensional arrays, as we saw in the ++create_users()++ bundle in <<user-management>>:
+
+
+[source,cf3]
+----
+include::{sourcedir}/ch06_7.cf[]
+----
+
+In this case the dereferencing can get a little complicated. For example, let us look at some of the code inside the ++create_users()++ bundle:
+
+
+[source,cf3]
+----
+include::{sourcedir}/ch06_8.cf[]
+----
+
+This bundle is being called from the link:http://cf-learn.info/ref/methods[++methods:++] section of the ++manage_users()++ bundle, with the string ++"manage_users.users"++ as the value of ++$(info)++. We((("getindices() function"))) use link:http://cf-learn.info/ref/getindices[++getindices()++] directly on this value to get a list of the first-level indices of the array (the user names), which we store in ++@(user)++. Then we use implicit looping over ++@(user)++ to cycle through all those values, and we use the following construction to access individual elements of each user’s data: ++$($(info)[$(user)][__field__])++. This expands to ++$(manage_++++users.users[$(user)][__field__])++, on which implicit looping is applied through the ++$(user)++ variable. Remember that parenthesis (or curly braces, they mean the same) are required around the whole expression, so that CFEngine recognizes it properly as a variable reference.
+
+While the syntax can be complicated, this data structure allows great flexibility in passing around and using data structures to be used in configuration operations.
+
+You can see this pattern used in many places, not only in the examples we have described in this book, but also in the standard library, for example in the ++set_config_values()++, ++set_variable_values()++, and ++append_users_starting()++ (((range="endofrange", startref="ch6-nv2")))(((range="endofrange", startref="ch6-nv")))bundles.
+
+[[I_sect15_d1e19394]]
+=== Setting Default Values for Bundle Parameters
+
+One((("bundles", "default parameter values for", id="ch6-defvar", range="startofrange"))) potential issue, particularly with complex bundles that may have many different options, is the need to provide default parameter values. These may be overriden by the user, but let you avoid having to specify all those values in every single call. Happily, this is also possible with CFEngine when you pass parameters in an array, as described in the previous section.
+
+The trick is to set the default values in an array internal to the bundle, and then copy the parameters passed in as arguments on top of that array. When no value is passed for a particular parameter, its old value (the default) will be retained. We saw an example of this technique in the ++wp_vars()++ bundle in <<manual-software-management>>:
+
+
+[source,cf3]
+----
+include::{sourcedir}/ch06_9.cf[]
+----
+
+
+<1>   The bundle receives the name of an array as its $(params) argument.
+
+<2> Default values for all parameters are stored in an internal array called conf. Here we are storing the default values for parameters _tarfile, _downloadurl, _wp_config and _wp_cfgsample.  footnote:[All the parameter names shown in this example start with an underscore, but this has no implicit meaning. It’s just a convention used in the Wordpress installer to indicate internal parameters that will not be written to the WordPress configuration file.]
+
+<3>   Note that all the array elements are assigned with their policy
+  attribute set to `"overridable"`, which means that they can be
+  assigned a new value later on. By default, all variables in CFEngine
+  are immutable, and you will get an error if you try to reassign a
+  value to them. This policy setting changes this behavior, allowing
+  them to be freely redefined.
+<4>   We set some of the parameters in sections conditioned to certain
+  classes. In this case, we have certain parameters that have different
+  values on Debian-based systems and on RedHat-based systems. Note that
+  these are also stored with policy set to `"overridable"`, so that they
+  can be redefined by the user.
+<5>   We condition the final section to the any class, so that the following
+  statements are again executed for all systems. Note that this `any::`
+  block must come last, since promises within a single section (`vars:`
+  in this case) are executed in the order they appear in the file.
+<6>   And finally, we come to copying the user-provided parameters on top of
+  the conf array. For this, we first store all the indices from
+  $(params) into a list, and then, using implicit looping, copy all
+  those elements from the $(params) array onto conf. Again, we set
+  policy to `"overridable"` so that the copy can be done without any
+  warnings. Any parameters passed in the $(params) array will overwrite
+  the previous values in the conf array. After this, the $(params) array
+  becomes unnecessary, and the rest of the bundle should access any
+  values it needs from the conf array.
+
+This technique is generally applicable, and adds the convenience of only having to specify those parameters that deviate from the standard, when using a bundle.
+
+Implicit looping, combined with arrays, and with the ability to specify default parameter values, provide a powerful mechanism that allows us to pass around data and perform elaborate tasks without any flow-control code at (((range="endofrange", startref="ch6-defvar")))all.
+
+[[using-a-class-to-prevent-certain-behavior]]
+=== Using Classes as Configuration Mechanisms
+
+Classes((("system configuration", "classes for options of", id="ch6-classop", range="startofrange")))((("classes", "as configuration options", id="ch6-classop2", range="startofrange"))) are the universal decision-taking mechanism in CFEngine, and we have seen already throughout the book many examples of using classes, either automatically discovered or set programatically, to control the behavior of CFEngine policies. I would like to draw your attention now to the use of classes as a manual configuration and control mechanism. Due to their Boolean nature, certain classes can be used throughout the entire policy to enforce certain desired behaviors.
+
+We saw a simple example of this in <<editing-sysctl.conf>>:
+
+
+[source,cf3]
+----
+  commands:
+    sysctl_modified.!no_restarts::
+      "/sbin/sysctl -p"
+        handle => "reload_sysctl",
+        comment => "Make sure new sysctl settings are loaded";
+----
+
+Here, the ++no_restarts++ class is being used as a flag to control whether the command to reload the ++sysctl++ settings should be executed. Normally this is desirable so that the changes take effect immediately, but under certain circumstances (for example when testing, or when making a large number of changes) we may want to disable this behavior. By defining the ++no_restarts++ class, the whole class expression becomes false, and the command will not be executed. By using a construct like this consistently throughout a policy, we can control this behavior with a single class definition.
+
+There are several ways in which a class like this can be defined. It could be defined in a link:http://cf-learn.info/ref/common[++common++] bundle, so that it becomes a global class, evaluated very early in the processing of the policy and so assured to have the desired effect:
+
+
+[source,cf3]
+----
+bundle common g
+{
+  classes:
+      "no_restarts" expression => "!any";
+}
+----
+
+This code makes the class undefined (false) by default (++"any"++ is the CFEngine equivalent of an always-true expression, so negating it results in an always-false expression; completely omitting the class definition would have the same effect). To change this, we would need to simply remove the exclamation mark from the class expression. To modify the class during a single run of link:http://cf-learn.info/ref/cf-agent[++cf-agent++], we could specify it in the command line using the ++-D++ option. Any classes defined through this mechanism override definitions found in the policy, so without modifying the policy file, we could run it with ++-Dno_restarts++ and have it defined for that run only.
+
+If we want to avoid having to modify the policy files and also having to specify options in the command line, we could specify the class in a text file that is distributed to each machine, and from where class definitions are read. We would replace our common bundle with something like this:
+
+[source,cf3]
+----
+bundle common g
+{
+  vars:
+      "class_file" string => "/var/cfengine/site/classes.txt";
+      "class_strs"
+        slist => readstringlist("$(class_file)",
+                                "#.*$", "\s+", "inf", "inf");
+  classes:
+      "$(class_strs)"  expression => "any";
+}
+----
+
+In this case, we are defining a file from which class definitions will be read, and then reading that file into a list of strings called ++@(class_strs)++ using((("readstringlist() function"))) the link:http://cf-learn.info/ref/readstringlist[++readstringlist()++] function. Its arguments specify the file to read, the regular expression pattern to use as comments (in this case, a hash sign followed by an arbitrary string until the end of the line), the list element separator (we are using ++"\s+"++, so that multiple space-separated elements can be included in the same line), and the maximum number of lines and bytes to read (both set to ++"inf"++ to read as many as we can). In the link:http://cf-learn.info/ref/classes[++classes:++] section, we are looping over that list, defining classes named after each one of those elements. Thus, if we want to define the ++no_restarts++ classes, all we need to do is add to the __/var/cfengine/site/classes.txt__ file a line that contains the string ++"no_restarts"++.
+
+This mechanism offers great flexibility because the __classes.txt__ file can be set by hand, created at system install time according to its characteristics, or modified by CFEngine itself—for example, using templates or hierarchical copying—to contain different values according to any criteria we want to define.
+
+
+[TIP]
+====
+The((("abortclasses attribute"))) ++abortclasses++ attribute of body agent control can be used to define classes that should cause CFEngine to stop execution immediately. For example, you could define a class that, if defined, will disable CFEngine in the current host:
+
+
+[source,cf3]
+----
+body agent control
+{
+        abortclasses => { "disable_cfengine" };
+}
+----
+
+If you have this attribute defined, the __classes.txt__ file is an ideal place for specifying the ++disable_cfengine++ class if it becomes necessary to disable CFEngine for any reason. If you are distributing __classes.txt__ using hierarchical copying as described in <<hierarchical-copying>>, you can make this change as specific or broad as you wish.
+
+====
+
+In fact, we can combine these mechanisms in the same policy. For example, while writing this code I used a policy like this to make testing easier by passing the ++-Dtestrun++ flag to control the (((range="endofrange", startref="ch6-classop2")))(((range="endofrange", startref="ch6-classop")))value of ++$(class_file)++:
+
+
+[source,cf3]
+----
+include::{sourcedir}/ch06_10.cf[]
+----
+
+[[generic-tasks-using-array-indices]]
+=== Generic Tasks Using Lists and Array Indices
+
+Implicit ((("policies", "reusable, lists and arrays for", id="ch6-reuse", range="startofrange")))looping over lists and array indices can be used as a building block for concise and reusable policies (sometimes at the expense of readibility of the lower-level blocks, which need to do a lot of variable dereferencing).
+
+The general pattern of this technique when using arrays is the following:
+
+
+[source,cf3]
+----
+vars:
+  "array[id1]"    string => "value1";
+  "array[id2]"    string => "value2";
+...
+# (possibly in a different bundle)
+  "index"         slist => getindices("array");
+...
+# Use $(index) in promises to make them loop over all the IDs
+# and do something with their values
+----
+
+One example of this technique is to use the ++@(files)++ array we defined with the names of the files to edit, as a mechanism to automatically back up files before making any changes in the ++configfiles()++ bundle we defined throughout <<ch-using-cfengine>>:
+
+
+[source,cf3]
+----
+include::{sourcedir}/ch06_11.cf[]
+----
+
+Here we have inserted a call to ++backup_files()++ before all the other bundle calls, with the name of the ++@(configfiles.files)++ array as an argument. This bundle uses implicit looping over all the elements of the array, copying each file onto a backup file with ++".original"++ as a suffix.
+
+You might ask at this point: why not just use CFEngine’s built-in backup behavior, which can be defined in an link:http://cf-learn.info/ref/edit_defaults[++edit_defaults++] body part, as we saw in <<editing-etcinittab>>? The technique shown in this section does not preclude the use of link:http://cf-learn.info/ref/edit_defaults[++edit_defaults++] specification, but there are several advantages to doing this as well:
+
+
+* The backup step becomes explicit and centralized (all the backups are done by a single bundle), which helps to make the intention of the policy clearer.
+
+
+* The backup will protect against any changes made to the files, not only those made by file-editing promises (for example, changes made by copying files from a remote location, or by external commands invoked by CFEngine).
+
+
+* We have more flexibility as to where and how the backup is done. For example, we could decide to have timestamped directories for all the files, kept on a remote file server. To do this, we could replace ++backup_files()++ with something like this:
+
+[source,cf3]
+----
+include::{sourcedir}/ch06_12.cf[]
+----
+
+Now we are specifying in ++$(backupdst)++ the destination directory where the backup files will be placed, named with a current timestamp. In the link:http://cf-learn.info/ref/files[++files:++] section, the first promise makes sure the destination directory exists, and the second one copies the files into it by looping over the ++$(allfiles)++ list.
+
+We could go even further and use the indices of an array to determine the sequence of bundles to call in a complex policy. For example, our ++configfiles()++ bundle from before could be rewritten like this:
+
+
+[source,cf3]
+----
+include::{sourcedir}/ch06_13.cf[]
+----
+
+Now we are defining a list called ++@(file_id)++ that contains all the indices from the files array (++sysctl++, ++sshd++, etc.). Based on it, we define another list called ++@(method_names)++ that contains the names of the bundles that we want to call.
+
+
+[WARNING]
+====
+The ++maplist()++ function that we use to convert one list into another was introduced in CFEngine Community 3.3.0.
+
+====
+
+In the link:http://cf-learn.info/ref/methods[++methods:++] section, we substitute all the calls to the file-editing bundles by a generic promise, which loops over the values of ++@(bundle_names)++ and calls the appropriate bundle by interpolating the ++$(bundle_names)++ variable into the bundle name. Note how we can also pass arguments to the bundle.
+
+In this particular example, we are reducing the number of methods: promises from three to one, so it’s not a big savings. But imagine that as your policy grows, this technique could save many lines, and more importantly, allow you to add new bundle calls simply by adding new elements to the files array, thus reducing the possibility of errors.
+
+This type of technique can be used with any list to implement generic tasks. For example, consider this example (included in the __examples/__ directory of the CFEngine source distribution):
+
+
+[source,cf3]
+----
+bundle agent test
+{
+  methods:
+      "Patch Group"
+        comment => "Apply OS specific patches and modifications",
+        usebundle => "$(sys.class)_fix";
+}
+----
+
+In((("$(sys.class) variable"))) this case, we are using the built-in variable link:http://cf-learn.info/ref/sysclass[++$(sys.class)++] (which contains the “class” of operating system, e.g. ++linux++, ++darwin++, ++solaris++, etc.) to call a different bundle depending on the operating system of the current host. In this case, we would of course need to define bundles called ++linux_fix()++, ++darwin_fix()++, ++solaris_fix()++, etc., to handle the actual calls, but the top-level intention remains clear and (((range="endofrange", startref="ch6-reuse3")))(((range="endofrange", startref="ch6-reuse2")))(((range="endofrange", startref="ch6-reuse")))concise.
+
+[[sec-defining-classes-for-groups-of-hosts]]
+=== Defining Classes for Groups of Hosts
+
+One((("hosts", "groups of, classes identifying", id="ch6-grp", range="startofrange"))) of the very common patterns in CFEngine is to define classes for different groups of hosts, and then use those classes to apply different configurations. Remember that CFEngine automatically defines hard classes based on the hostname and the IP address of the current host, and these classes can be tested for in class expressions.
+
+In its simplest form, you could list individual hosts that need to be part of the class:
+
+
+[source,cf3]
+----
+bundle agent config
+{
+  classes:
+      "websrv"    or => { "websrv1_domain_com",
+                          "websrv2_domain_com",
+                          "websrv3_domain_com"
+                        };
+      "dnssrv"    or => { "dnssrv1_domain_com",
+                          "dnssrv2_domain_com"
+                        };
+      ...
+  methods:
+    websrv::
+      "config_websrv"   usebundle => config_websrv;
+    dnssrv::
+      "config_dnssrv"   usebundle => conig_dnssrv;
+}
+----
+
+In this case, the classes ++websrv++ and ++dnssrv++ are being defined based on a boolean expression of other classes, specified by the ++or++ keyword. What this means for the ++dnssrv++ class, for example, is __“if the ++dnssrv1_domain_com++ class is defined OR the ++dnssrv2_comain_com++ class is defined, then define the ++dnssrv++ class”__. As((("hosts", "hard classes for"))) you may remember, CFEngine automatically defines hard classes based on, among other things, the current hostname. If the current hostname is __dnssrv1.domain.com__, the ++dnssrv1_domain_com++ class will be defined (dots are not valid in class names). The end result is that the ++dnssrv++ class will be set whenever the policy is evaluated in the ++dnssrv1.domain.com++ or in the ++dnssrv2.domain.com++ hosts, and analogously for the ++websrv++ class.
+
+However, if you have a consistent host naming scheme, you could greatly simplify this pattern by using the link:http://cf-learn.info/ref/classmatch[++classmatch()++] function:
+
+
+[source,cf3]
+----
+bundle agent config
+{
+  classes:
+      "websrv"    expression => classmatch("websrv.*");
+      "dnssrv"    expression => classmatch("dnssrv.*");
+      ...
+  methods:
+    websrv::
+      "config_websrv"   usebundle => config_websrv;
+    dnssrv::
+      "config_dnssrv"   usebundle => conig_dnssrv;
+}
+----
+
+Of course, you can apply this technique using any classes, and you can combine any CFEngine functions with individual classes to handle special cases. Other((("iprange() function")))((("hostrange() function"))) useful functions are link:http://cf-learn.info/ref/hostrange[++hostrange()++] and link:http://cf-learn.info/ref/iprange[++iprange()++], which are specially designed to match ranges of hostnames and IP addresses:
+
+
+[source,cf3]
+----
+include::{sourcedir}/ch06_14.cf[]
+----
+
+You can combine both hard and soft classes, CFEngine functions and special variables, and any type of class expressions, to express the exact conditions on which you want to (((range="endofrange", startref="ch6-grp2")))(((range="endofrange", startref="ch6-grp")))act.
+
+[[controlling-promise-execution-order]]
+=== Controlling Promise Execution Order
+
+Normally, CFEngine((("order of evaluation", "controlling", id="ch6-oe", range="startofrange")))((("normal ordering"))) takes care of properly evaluating variables and classes, by combining normal ordering and multiple evaluation passes (up to three), as described in <<normal-ordering>>. In general terms, when a variable or class changes during a pass, anything that depends on it will be reevaluated on the next pass to account for the change.
+
+There are, however, some special cases in which we may need to force CFEngine’s hand a little, and make it evaluate things in a different, specific order. For cases like this, you can tell CFEngine to evaluate certain statements only when some class is defined, and only define that class when the appropriate conditions arise.
+
+
+[TIP]
+====
+Since CFEngine 3.4.0, you can also use the link:http://cf-learn.info/ref/depends_on[++depends_on++] attribute to actively control promise execution order. See below for an example.
+
+====
+
+A clear example of this technique can be seen in the ++set_config_values()++ bundle from the standard library, which we saw described in detail in <<editing-etcsshd_config>>. I invite you to review the description to see the details of how that particular example works.
+
+In general, when we want to force promise A to evaluate after promise B, when their normal order would be reversed, we should define a class after promise B runs, and condition promise A on that class. A ((("isvariable() function")))useful function for this type of conditioning is link:http://cf-learn.info/ref/isvariable[++isvariable()++], which allows us to check whether a variable has been defined. This contrived example shows the technique in action:
+
+
+[source,cf3]
+----
+include::{sourcedir}/ch06_15.cf[]
+----
+
+And here is what is happening:
+
+
+. In the first pass, ++$(var1)++ is defined, but ++$(var2)++ isn’t because the ++foo++ class does not exist. Then, the class ++foo++ is defined as true, but ++bar++ is false because ++$(var2)++ does not exist. In the link:http://cf-learn.info/ref/reports[++reports:++] section, the first message is not printed because ++bar++ class is false, so only the ++"var2"++ message is printed.
+
+
+. In the second pass, ++$(var2)++ is defined, because the ++foo++ class is now true. Then, in the link:http://cf-learn.info/ref/classes[++classes:++] section, the ++bar++ class is defined as true because variable ++$(var2)++ now exists. And finally, in the link:http://cf-learn.info/ref/reports[++reports:++] section, the first message is shown because the ++bar++ class is now true. The other message is not printed again because it had been printed already in the previous pass (CFEngine keeps track of which promises it has already fulfilled).
+
+The net result is that the messages from the ++reports:++ section are printed in reverse order:
+
+
+[source,console]
+----
+# cf-agent -KI -f ./order-control.cf
+2013-10-14T05:56:38+0000   notice: R: var2=value 2
+2013-10-14T05:56:38+0000   notice: R: var1=value 1
+----
+
+In((("depends_on attribute"))) CFEngine 3.4.0, the link:http://cf-learn.info/ref/depends_on[++depends_on++] attribute, which was previously used for documentation purposes only, became active in determining the order of promise execution by allowing you to specify that a certain promise should only be evaluated once others have been successful. This means that our previous example can now be written like this:
+
+
+[source,cf3]
+----
+include::{sourcedir}/ch06_16.cf[]
+----
+
+The output is exactly the same as before. As you can see, in this case we are assigning a handle to the second link:http://cf-learn.info/ref/reports[++reports:++] promise, and declaring the first link:http://cf-learn.info/ref/reports[++reports:++] promise as dependent on the second one. This means that the first message will only be printed after the second one.
+
+I would advise you to exercise extreme caution, and to think carefully, before messing with CFEngine’s normal ordering. The ordering is there because years of experience have shown that is the order that makes most sense, and CFEngine’s variable-and-class convergence mechanisms ensure that, in most cases, the behavior is correct even when things need to be evaluated over multiple passes. If you feel the need to modify the order of execution, it pays to first step back and look at the problem from a different perspective and see if it can be made to function within CFEngine’s constraints and rules. Only after this option is completely ruled out should you implement mechanisms like shown above. Document them carefully, because as we saw above, the code can quickly get long and (((range="endofrange", startref="ch6-oe")))complicated.
+
+[[sec-dynamic-loading-and-execution]]
+=== Dynamic Loading and Execution
+
+We ((("dynamic loading and execution", id="ch6-dyn", range="startofrange")))((("order of evaluation", "dynamic loading and execution", id="ch6-dyn2", range="startofrange")))have seen that CFEngine allows you to specify the policy files to load using the link:http://cf-learn.info/ref/inputs[++inputs++] attribute in ++body common control++, and the order in which bundles should be executed using the link:http://cf-learn.info/ref/bundlesequence[++bundlesequence++] attribute. Additionally, you can use link:http://cf-learn.info/ref/methods[++methods:++] promises to call other bundles in any order you want. However, at times you may want to have more dynamic control over the files that are loaded or the bundles that are executed. As your infrastructure grows or becomes more dynamic, your policy needs to adapt as well. This section shows some techniques that you can use to control what gets loaded and executed into your policy.
+
+
+==== Per-File Inputs
+
+As ((("inputs attribute", id="ch6-per", range="startofrange")))((("files", "lists of, for inputs attribute", id="ch6-per2", range="startofrange")))((("per-file inputs", id="ch6-per3", range="startofrange")))your policy grows, it is natural to split it into multiple files to make it easier to manage them. For example, you may split your basic system configuration policies into one file (or even several, for different subsystems), your web server configuration policies into another file, and so on. You may want to federate control over different parts of the system, or simply partition your policies according to host roles, groups within your organization, or networks. However, you still have to list all your input files in the top-level inputs attribute.
+
+Sometimes, however, it would be nice if your top-level policy file could list only a few main files, and those in turn could load other files. Even the Design Center runfile, described in <<ch-design-center>>, needs to load a different set of files depending on the sketches that have been activated. For cases like these, I will show you how you can dynamically load policy files.
+
+The core of this technique is to store your list of files in a list variable defined in a common bundle, and then use that variable in your link:http://cf-learn.info/ref/inputs[++inputs++] attribute. For example, in your main policy file you can have something like this:
+
+
+[source,cf3]
+----
+body common control
+{
+      bundlesequence => { "defs", "test" };
+      inputs => { "defs.cf", @(defs.inputs) };
+}
+----
+
+Note that the link:http://cf-learn.info/ref/bundlesequence[++bundlesequence++] includes a bundle called ++test()++ that is not shown in this file. The link:http://cf-learn.info/ref/inputs[++inputs++] attribute refers to __defs.cf__, which can be defined like this:
+
+
+[source,cf3]
+----
+bundle agent defs
+{
+  vars:
+      "inputs" slist => { "input1.cf" };
+}
+----
+
+Here we define a variable called ++inputs++ that contains ++"input1.cf"++. Look back up at our main file, and you will see that the link:http://cf-learn.info/ref/inputs[++inputs++] attribute also specifies ++@(defs.inputs)++. Through this variable, the __input1.cf__ file will be loaded, which finally contains the definition of the ++test()++ bundle:
+
+
+[source,cf3]
+----
+bundle agent test
+{
+  reports:
+      "Hello from $(this.promise_filename)";
+}
+----
+
+This is admittedly a very simple example, but in fact, this is the exact technique that is used by the Design Center runfile to load the files for all the activated sketches. Look at the ++cfsketch_g()++ bundle in the runfile we generated in <<ch-design-center>>:
+
+
+
+
+[source,cf3]
+----
+bundle common cfsketch_g
+{
+  vars:
+      "inputs" slist => { "sketches/libraries/dclib/library.cf",
+                          "sketches/libraries/copbl/cfengine_stdlib.cf",
+                          "sketches/networking/ssh/ssh.cf" };
+}
+----
+
+This variable gets included from ++body common control++, either in the standalone runfile or from the main __promises.cf__ file:
+
+
+[source,cf3]
+----
+      inputs => { @(cfsketch_g.inputs) };
+}
+----
+
+Using this technique, the Design Center tools can generate the runfile with the appropriate definition for ++cfsketch_g.inputs++ according to the sketches that are currently activated, and load those files without having to modify the definition of the main link:http://cf-learn.info/ref/inputs[++inputs++] attribute every time something changes.
+
+
+[TIP]
+====
+CFEngine 3.6 (in fact, this code is already in the master branch of the core CFEngine repository on GitHub) will introduce the ++inputs++ attribute for the ++body file control++ construct. This will allow you to specify per-file inputs directly, without resorting to the technique described here, by including the following in __defs.cf__:
+
+
+[source,cf3]
+----
+body file control
+{
+      inputs => { "input1.cf" };
+}
+----
+
+And then you don’t need to call any extra bundles or reference any variables from your main (((range="endofrange", startref="ch6-per3")))(((range="endofrange", startref="ch6-per2")))(((range="endofrange", startref="ch6-per")))policy:
+
+
+[source,cf3]
+----
+body common control
+{
+      bundlesequence => { "test" };
+      inputs => { "defs.cf" };
+}
+----
+
+====
+
+
+==== Dynamic bundle execution control
+
+CFEngine, ((("bundles", "dynamic execution control for", id="ch6-bund", range="startofrange")))((("bundlesequence attribute", id="ch6-bund2", range="startofrange")))((("policies", "bundlesequence attribute for", id="ch6-bund5", range="startofrange")))as you know by now, makes it very easy to execute different parts of the policy depending on arbitrary conditions, expressed as class expressions. However, at the top level, you still have a static link:http://cf-learn.info/ref/bundlesequence[++bundlesequence++] declaration that tells CFEngine which bundles to execute when evaluating the policy. There are several ways to dynamically control the sequence of bundles to be executed in the policy.
+
+For our example, let’s assume we have some common bundles to be called on all systems, some that are only to be executed in Linux systems, and some that are only to be executed on web or database servers. In addition, there are some special kernel settings that need to be configured on Database servers running Linux.
+
+My((("promises", "methods: type", id="ch6-bund3", range="startofrange")))((("methods: promises", id="ch6-bund4", range="startofrange"))) favorite technique, which we have already seen before, is to use a sequence of link:http://cf-learn.info/ref/methods[++methods:++] promises with class expressions controlling which ones are executed in which sequence.
+
+
+[source,cf3]
+----
+include::{sourcedir}/ch06_17.cf[]
+----
+
+
+<1>   In this technique, the top-level
+  http://cf-learn.info/ref/bundlesequence[`bundlesequence`] declaration
+  remains fixed. All the control happens inside one or more of the
+  bundles called from it. In this example we are calling the main()
+  bundle.
+<2>   Inside the main() bundle, we have a sequence of
+  http://cf-learn.info/ref/methods[`methods:`] promises that allow us to
+  call multiple other bundles according to the conditions we want to
+  define. First we have two calls conditioned to the class `any`, to
+  configure DNS and NTP on the server. Strictly speaking, we could leave
+  out the `any::` condition, but I consider it good practice to be
+  explicit when we have complex sequences of conditions as in this
+  example.
+<3>   We next have two bundle calls conditioned to the classes `webserver`
+  and `dbserver`, respectively, to configure Apache and MySQL. For this
+  example we are assuming these classes have been set elsewhere, for
+  example using the techniques described in
+  #sec-defining-classes-for-groups-of-hosts.
+<4>   We finally have two bundle calls for Linux systems, to set `sysctl`
+  parameters. One of them is for Linux hosts that are not database
+  servers (`linux.!dbserver`), and the other for Linux hosts that are
+  database servers (`linux.dbserver`), arguably to provide some
+  fine-tuned parameters for this particular application.
+
+As you can see, this technique allows you to very clearly express the flow of the policy, each section being clearly labeled with the conditions in which it should be applied. Also observe how we can use both hard and soft classes in the conditions.
+
+Another way of achieving this result is to store the sequence of bundles to call in a list variable, and then use that list in the top-level link:http://cf-learn.info/ref/bundlesequence[++bundlesequence++] declaration. In this technique, the link:http://cf-learn.info/ref/bundlesequence[++bundlesequence++] gets updated dynamically according to the assignments in the list variable.
+
+
+[source,cf3]
+----
+include::{sourcedir}/ch06_18.cf[]
+----
+
+
+<1>   In this example, the top-level
+  http://cf-learn.info/ref/bundlesequence[`bundlesequence`] is no longer
+  static. Instead we call a bundle called config(), which defines a list
+  variable called sequence. After the config() bundle is called, we use
+  `@(config.sequence)` in the top-level
+  http://cf-learn.info/ref/bundlesequence[`bundlesequence`] definition,
+  so the actual sequence of bundles executed will depend on the contents
+  of that variable.
+<2>   Inside the config() bundle, we start by initializing a few list
+  variables, which will be concatenated at the end to produce the final
+  bundle sequence (we do this because CFEngine does not allow us to
+  extend a list variable, since it leads to non-convergent behavior).
+  The variable seq_common contains the common sequence of bundles, and
+  is initialized with our two fixed bundles that will be called on all
+  hosts. The seq_webserver, seq_dbserver, and seq_linux variables
+  contain the bundles that will be executed for the corresponding cases,
+  and we initialize them to empty lists. Note that these variables are
+  declared with `policy => "free"` so that CFEngine allows us
+  to reassign their values later on without complaints.
+<3>   We next reassign the values of seq_webserver, seq_dbserver, and
+  seq_linux according to the same conditions that we had before. In this
+  case, instead of conditioning
+  http://cf-learn.info/ref/methods[`methods:`] promises, we are
+  conditioning the assignments to the corresponding list variables.
+<4>   Finally, we concatenate all four list variables into a final variable
+  called `sequence`, and which is the one being referenced from the
+  top-level http://cf-learn.info/ref/bundlesequence[`bundlesequence`]
+  attribute as `@(config.sequence)`. Note that, according to the
+  conditions that are satisfied, some of the variables may be empty,
+  which will result in the final list containing only the bundles that
+  need to be executed.
+
+You may observe that this technique is slightly more complicated than the previous one, requiring multiple variables, an initialization section, etc. It also seems to less clearly express the intent of the policy. Why, then, would we want to use it? Its power lies in placing the bundle sequence in a variable. In our example we are assigning those lists by hand, but in a real system, their values could come from files, from a database, or from arbitrarily complex operations. As long as, in the end, the ++config.sequence++ variable contains a list of bundles to execute, its contents can come from anywhere we need. For example, if you have several customers, each with their own hosts, the lists of bundles could be determined according to privileges, roles, or services available to each customer.
+
+The final technique is a combination of the previous two: it maintains a fixed top-level link:http://cf-learn.info/ref/bundlesequence[++bundlesequence++] declaration, uses link:http://cf-learn.info/ref/methods[++methods:++] calls, but the sequence is determined from the contents of a variable:
+
+
+[source,cf3]
+----
+include::{sourcedir}/ch06_19.cf[]
+----
+
+
+<1>   As in the first technique we saw, the
+  http://cf-learn.info/ref/bundlesequence[`bundlesequence`] declaration
+  is static. In this case we are calling both the config() bundle, which
+  stores the list of bundles to execute in a variable, and the main()
+  bundle, which calls the bundles. The config() bundle is identical to
+  the one we saw before, so we are omitting it from the listing.
+<2>   The main() bundle now is much shorter than in our first technique.
+  Instead of coding the http://cf-learn.info/ref/methods[`methods:`]
+  promises by hand, it uses implicit looping over the
+  `@(config.sequence)` list to call each bundle in sequence. You can
+  observe here that we are using the looped value `$(config.sequence)`
+  both in the promiser (the identifier for the
+  http://cf-learn.info/ref/methods[`methods:`] promise) and as the name
+  of the bundle to be called.
+
+CFEngine allows you tremendous flexibility in dynamically determining a sequence of bundles to execute. Choose the one that suits you best. As usual, my advise is to avoid unnecessary complication—keep your policies as simple as possible, and introduce advanced logic or structures only when strictly necessary. This will keep the intent of your policy is as clear as possible, which will be advantageous both to others reading your policy, and to yourself when you look at it in the(((range="endofrange", startref="ch6-bund5")))(((range="endofrange", startref="ch6-bund4")))(((range="endofrange", startref="ch6-bund3")))(((range="endofrange", startref="ch6-bund2")))(((range="endofrange", startref="ch6-bund")))(((range="endofrange", startref="ch6-dyn2")))(((range="endofrange", startref="ch6-dyn"))) future!

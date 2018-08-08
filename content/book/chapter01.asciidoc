@@ -1,0 +1,196 @@
+---
+title: "Chapter 1: Introduction"
+date: 2017-09-04T22:47:03+02:00
+menu: book
+weight: 1
+---
+:toc: auto
+:icons: font
+:source-highlighter: pygments
+:experimental:
+
+//[[ch-introduction]]
+//== Introduction
+
+[quote, Mark Burgess&#44; author of CFEngine ]
+____
+Every time someone logs onto a system by hand, they jeopardize everyone’s understanding of the system.
+____
+
+
+If ((("automation", id="ch1-auto", range="startofrange")))((("systems management", "automation's role in", id="ch1-auto2", range="startofrange")))you are a computer user of any type, you rely on automation every day. Their ability to automate things is what makes computers useful, after all. Nobody adds up the columns in a spreadsheet by hand; we all let a formula do it for us. And instead of getting up in the middle of the night to rotate log files, a system administrator sets an automated job to do it. In fact, if you are a system administrator, you should rely much more on automation than any other type of computer user. If you take care of only a few machines, doing things by hand is perhaps not so bad—you can easily perform most necessary tasks by hand. But as the number of machines under your control grows, keeping them in working order, in a consistent state, and in a desired state (according to whatever needs they serve) can be a daunting task.
+
+We live in an age of apparently infinitely-growing data centers. Think of Google, Facebook, or any other large Internet service. They can scale to serve hundreds of millions of users because they have enormous data centers performing all those operations, with hundreds of thousands of machines (perhaps even millions) at their disposal. Do you think an army of sysadmins is running around those data centers, fixing things, logging into machines to execute commands? Of course not (well, in some cases they might, but they really should not be doing that!). This would be a completely untenable and unscalable proposition. What these big companies do is automate the hell out of everything they need to do. In this way, they can be assured that their servers will be in an uniform and predictable state __automatically__. They can save their human system administrators for dealing with unexpected problems that the machines cannot solve on their own.
+
+You should do this too.
+
+[[I_sidebar1_d1e432]]
+.The Third Wave of IT Engineering
+****
+Alvin Toffler((("Toffler, Alvin (author)", "Future Shock")))((("Future Shock (Toffler)")))((("Toffler, Alvin (author)", "The Third Wave")))((("The Third Wave (Toffler)"))) in his books __Future Shock__ and __The Third Wave__ describes three waves of human society: the first wave was the agricultural society—tending the land with animal-assisted strength, each person, home, or family mostly self-sufficient. The second wave is the industrial age—mastering the environment through machine-assisted strength, large production chains, big corporations, big machines, and extreme specialization of labor, which leads to a fundamental divide between the rich factory owners and the poor workers. The third wave is the knowledge age, in which information and knowledge are the most valuable assets, characterized by the existence and wide availability of advanced technologies (“machine-assisted brain”), and which allows for personalization of products and services to a degree never before available. Since the second half of the 20th century, most human societies have been moving towards the Third Wave.
+
+These ((("systems management", "third wave of")))same waves can be identified in systems management. The first wave consisted of individual system administrations tending to small-to-medium organizations, with ad-hoc (and often manual) methods. The large IT organizations and corporations, with their production-line mentality toward system administration, are the second wave, and led to extreme specialization of knowledge and cookie-cutter systems (think of “Gold Images”) that are extremely difficult to customize and modify. The third wave of systems management is the age of personalization and flexibility. Nowadays anyone can be a sysadmin, and everyone can have technology and services customized to their own needs and preferences. This requires extreme agility in systems management, which can only be achieved through extensive automation and instrumentation.
+
+
+****
+
+
+[[I_sidebar1_d1e445]]
+.DevOps and Automation
+****
+In ((("systems management", "DevOps movement in")))((("DevOps")))((("IT operations", "combining with development")))((("development", "combining with IT operations")))((("operations", see="IT operations")))((("IT operations", seealso="systems management")))recent years, the DevOps movement has appeared and has grown in popularity and importance, in response to the need to speed up the development-deployment cycle. The term is a contraction of “Development” and “Operations,” and corresponds to the general idea of achieving better collaboration and integration between development and IT operations. Traditionally, these two tasks have been performed by completely separate groups of people. However, the Third Wave requirements of agility, configurability, and flexibility mean that a much tighter integration is needed. DevOps, among other principles, encourages developers to be in charge of deploying their own applications, thus short-cutting the deployment cycle. In some organizations, developers may deploy their code many times during a day. System automation plays a crucial role in enabling DevOps, by hiding much of the complexity of operations tasks.
+
+
+****
+
+
+Furthermore, automation elevates our way of thinking about systems. Once a task is automated, it becomes possible to think about the higher-level issues surrounding our systems, and to think more about __what__ than __how__. For example, without automation, we have to think about how and when to rotate the log files on Solaris, how to do it on different Linux distributions, how to do it on Windows, and so on. Once these low-level tasks are automated, we can simply say “rotate the log files on all systems”. And once this is done, we can go to an even higher level, and group log rotation with other tasks and just say “do system maintenance,” with the knowledge that all the low-level tasks that compose this goal will be done predictably and efficiently.
+
+But you are only in charge of 100 machines, perhaps? 15? 5? Only one, your own workstation? The basic premise holds. If you are doing things by hand, you are taking longer to do things than it should, you risk making mistakes, and you are unnecessarily repeating tasks that should be automated. Humans are good at thinking; computers are good at repetition. What this means is that you should design the solution, and then let the machine execute it. Of course, you should do the necessary tasks by hand once or maybe twice, to figure out exactly what needs to be done. After all, a computer will not be able to figure out by itself (in most cases) the exact disk partitioning scheme that needs to be used in your database servers, or select the parameters that need to go into your ++sshd++ configuration file, or write the script that needs to run to back up your workstation into your external USB disk every time you plug it in. But once you’ve got those steps figured out, there is no reason to continue doing them by hand. The machine can repeat those steps exactly right, in the correct order, and at the correct moment every single time, regardless of the time of day or whether you are sick or on (((range="endofrange", startref="ch1-auto2")))vacation.
+
+[[how-to-achieve-automation]]
+== How to Achieve Automation
+
+There are different ways to automate system administration. You already know which one I am going to advocate, but for the sake of completeness I will discuss a few of them.
+
+[[home-grown-scripts]]
+=== Home-Grown Scripts
+
+The((("automation", "scripts for", id="ch1-script", range="startofrange")))((("scripts", id="ch1-script2", range="startofrange"))) first step, and a necessary one for sysadmins to understand the work involved in automating a system, is to write home-grown scripts. Once you figure out the steps needed to partition that disk, you put them in a shell script so that you don’t forget. Maybe you write the description in a wiki or your blog. The trick is to document the steps somewhere so that you can recall them. Once you figure out the precise installation options to boot from the SAN, you write them down in your notebook, and if you are really disciplined you create a custom Anaconda configuration file to be able to repeat them. Once you figure out the ++rsync++ options for backing up your machine, you write a shell script to run it. Once you decide on the appropriate ++sshd++ options, you write a ++perl++ or ++sed++ script to insert them into the __/etc/ssh/sshd_config__ file.
+
+But you still have to remember to run the backup script by hand every time you plug in your external disk. Or someday you figure out installation options that work better, but commit them to memory instead of updating your notebook or your Anaconda script. Or your needs change and you update your personal copy of the partitioning shell script, but fail to update your wiki or blog or document.
+
+Then one day you are home sick, and no one else knows which script to run, or how to run it. Or they find your documentation and follow it, but it’s outdated and it doesn’t work, or even worse: it works but produces results that will cause problems later on, and will be very hard to track to this particular point in time. Or you forget and run your ++sshd++-configuration script twice on the same machine, and unless you have been very careful in developing it, the configuration file is ruined because the script didn’t find its expected input. Did the script make a backup of the original file before modifying it? Oops.
+
+The thing is, when you use ad-hoc tools for automation, you are still doing a large part of the process by hand, you are still relying on your discipline to keep documentation updated, and you still have to remember to do the right things in the right order and at the right time. In other words, you are still mixing __what__ to do with __how__ to achieve it.
+
+One day you are banging your head against the wall because you can’t figure out how your colleague who is hiking in the Alps does the cleanup of temporary files in your database server, and you know he has a script but you don’t know where to find it or how to run it. Or even if things go well, after using your home-grown tools for a while, you will find that complexity creeps into them from ever-changing requirements and necessary flexibility, and they become harder and harder to maintain. You start thinking there must be a better way to do(((range="endofrange", startref="ch1-script2")))(((range="endofrange", startref="ch1-script"))) it.
+
+[[specialized-tools-for-automation]]
+=== Specialized Tools for Automation
+
+Over ((("automation", "tools for", id="ch1-tools", range="startofrange")))the years, a number of specialized tools have emerged for automating system configuration. Depending on the vendor, they may be called configuration management tools, provisioning tools, datacenter management tools, or a number of different terms. Strictly speaking, there are subtle differences in what the terms mean:
+
+
+* __Configuration management__ ((("configuration management tools")))refers specifically to the handling of system information, including its hardware information, system configuration, and also things like physical location, owner, etc. CM tools often deal as well with the processes of defining, setting, storing, and modifying configurations, also possibly tied to standards such as ITIL (the Information Technology Infrastructure Library).
+
+
+* __Provisioning__ ((("provisioning tools")))refers much more specifically to the act of preparing and configuring computing resources as needed. Provisioning management tools can usually deal with the processes needed to get physical machines installed and ready to use, generate configuration information, produce purchase orders, track the purchase and delivery process, and coordinate the necessary steps for physical and logical installation of new systems. In recent years, provisioning is often considered (and made easier) in the context of virtual machines, in which new systems can be created on demand with the desired configuration.
+
+
+* __Datacenter management__ ((("datacenter management tools")))often refers to the higher-level functions of running a large set of machines, from the logistics of physical arrangement to details such as keeping track of the amount of electricity and cooling needed, personnel schedules for 24-hour assistance, and so on.
+
+In practice, certain aspects of these tools blend together. Most of them, at some point, need information about how the systems should be configured, and, through their own mechanisms, aid in getting the systems into that state.
+
+There((("Server and Network Automation, HP")))((("HP Server and Network Automation")))((("IBM Tivoli Provisioning Manager (TPM)")))((("Tivoli Provisioning Manager (TPM), IBM")))((("TPM (Tivoli Provisioning Manager), IBM"))) are a few products from big companies in this area. Two that you are certain to find in any discussion are IBM’s Tivoli Provisioning Manager (TPM) and HP’s Server and Network Automation suites. Both of these tools take the high-end approach: they require lots of resources, often several machines and large amounts of maintenance and configuration to install and operate. In exchange, they provide point-and-click operation, the ability to manage machines from their bare-metal installation through their entire lifecycle, even through decommissioning. Ultimately, the biggest advantage of these tools is that they come with the support of big companies, and they integrate well with other tools provided by the same companies for IT infrastructure management. Of course, the price tag for the tools and their support matches their complexity and size—they are targeted at big companies with big budgets.
+
+In recent years, there has been a resurgence of interest in configuration management because systems and networks are growing in complexity, and people realize that manual management is simply not feasible. There are three big contenders from the open-source world: CFEngine, Chef, and Puppet (all of which, by now, also have commercial offerings).
+
+CFEngine((("CFEngine", id="ch1-cfe", range="startofrange"))) is the most mature of configuration management systems. It was first released in 1993, and is the oldest actively-maintained configuration management system. It has served as a reference point and inspiration for many of the newer tools, of which the two prime examples are Chef and Puppet. Its latest release, CFEngine 3 (currently in version 3.5.2), has many features that allow simple management of both small and large systems, providing extreme flexibility and agility in their management.
+
+Puppet((("Puppet tool"))) was inspired by CFEngine 2, and has a large and active community. It uses a specialized language to describe the desired state of the system. Chef((("Chef tool"))) in turn was inspired by Puppet, and was originally meant to address the ability to deploy systems “in the cloud,” although it has since grown into a general and powerful systems-management tool. Both Chef and Puppet are written in Ruby.
+
+CFEngine remains the most mature, actively-maintained, and one of the most widely-used configuration management tools. It has evolved over the years to address real needs in real systems, and is by now fine-tuned to the features and design that make it possible to automate very large numbers of systems in a scalable and manageable (((range="endofrange", startref="ch1-tools")))(((range="endofrange", startref="ch1-auto")))way.
+
+[[I_sect11_d1e539]]
+== Why CFEngine?
+
+CFEngine can be used to automate any kind of computing infrastructure. For example, let us consider servers. Servers need consistent, repeatable, and observable configurations for many reasons: to bring them up quickly and reliably, to provide an environment where programs are known to run correctly, to track down problems by comparing the state to a known baseline, to ensure security on each system, and so on. But every time someone modifies a machine configuration by hand, the predictability of its state diminishes, due to manually-introduced errors or variations. Over time, for a large number of machines, their configuration will tend to differ enough to make managing them consistently extremely hard.
+
+In ((("CFEngine", "uses of")))server machines, CFEngine can be used for many different tasks, including (but not limited to) the following:
+
+Configuration:: 
+    The ((("configuration, system", see="system configuration")))((("system configuration")))configuration of both the base operating system and installed software can be easily handled using CFEngine, keeping them current and consistent.
+
+
+User management:: 
+    CFEngine((("user management"))) allows you to control user accounts and their characteristics. CFEngine gives you the high-level ability to indicate which user accounts are needed, and also the low-level power to control specific parameters such as passwords, expiration dates, etc.
+
+
+Software installation:: 
+    Both ((("software installation")))((("installation of software", see="software installation")))off-the-shelf and custom software can be managed (including installation, upgrades, and removals) using CFEngine. CFEngine is designed to interact with the system’s native package-management tools so that software is managed in an appropriate manner. CFEngine can also be used to manually install or remove software for which packages do not exist.
+
+
+Security and Compliance:: 
+    Security((("compliance")))((("security"))) includes many aspects of a system, including file permissions, user privileges, configuration and state of services, software versions installed, and many others. All of these aspects can be easily managed by CFEngine. Once you incorporate a security configuration into your CFEngine policy, you can be sure it will be maintained constantly and consistently for as long as the server is running. In the context of demonstrating compliance to security policies, CFEngine can help by providing documentation of how different parts of the system should be configured, and ensuring they stay like that.
+
+
+Looking((("CFEngine", "advantages of", id="ch1-adv", range="startofrange"))) at this list, you may wonder what is really the advantage of CFEngine, given that specialized tools exist already for all of these tasks. CFEngine provides the following advantages:
+
+Flexibility:: 
+    CFEngine can help you easily maintain several types of machine configurations. In many cases, different types of servers are needed: web servers, database servers, authentication servers, print servers, and so on. With CFEngine, you need to define the configuration of each server type only once. Afterward, configuring a new machine is as easy as telling CFEngine the type of configuration to use.
+
+
+Reusability:: 
+    CFEngine allows you to abstract common configuration tasks and conditions and reuse them in as many places as needed. As an example, you can define library components that perform common tasks such as software installation, user management, or text-file processing, and combine them to produce the exact configuration you need.
+
+
+Multiple abstraction levels:: 
+    CFEngine allows you to express very complex configurations at a very high level, hiding the implementation details unless you want to look at them. In this way, CFEngine allows you to express system configurations in human-readable form, which makes it easier to examine them for compliance, or to make high-level changes with minimum effort. However, the lower-level implementation details are accessible when you need to change them or examine how things are actually being implemented. This allows you to make the high-level policy specification independent of operating system details, with the system-specific implementation details hidden in the lower-level components.
+
+
+Customization:: 
+    CFEngine’s ability to define different types of systems does not mean that all your systems have to be configured according to one of those predefined types. Quite the contrary! CFEngine makes it possible to specify each machine configuration in as much detail as needed. For a standard machine that only needs to adhere to the base defaults or one of your predefined machine types, you can simply specify it. But if you need a machine with a specialized configuration, one that is not repeated anywhere else in your network, or one which belongs to multiple classes (e.g., a backup web server that also doubles as a DNS server), CFEngine gives you the capability to express those needs in the policy without having to make ad-hoc, custom changes by hand anywhere.
+
+
+Of course, these advantages are relevant for any piece of computing infrastructure. CFEngine((("CFEngine", "uses of"))) is most commonly used to automate servers, but it can just as well be used to automate and control desktop machines, networking equipment (routers, switches, etc.), or other specialized appliances (VMware ESX servers, IDS appliances, etc.). CFEngine can be installed in many Linux-based appliances, but it can also be used to monitor and control those appliances remotely, if they have some form of remote-control (((range="endofrange", startref="ch1-adv")))interface.
+
+[[history-of-cfengine]]
+== A Brief History of CFEngine
+
+CFEngine((("Burgess, Mark (creator of CFEngine)")))((("CFEngine", "history of", id="ch1-hist", range="startofrange"))) was created in 1993 by Mark Burgess at Oslo University in Norway to automate the configuration of Unix systems. CFEngine 1 was essentially a specialized language that allowed implicit if-then tests based on “classes” to determine what command should be executed on which systems, and which had a fixed set of actions that could be performed on each system (such as configuring __/etc/resolv.conf__, mounting filesystems, and cleaning up temporary files).
+
+CFEngine gained popularity, and in 2002 CFEngine 2 was released. This version of CFEngine was based already on research done by Burgess on the topics of computer immunology and convergent configuration. These put forward the idea that a configuration management system should bring a system towards its desired state gradually, fixing only what is necessary to bring it to its desired state. This characteristic greatly simplifies the deployment and implementation of a configuration management system. With home-grown scripts or any other tool that simply executes a sequence of steps, you have to be careful because running the same commands twice may break the system. The idea of convergent configuration means that actions should be taken only in the measure needed to bring the system to its desired state, and to make no unnecessary or additional changes once in that state.
+
+As CFEngine’s popularity grew, its language grew with it, and statements and features were added based on experience and identified needs. Author Mark Burgess embarked on a redesign phase, and the result was CFEngine 3, released in 2009. The new ((("Promise Theory")))((("CFEngine", "Promise Theory used by")))release was now supported by promise theory, developed by the author over the years of observing how CFEngine works and how it can bring a system to a predictable desired state by following a set of consistent principles. The syntax of the language was completely revamped to make it consistent and in line with promise theory. Under the new model, every CFEngine statement is a promise made by an object and with certain properties. This makes the language extremely simple, consistent, and extensible. Also((("Knowledge Management"))) new in CFEngine 3 was the idea of Knowledge Management. This means that a CFEngine policy can now also include high-level knowledge about the policy, including its intentions, and the language can be fully annotated to make it easier for people to understand the purpose of the policy and how it achieves its goals.
+
+CFEngine 3 represents a big change from previous versions, particularly because it created an incompatible policy syntax. However, great benefits spring from the redesign of the language and the theory behind it. If necessary, the language can be expanded to include new promise types without modifying its basic structure.
+
+Finally, CFEngine 3 ((("CFEngine AS company")))was accompanied by the birth of a company (CFEngine AS) to provide commercial support and to produce commercial editions of CFEngine. Although the core of CFEngine is still (and will remain) open source, commercial versions include “enterprise” features that make it easier to install, configure, and administer machines in very large environments, including tight integration of reporting capabilities, simpler deployment mechanisms, integration with directory servers (LDAP), extensible monitoring mechanisms, and a graphical administration (((range="endofrange", startref="ch1-cfe")))(((range="endofrange", startref="ch1-hist")))console.
+
+[[versions-of-cfengine-intro]]
+== Versions of CFEngine
+
+CFEngine((("CFEngine", "versions/editions of", id="ch1-ver", range="startofrange"))) was born as an open-source project, and that has been one of its biggest strengths, since (like many open-source projects) it has created an active community of users who can look at the code to understand what is happening and how things work, who can submit bug fixes and patches, and who have kept CFEngine developers busy with feature requests and ideas. The((("CFEngine", "Community Edition", id="ch1-comm", range="startofrange")))((("Community Edition", id="ch1-comm2", range="startofrange"))) core CFEngine version, now called “Community Edition,” is still open source and available for free, and it includes the vast majority of the features of the language.
+
+With((("Enterprise Edition", see="Commercial/Enterprise Edition")))((("Commercial/Enterprise Edition", id="ch1-ent", range="startofrange")))((("CFEngine", "Commercial/Enterprise Edition", id="ch1-ent2", range="startofrange"))) the introduction of CFEngine 3 and the founding of CFEngine AS has come the introduction of a commercial version of CFEngine, called CFEngine Enterprise. This version gives you:
+
+
+* Commercial support for CFEngine;
+
+
+* Pre-built binaries for many operating systems, including native Windows support (the Community edition can be compiled under Windows using Cygwin, but does not support many Windows-specific system features);
+
+
+* A web-based GUI console called __Mission Portal__, including a graphical interface for managing your systems through the CFEngine Design Center;
+
+
+* Extended reporting features;
+
+
+* Extensible system monitoring facilities;
+
+
+* Powerful data-aggregation, observation, classification and analysis features;
+
+
+* An architecture designed to scale to very large networks;
+
+
+* Support for additional features such as LDAP connections, Windows registry and service management, and custom monitoring.
+
+
+[NOTE]
+====
+The((("Nova", see="Commercial/Enterprise Edition")))((("CFEngine Nova", seealso="Commercial/Enterprise Edition"))) CFEngine Enterprise edition was previously known as “CFEngine Nova.” You will still see some references to this name, both in documentation and in messages produced by the different components.
+
+====
+
+In this book I will cover both Community and Enterprise, although I will try to stay away from Enterprise-specific features unless strictly needed, or unless we are explicitly discussing them. Enterprise-specific features will be clearly identified, so that you know not to expect them to work if you are using Community.
+
+CFEngine Enterprise is a strict superset of Community in terms of the policy language, so it is easy to get started using Community, and when your needs grow or you need to ensure commercial support for your installation, you can easily upgrade to Enterprise and have your existing policies function flawlessly. Also of note is that all Enterprise-specific features of the CFEngine language are recognized as valid by CFEngine Community, but they are just non-functional. This means that you can write policy files with Enterprise features and run them on Community. They may not be functional, but they will not cause a crash or an error.
+
+One difference of using Enterprise is, of course, that you do not get the source code for it. If you are not using one of the supported systems, you may be out of luck using it (admittedly, the list of supported systems is fairly large and includes most common Unix and Linux distributions, plus Windows). With Community, if you can get it to compile you can use it, and the requirements are fairly simple to provide, so there are good chances you will be able to compile it.
+
+In the end, the choice between Community and Enterprise is up to you and your particular situation regarding needs, time, and budget. Both include the same basic technology and use exactly the same concepts for configuration management, so in any case you can rest assured that you are getting some of the most advanced and proven configuration-management technology (((range="endofrange", startref="ch1-ver")))(((range="endofrange", startref="ch1-comm")))(((range="endofrange", startref="ch1-comm2")))(((range="endofrange", startref="ch1-ent")))(((range="endofrange", startref="ch1-ent2")))available.
+
