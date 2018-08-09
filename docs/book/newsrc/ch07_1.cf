@@ -1,0 +1,26 @@
+bundle common environments
+{
+ classes:
+   "environment_development" or => {  # <1>
+                                    "hostname1_example_com",
+                                    "ipv4_10_1_2_3",
+   };
+   "environment_testing"     or => {
+                                    classmatch(".*_test_example_com"), # <2>
+                                    "ipv4_10_1_2",
+                                    "suse_11",
+   };
+   "environment_production"  or => {
+                                    classmatch(".*_example_com"),  # <3>
+                                    "ipv4_10_1",
+   };
+ vars:
+  any::   # <4>
+   "active" string => "none", policy => "overridable";
+  environment_production::
+   "active" string => "production", policy => "overridable";
+  environment_testing::
+   "active" string => "testing", policy => "overridable";
+  environment_development::
+   "active" string => "development", policy => "overridable";
+}

@@ -1,0 +1,57 @@
+body common control
+{
+        bundlesequence => { "configfiles" };
+}
+
+bundle agent configfiles
+{
+  vars:  
+      # Files to edit
+      "files[sysctl]"     string => "/etc/sysctl.conf";
+      "files[sshd]"       string => "/etc/ssh/sshd_config";
+      "files[inittab]"    string => "/etc/inittab";
+      
+
+      "file_id" slist => getindices("files");
+      "bundle_names" slist => maplist("edit_$(this)", "file_id");
+
+  methods:
+      "backup"  usebundle => backup_files("configfiles.files");
+      "$(bundle_names)"  usebundle => $(bundle_names)("configfiles.files");
+      "users"   usebundle => manage_users("configfiles.users");
+}
+
+bundle agent backup_files(param)
+{
+  reports:
+    cfengine::
+      "backup_files";
+}
+
+bundle agent edit_sysctl(p)
+{
+  reports:
+    cfengine::
+      "edit_sysctlconf: $($(p)[sysctl])";
+}
+
+bundle agent edit_sshd(p)
+{
+  reports:
+    cfengine::
+      "edit_sshdconfig: $($(p)[sshd])";
+}
+
+bundle agent edit_inittab(p)
+{
+  reports:
+    cfengine::
+      "edit_inittab: $($(p)[inittab])";
+}
+
+bundle agent manage_users(param)
+{
+  reports:
+    cfengine::
+      "manage_users";
+}

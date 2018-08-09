@@ -1,0 +1,14 @@
+bundle agent backup_files(id)
+{
+  vars:
+      "allfiles"  slist => getindices("$(id)");
+      "backupdst" string => "/mnt/fileserver/cfenginebackups-$(sys.cdate)";
+
+  files:
+      "$(backupst)/."
+        create => "true";
+
+      "$(backupdst)/$($(id)[$(allfiles)])"
+        comment => "Backup old versions of $($(id)[$(allfiles)])",
+        copy_from => local_cp("$($(id)[$(allfiles)])");
+}

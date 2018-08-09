@@ -1,0 +1,19 @@
+body common control {
+      bundlesequence => { "main" };   # <1>
+}
+
+bundle agent main
+{
+  methods:   # <2>
+    any::
+      "dns"     usebundle => dns_config;
+      "ntp"     usebundle => ntp_config;
+    webserver::   # <3>
+      "apache"  usebundle => apache_config;
+    dbserver::
+      "mysql"   usebundle => mysql_config;
+    linux.!dbserver::   # <4>
+      "sysctl_std" usebundle => sysctl_std_config;
+    linux.dbserver::
+      "sysctl_tuned" usebundle => sysctl_tuned_config;
+}

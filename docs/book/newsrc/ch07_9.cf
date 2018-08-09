@@ -1,0 +1,35 @@
+bundle agent osx_service(service, state)
+{
+  vars:   # <1>
+      "startcommand[ssh]"
+        string => "/usr/sbin/systemsetup -f -setremotelogin on";
+      "stopcommand[ssh]"
+        string => "/usr/sbin/systemsetup -f -setremotelogin off";
+      # An exit status of zero means the service is running
+      "checkcommand[ssh]"
+        string => "/usr/sbin/systemsetup -getremotelogin | /usr/bin/grep -q On",
+        comment => "Command to check if ssh is running.";
+  classes:
+      "$(service)_is_running"   # <2>
+        expression => returnszero("$(checkcommand[$(service)])", "useshell"),
+        comment => "Indicate if $(service) is running.";
+      "start"   # <3>
+        expression => strcmp("start","$(state)"),
+        comment => "Check if to start a service";
+      "stop"
+        expression => strcmp("stop","$(state)"),
+        comment => "Check if to stop a service";
+  commands:
+      "$(stopcommand[$(service)])"   # <4>
+        comment => "Execute command to stop $(service)",
+        ifvarclass => "stop.$(service)_is_running";
+      "$(startcommand[$(service)])"
+        comment => "Execute command to start $(service)",
+        ifvarclass => "start.!$(service)_is_running";
+  reports:
+    verbose::   # <5>
+      "Stopping $(service) with $(stopcommand[$(service)])."
+        ifvarclass => "stop.$(service)_is_running";
+      "Starting $(service) with $(startcommand[$(service)])"
+        ifvarclass => "start.!$(service)_is_running";
+}

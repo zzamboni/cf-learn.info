@@ -1,0 +1,23 @@
+bundle agent main {
+ vars:
+   # SSHD configuration to set
+   "sshd" data => parsejson('{
+     "Protocol": "2",
+     "X11Forwarding": "yes",
+     "UseDNS": "no",
+     "PermitRootLogin": "no"
+   }');
+
+files:
+    "/etc/ssh/sshd_config"
+      handle    => "sshd_config",
+      comment   => "Set sshd configuration",
+      edit_line => set_config_values("sshd"),
+      classes   => if_repaired("restart_sshd");
+
+commands:
+  restart_sshd::
+    "/etc/init.d/sshd reload"
+      handle  => "sshd_restart",
+      comment => "Restart sshd if the config file was modified";
+}

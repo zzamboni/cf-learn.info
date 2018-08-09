@@ -1,0 +1,12 @@
+bundle agent wp_install(params)
+{
+ methods:
+   "wp_vars"  usebundle => wp_vars("$(params)");
+   "wp_pkgs"  usebundle => wp_packages_installed("wp_vars.conf");
+   "wp_svcs"  usebundle => wp_services_up("wp_vars.conf");
+   "wp_tar"   usebundle => wp_tarball_is_present("wp_vars.conf");
+   "wp_xpnd"  usebundle => wp_tarball_is_unrolled("wp_vars.conf");
+   "wp_mysql" usebundle => wp_mysql_configuration("wp_vars.conf");
+   "wp_cfgcp" usebundle => wp_config_exists("wp_vars.conf");
+   "wp_cfg"   usebundle => wp_is_properly_configured("wp_vars.conf");
+}

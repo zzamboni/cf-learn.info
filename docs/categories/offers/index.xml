@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Offers on Learning CFEngine 3</title>
+    <link>http://cf-learn.info/categories/offers/</link>
+    <description>Recent content in Offers on Learning CFEngine 3</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 03 May 2012 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://cf-learn.info/categories/offers/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Day Against DRM at O&#39;Reilly: 50% discount on &#34;Learning CFEngine 3&#34; and all other ebooks</title>
+      <link>http://cf-learn.info/post/day-against-drm-at-oreilly-50-discount-on-lea/</link>
+      <pubDate>Thu, 03 May 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://cf-learn.info/post/day-against-drm-at-oreilly-50-discount-on-lea/</guid>
+      <description>Today, May 4th, 2012, O&#39;Reilly Media is participating in support of the FSF&#39;s Day Against DRM. All O&#39;Reilly ebooks and videos are DRM-free, and to celebrate this, you can get 50% off on any purchase by using the code DRMFREE.
+
+I&#39;m proud to participate. Learning CFEngine 3 is also available as a DRM-free ebook, and you can use this code to get it at half price. 
+Here&#39;s the message from O&#39;Reilly.</description>
+    </item>
+    
+  </channel>
+</rss>

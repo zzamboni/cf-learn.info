@@ -1,0 +1,3 @@
+  classes:
+    "is_host_up" expression =>
+      returnszero("$(paths.path[ping]) -c 1 myhost.com");

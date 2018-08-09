@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Training on Learning CFEngine 3</title>
+    <link>http://cf-learn.info/categories/training/</link>
+    <description>Recent content in Training on Learning CFEngine 3</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 04 Jan 2012 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://cf-learn.info/categories/training/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>CFEngine 3 training on January 25-27th, 2012</title>
+      <link>http://cf-learn.info/post/cfengine-3-training-on-january-25-27th-2012/</link>
+      <pubDate>Wed, 04 Jan 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://cf-learn.info/post/cfengine-3-training-on-january-25-27th-2012/</guid>
+      <description>Quick plug: if you are in the Bay Area and are interested in getting some hands-on introduction to CFEngine 3, please make sure to check out this training session: 
+  Automating System Administration using CFEngine 3 Presented by Mark Burgess &amp;amp; Aleksey Tsalolikhin Date: January 25-27 Location: Palo Alto, CA Price: $1950 per person (group discount negotiable) Registration &amp;amp; Agenda: http://cfengine3.eventbrite.com   Mark is the original author of CFEngine and the ultimate CFEngine authority in the world.</description>
+    </item>
+    
+  </channel>
+</rss>

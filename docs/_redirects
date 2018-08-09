@@ -1,0 +1,29 @@
+# Netlify redirects. See https://www.netlify.com/docs/redirects/
+
+/blog                              	/post/
+/learning-cfengine-3-at-lisa12     	/post/learning-cfengine-3-at-lisa12/
+/second-release-of-learning-cfengine-3	/post/second-release-of-learning-cfengine-3/
+/cfengine-tip-004-how-to-bootstrap-a-cfengine	/post/cfengine-tip-004-how-to-bootstrap-a-cfengine/
+/cfengine-tip-003-the-distinction-between-bodi	/post/cfengine-tip-003-the-distinction-between-bodi/
+/cfengine-tip-002-how-to-pass-arguments-to-bun	/post/cfengine-tip-002-how-to-pass-arguments-to-bun/
+/get-a-free-copy-of-learning-cfengine-3-in-exc	/post/get-a-free-copy-of-learning-cfengine-3-in-exc/
+/day-against-drm-at-oreilly-50-discount-on-lea	/post/day-against-drm-at-oreilly-50-discount-on-lea/
+/cfengine-talks-at-picc12-conference	/post/cfengine-talks-at-picc12-conference/
+/a-full-shelf                      	/post/a-full-shelf/
+/cfengine-tip-001-modularize-complex-policies	/post/cfengine-tip-001-modularize-complex-policies/
+/new-reviews-page                  	/post/new-reviews-page/
+/my-first-batch-of-print-books-arrived	/post/my-first-batch-of-print-books-arrived/
+/the-bird-on-the-cover-of-learning-cfengine-3	/post/the-bird-on-the-cover-of-learning-cfengine-3/
+/cfengine-related-speaking-engagements-from-ma	/post/cfengine-related-speaking-engagements-from-ma/
+/book-status-released              	/post/book-status-released/
+/book-status-print-ready           	/post/book-status-print-ready/
+/syntax-highlighting-in-learning-cfengine-3	/post/syntax-highlighting-in-learning-cfengine-3/
+/cfengine-community-event-march-8th-2012	/post/cfengine-community-event-march-8th-2012/
+/book-status-production            	/post/book-status-production/
+/searching-cfengine-documentation  	/post/searching-cfengine-documentation/
+/content-complete                  	/post/content-complete/
+/code-examples-for-learning-cfengine-3-now-ava	/post/code-examples-for-learning-cfengine-3-now-ava/
+/cfengine-3-training-on-january-25-27th-2012	/post/cfengine-3-training-on-january-25-27th-2012/
+/cf-cmd-a-command-line-tool-for-running-cfengi	/post/cf-cmd-a-command-line-tool-for-running-cfengi/
+/migrating-from-cfengine-2-to-cfengine-3	/post/migrating-from-cfengine-2-to-cfengine-3/
+/httpcf-learninfo-goes-live        	/post/httpcf-learninfo-goes-live/

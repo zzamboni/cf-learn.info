@@ -1,0 +1,7 @@
+{
+    "vars": {
+        "domain": "example.com",
+        "acl": [ "$(sys.policy_hub)/16" ],
+        "dir_masterfiles": "$(sys.workdir)/masterfiles"
+    }
+}

@@ -1,0 +1,29 @@
+bundle agent wp_packages_installed(params)
+{
+  vars:
+    debian::  # <1>
+      "desired_package" slist => {
+                                   "apache2",
+                                   "php5",
+                                   "php5-mysql",
+                                   "mysql-server",
+                                 };
+    redhat::
+      "desired_package" slist => {
+                                   "httpd",
+                                   "php",
+                                   "php-mysql",
+                                   "mysql-server",
+                                 };
+  packages:  # <2>
+      "$(desired_package)"
+        package_policy => "add",
+        package_method => generic,
+        classes => if_repaired("packages_added");
+
+  commands:
+    packages_added::  # <3>
+      "$($(params)[_sys_servicecmd]) $($(params)[_sys_apachesrv]) graceful"
+        comment => "Restarting httpd so it can pick up new modules.";
+
+}
