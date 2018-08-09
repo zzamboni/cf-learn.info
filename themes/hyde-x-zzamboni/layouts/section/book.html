@@ -9,7 +9,7 @@
     {{ if isset .Params "categories" }}
     &middot;
     {{ $baseUrl := .Site.BaseURL }}
-    {{ range .Params.categories }}<a class="label" href="{{ $baseUrl }}/categories/{{ . | urlize }}">{{ . }}</a>{{ end }}
+    {{ range .Params.categories }}<a class="label" href='{{ "/categories/" | relURL }}{{ . | urlize }}'>{{ . }}</a>{{ end }}
     {{ end }}</span>
 <!-- &middot; <time>{{ .Date.Format "Jan 2, 2006" }}</time> -->
     </li>

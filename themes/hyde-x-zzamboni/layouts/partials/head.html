@@ -10,15 +10,15 @@
   <title>{{ .Title }} &middot; {{ .Site.Author.name }}</title>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="{{ .Site.BaseURL }}/css/poole.css">
-  <link rel="stylesheet" href="{{ .Site.BaseURL }}/css/hyde.css">
-  <link rel="stylesheet" href="{{ .Site.BaseURL }}/css/poole-overrides.css">
-  <link rel="stylesheet" href="{{ .Site.BaseURL }}/css/hyde-overrides.css">
-  <link rel="stylesheet" href="{{ .Site.BaseURL }}/css/hyde-x.css">
-  <link rel="stylesheet" type="text/css" href="{{ .Site.BaseURL }}/css/socialicious.css" media="screen" />
-  {{ if isset .Site.Params "highlight" }}<link rel="stylesheet" href="{{ .Site.BaseURL }}/css/highlight/{{ .Site.Params.highlight }}.css">{{ end }}
+  <link rel="stylesheet" href='{{ "/css/poole.css" | relURL }}'>
+  <link rel="stylesheet" href='{{ "/css/hyde.css" | relURL }}'>
+  <link rel="stylesheet" href='{{ "/css/poole-overrides.css" | relURL }}'>
+  <link rel="stylesheet" href='{{ "/css/hyde-overrides.css" | relURL }}'>
+  <link rel="stylesheet" href='{{ "/css/hyde-x.css" | relURL }}'>
+  <link rel="stylesheet" type="text/css" href='{{ "/css/socialicious.css" | relURL }}' media="screen" />
+  {{ if isset .Site.Params "highlight" }}<link rel="stylesheet" href='{{ printf "/css/highlight/%s.css" .Site.Params.highlight | relURL }}' />{{ end }}
   <link href='http://fonts.googleapis.com/css?family=Quattrocento|Quattrocento+Sans' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" href="{{ .Site.BaseURL }}/css/tachyons.min.css"/>
+  <link rel="stylesheet" href='{{ "/css/tachyons.min.css" | relURL }}'/>
 
   <!-- Icons -->
   <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
