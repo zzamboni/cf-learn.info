@@ -1,7 +1,6 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<html xmlns="https://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
 <head>
-  <link href="http://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 
   
@@ -10,19 +9,19 @@
   <title>Chapter 6: CFEngine Tips, Tricks, and Patterns &middot; Diego Zamboni</title>
 
   
-  <link rel="stylesheet" href="http://cf-learn.info/css/poole.css">
-  <link rel="stylesheet" href="http://cf-learn.info/css/hyde.css">
-  <link rel="stylesheet" href="http://cf-learn.info/css/poole-overrides.css">
-  <link rel="stylesheet" href="http://cf-learn.info/css/hyde-overrides.css">
-  <link rel="stylesheet" href="http://cf-learn.info/css/hyde-x.css">
-  <link rel="stylesheet" type="text/css" href="http://cf-learn.info/css/socialicious.css" media="screen" />
+  <link rel="stylesheet" href='/css/poole.css'>
+  <link rel="stylesheet" href='/css/hyde.css'>
+  <link rel="stylesheet" href='/css/poole-overrides.css'>
+  <link rel="stylesheet" href='/css/hyde-overrides.css'>
+  <link rel="stylesheet" href='/css/hyde-x.css'>
+  <link rel="stylesheet" type="text/css" href='/css/socialicious.css' media="screen" />
   
-  <link href='http://fonts.googleapis.com/css?family=Quattrocento|Quattrocento+Sans' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" href="http://cf-learn.info/css/tachyons.min.css"/>
+  <link href='https://fonts.googleapis.com/css?family=Quattrocento|Quattrocento+Sans' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href='/css/tachyons.min.css'/>
 
   
-  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://cf-learn.info/apple-touch-icon-144-precomposed.png">
-  <link href="http://cf-learn.info/favicon.png" rel="icon">
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link href="/favicon.png" rel="icon">
 
   
   <link href="" rel="alternate" type="application/rss+xml" title="Learning CFEngine 3 &middot; Diego Zamboni" />
@@ -42,19 +41,19 @@
 
     <ul class="sidebar-nav">
       
-        <li class="sidebar-nav-item"><a  href="http://cf-learn.info/home/">Home</a></li>
+        <li class="sidebar-nav-item"><a  href="/home/">Home</a></li>
       
-        <li class="sidebar-nav-item"><a  href="http://cf-learn.info/the-author/">The Author</a></li>
+        <li class="sidebar-nav-item"><a  href="/the-author/">The Author</a></li>
       
-        <li class="sidebar-nav-item"><a  href="http://cf-learn.info/post/">The Blog</a></li>
+        <li class="sidebar-nav-item"><a  href="/post/">The Blog</a></li>
       
-        <li class="sidebar-nav-item"><a  href="http://cf-learn.info/book/">The Book</a></li>
+        <li class="sidebar-nav-item"><a  href="/book/">The Book</a></li>
       
-        <li class="sidebar-nav-item"><a  href="http://cf-learn.info/the-code/">The Code</a></li>
+        <li class="sidebar-nav-item"><a  href="/the-code/">The Code</a></li>
       
-        <li class="sidebar-nav-item"><a  href="http://cf-learn.info/the-raves/">The Raves</a></li>
+        <li class="sidebar-nav-item"><a  href="/the-raves/">The Raves</a></li>
       
-        <li class="sidebar-nav-item"><a  href="http://cf-learn.info/contact/">Contact</a></li>
+        <li class="sidebar-nav-item"><a  href="/contact/">Contact</a></li>
       
     </ul>
 
@@ -67,7 +66,7 @@
     </ul>
 
     <div class="sidebar-sticky"><p>&copy; 2018 Diego Zamboni<br/>
-        Powered by <a href="http://gohugo.io">Hugo</a></p></div>
+        Powered by <a href="https://gohugo.io">Hugo</a></p></div>
   </div>
 </div>
 
@@ -673,7 +672,7 @@ rest will be skipped.</p>
 <p>The bundle receives the name of an array as its $(params) argument.</p>
 </li>
 <li>
-<p>Default values for all parameters are stored in an internal array called conf. Here we are storing the default values for parameters _tarfile, _downloadurl, _wp_config and _wp_cfgsample.  <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnote_1" title="View footnote.">1</a>]</sup></p>
+<p>Default values for all parameters are stored in an internal array called conf. Here we are storing the default values for parameters _tarfile, _downloadurl, _wp_config and _wp_cfgsample.  <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup></p>
 </li>
 <li>
 <p>Note that all the array elements are assigned with their policy
@@ -1466,7 +1465,7 @@ of the bundle to be called.</p>
 </div>
 <div id="footnotes">
 <hr>
-<div class="footnote" id="_footnote_1">
+<div class="footnote" id="_footnotedef_1">
 <a href="#_footnoteref_1">1</a>. All the parameter names shown in this example start with an underscore, but this has no implicit meaning. It’s just a convention used in the Wordpress installer to indicate internal parameters that will not be written to the WordPress configuration file.
 </div>
 </div>

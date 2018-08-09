@@ -1,7 +1,6 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<html xmlns="https://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
 <head>
-  <link href="http://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 
   
@@ -10,19 +9,19 @@
   <title>Chapter 2: Getting Started with CFEngine &middot; Diego Zamboni</title>
 
   
-  <link rel="stylesheet" href="http://cf-learn.info/css/poole.css">
-  <link rel="stylesheet" href="http://cf-learn.info/css/hyde.css">
-  <link rel="stylesheet" href="http://cf-learn.info/css/poole-overrides.css">
-  <link rel="stylesheet" href="http://cf-learn.info/css/hyde-overrides.css">
-  <link rel="stylesheet" href="http://cf-learn.info/css/hyde-x.css">
-  <link rel="stylesheet" type="text/css" href="http://cf-learn.info/css/socialicious.css" media="screen" />
+  <link rel="stylesheet" href='/css/poole.css'>
+  <link rel="stylesheet" href='/css/hyde.css'>
+  <link rel="stylesheet" href='/css/poole-overrides.css'>
+  <link rel="stylesheet" href='/css/hyde-overrides.css'>
+  <link rel="stylesheet" href='/css/hyde-x.css'>
+  <link rel="stylesheet" type="text/css" href='/css/socialicious.css' media="screen" />
   
-  <link href='http://fonts.googleapis.com/css?family=Quattrocento|Quattrocento+Sans' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" href="http://cf-learn.info/css/tachyons.min.css"/>
+  <link href='https://fonts.googleapis.com/css?family=Quattrocento|Quattrocento+Sans' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href='/css/tachyons.min.css'/>
 
   
-  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://cf-learn.info/apple-touch-icon-144-precomposed.png">
-  <link href="http://cf-learn.info/favicon.png" rel="icon">
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link href="/favicon.png" rel="icon">
 
   
   <link href="" rel="alternate" type="application/rss+xml" title="Learning CFEngine 3 &middot; Diego Zamboni" />
@@ -42,19 +41,19 @@
 
     <ul class="sidebar-nav">
       
-        <li class="sidebar-nav-item"><a  href="http://cf-learn.info/home/">Home</a></li>
+        <li class="sidebar-nav-item"><a  href="/home/">Home</a></li>
       
-        <li class="sidebar-nav-item"><a  href="http://cf-learn.info/the-author/">The Author</a></li>
+        <li class="sidebar-nav-item"><a  href="/the-author/">The Author</a></li>
       
-        <li class="sidebar-nav-item"><a  href="http://cf-learn.info/post/">The Blog</a></li>
+        <li class="sidebar-nav-item"><a  href="/post/">The Blog</a></li>
       
-        <li class="sidebar-nav-item"><a  href="http://cf-learn.info/book/">The Book</a></li>
+        <li class="sidebar-nav-item"><a  href="/book/">The Book</a></li>
       
-        <li class="sidebar-nav-item"><a  href="http://cf-learn.info/the-code/">The Code</a></li>
+        <li class="sidebar-nav-item"><a  href="/the-code/">The Code</a></li>
       
-        <li class="sidebar-nav-item"><a  href="http://cf-learn.info/the-raves/">The Raves</a></li>
+        <li class="sidebar-nav-item"><a  href="/the-raves/">The Raves</a></li>
       
-        <li class="sidebar-nav-item"><a  href="http://cf-learn.info/contact/">Contact</a></li>
+        <li class="sidebar-nav-item"><a  href="/contact/">Contact</a></li>
       
     </ul>
 
@@ -67,7 +66,7 @@
     </ul>
 
     <div class="sidebar-sticky"><p>&copy; 2018 Diego Zamboni<br/>
-        Powered by <a href="http://gohugo.io">Hugo</a></p></div>
+        Powered by <a href="https://gohugo.io">Hugo</a></p></div>
   </div>
 </div>
 
@@ -95,15 +94,11 @@
 </li>
 </ul>
 </div>
-<div id="preamble">
-<div class="sectionbody">
 <div class="paragraph">
 <p>The first step toward using CFEngine is getting it installed on at least one machine so that you can start playing with it. CFEngine has fairly simple requirements, so you should be able to build it yourself easily. In this chapter we will go through the process of installing CFEngine on your machine, setting it up, and writing and running your first policy. Don’t worry if you do not understand at first glance what all the different pieces mean—the idea of this chapter is to get you going. We will step back in the next chapter to examine all the different CFEngine components.</p>
 </div>
 <div class="paragraph">
-<p>I will mention one concept that you need to understand before we start. Your first CFEngine host will act as the <em>policy hub</em>, which is a server from where other CFEngine clients fetch their policy files. If you are just going to start playing with CFEngine, most likely you will be using it on a single host at the beginning, so the hub and the client can be on the same machine. As you grow your CFEngine installation, other machines will connect to the hub as well. Most CFEngine installations use a “star” configuration, with a single hub serving multiple machines. However, this is not a requirement—CFEngine allows you to connect its components in any architecture you desire<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnote_1" title="View footnote.">1</a>]</sup>.</p>
-</div>
-</div>
+<p>I will mention one concept that you need to understand before we start. Your first CFEngine host will act as the <em>policy hub</em>, which is a server from where other CFEngine clients fetch their policy files. If you are just going to start playing with CFEngine, most likely you will be using it on a single host at the beginning, so the hub and the client can be on the same machine. As you grow your CFEngine installation, other machines will connect to the hub as well. Most CFEngine installations use a “star” configuration, with a single hub serving multiple machines. However, this is not a requirement—CFEngine allows you to connect its components in any architecture you desire<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup>.</p>
 </div>
 <div class="sect1">
 <h2 id="I_sect12_d1e648">Installing CFEngine</h2>
@@ -924,7 +919,7 @@ removed.</p>
 </div>
 <div id="footnotes">
 <hr>
-<div class="footnote" id="_footnote_1">
+<div class="footnote" id="_footnotedef_1">
 <a href="#_footnoteref_1">1</a>. With CFEngine Community there is no difference at all in the software installed on a hub and on a client, just in their configuration. It is easy to convert a client into a hub (and vice versa) by bootstrapping it again with the correct options, as described in <a href="#bootstrapping-cfengine">Finishing the Installation and Bootstrapping</a>.
 </div>
 </div>
