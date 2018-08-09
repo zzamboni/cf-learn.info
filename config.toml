@@ -5,6 +5,7 @@ builddrafts = false
 theme = "hyde-x-zzamboni"
 paginate = 10
 canonifyurls = false
+relativeurls = true
 pluralizeListTitles = false
 publishDir = "docs"
 disqusShortname = "cf-learn"

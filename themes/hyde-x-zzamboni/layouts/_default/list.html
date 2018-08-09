@@ -2,7 +2,7 @@
 <div class="content container">
   <ul class="posts">
   {{ range .Data.Pages }}
-    <li><a href="{{ .Permalink }}">{{ .Title }}</a>
+    <li><a href="{{ .Permalink | relURL }}">{{ .Title }}</a>
     {{ if isset .Params "categories" }}
     &middot;
     {{ $baseUrl := .Site.BaseURL }}

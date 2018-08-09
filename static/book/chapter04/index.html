@@ -9,19 +9,19 @@
   <title>Chapter 4: Using CFEngine &middot; Diego Zamboni</title>
 
   
-  <link rel="stylesheet" href='/css/poole.css'>
-  <link rel="stylesheet" href='/css/hyde.css'>
-  <link rel="stylesheet" href='/css/poole-overrides.css'>
-  <link rel="stylesheet" href='/css/hyde-overrides.css'>
-  <link rel="stylesheet" href='/css/hyde-x.css'>
-  <link rel="stylesheet" type="text/css" href='/css/socialicious.css' media="screen" />
+  <link rel="stylesheet" href='../../css/poole.css'>
+  <link rel="stylesheet" href='../../css/hyde.css'>
+  <link rel="stylesheet" href='../../css/poole-overrides.css'>
+  <link rel="stylesheet" href='../../css/hyde-overrides.css'>
+  <link rel="stylesheet" href='../../css/hyde-x.css'>
+  <link rel="stylesheet" type="text/css" href='../../css/socialicious.css' media="screen" />
   
   <link href='https://fonts.googleapis.com/css?family=Quattrocento|Quattrocento+Sans' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" href='/css/tachyons.min.css'/>
+  <link rel="stylesheet" href='../../css/tachyons.min.css'/>
 
   
-  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
-  <link href="/favicon.png" rel="icon">
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../../apple-touch-icon-144-precomposed.png">
+  <link href="../../favicon.png" rel="icon">
 
   
   <link href="" rel="alternate" type="application/rss+xml" title="Learning CFEngine 3 &middot; Diego Zamboni" />
@@ -41,19 +41,19 @@
 
     <ul class="sidebar-nav">
       
-        <li class="sidebar-nav-item"><a  href="/home/">Home</a></li>
+        <li class="sidebar-nav-item"><a  href="../../home/">Home</a></li>
       
-        <li class="sidebar-nav-item"><a  href="/the-author/">The Author</a></li>
+        <li class="sidebar-nav-item"><a  href="../../the-author/">The Author</a></li>
       
-        <li class="sidebar-nav-item"><a  href="/post/">The Blog</a></li>
+        <li class="sidebar-nav-item"><a  href="../../post/">The Blog</a></li>
       
-        <li class="sidebar-nav-item"><a  href="/book/">The Book</a></li>
+        <li class="sidebar-nav-item"><a  href="../../book/">The Book</a></li>
       
-        <li class="sidebar-nav-item"><a  href="/the-code/">The Code</a></li>
+        <li class="sidebar-nav-item"><a  href="../../the-code/">The Code</a></li>
       
-        <li class="sidebar-nav-item"><a  href="/the-raves/">The Raves</a></li>
+        <li class="sidebar-nav-item"><a  href="../../the-raves/">The Raves</a></li>
       
-        <li class="sidebar-nav-item"><a  href="/contact/">Contact</a></li>
+        <li class="sidebar-nav-item"><a  href="../../contact/">Contact</a></li>
       
     </ul>
 
@@ -105,7 +105,7 @@
 <div class="sect3">
 <h4 id="_running_these_policies">Running These Policies</h4>
 <div class="paragraph">
-<p>While you are writing and testing them, it’s easiest to save these policies in a file that you can run by itself from the command line. For this, remember as we saw in <a href="/book/chapter02/#getting-started-with-cfengine---your-first-policy">Your First CFEngine Policy</a>, that you need to add a body common control in the file that loads the appropriate libraries and specifies which bundles should be executed. For all the system configuration examples, you need to add this at the beginning of the file ("configfiles" is the name of the bundle to execute—adapt it to the different policies and examples):</p>
+<p>While you are writing and testing them, it’s easiest to save these policies in a file that you can run by itself from the command line. For this, remember as we saw in <a href="../../book/chapter02/#getting-started-with-cfengine---your-first-policy">Your First CFEngine Policy</a>, that you need to add a body common control in the file that loads the appropriate libraries and specifies which bundles should be executed. For all the system configuration examples, you need to add this at the beginning of the file ("configfiles" is the name of the bundle to execute—adapt it to the different policies and examples):</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -117,7 +117,7 @@
 </div>
 </div>
 <div class="paragraph">
-<p>Once you are ready to integrate these bundles into your main CFEngine policy, you need to follow the steps described in <a href="/book/chapter02/#sec-integrating-into-promisescf">Integrating Your New Policy Into Periodic CFEngine Execution</a>.</p>
+<p>Once you are ready to integrate these bundles into your main CFEngine policy, you need to follow the steps described in <a href="../../book/chapter02/#sec-integrating-into-promisescf">Integrating Your New Policy Into Periodic CFEngine Execution</a>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -223,11 +223,11 @@ net.ipv4.conf.all.log_martians = 1</pre>
 <li>
 <p>Next comes the part that actually does the work, and it is surprisingly simple. The <a href="http://cf-learn.info/ref/edit_line"><code>edit_line</code></a> attribute calls the set_variable_values() bundle with the <em>name</em> of the array that contains the values we want to set. We do not pass the array itself but its name, and this name will be dereferenced inside set_variable_values() to find the actual array.</p>
 <div class="paragraph">
-<p>You probably realize that the set_variable_values() bundle is very important, since it’s the one that actually performs the work of editing the file. This is not a built-in command, but rather is contained in the CFEngine Standard Library (described in <a href="/book/chapter03/#cfengine_stdlib">CFEngine Standard Library</a>). We will come back to it in a moment.</p>
+<p>You probably realize that the set_variable_values() bundle is very important, since it’s the one that actually performs the work of editing the file. This is not a built-in command, but rather is contained in the CFEngine Standard Library (described in <a href="../../book/chapter03/#cfengine_stdlib">CFEngine Standard Library</a>). We will come back to it in a moment.</p>
 </div>
 </li>
 <li>
-<p>The <a href="http://cf-learn.info/ref/classes"><code>classes</code></a> attribute tells CFEngine that if the promise is <em>repaired</em>, the <code>sysctl_modified</code> class should be set (the notion of a “class” was explained in <a href="/book/chapter03/#classes-and-decision-making">Classes and Decision Making</a>) The <code>if_repaired</code> body part is defined in the Standard Library as well.</p>
+<p>The <a href="http://cf-learn.info/ref/classes"><code>classes</code></a> attribute tells CFEngine that if the promise is <em>repaired</em>, the <code>sysctl_modified</code> class should be set (the notion of a “class” was explained in <a href="../../book/chapter03/#classes-and-decision-making">Classes and Decision Making</a>) The <code>if_repaired</code> body part is defined in the Standard Library as well.</p>
 <div class="paragraph">
 <p>Wait a second. What do I mean by <em>repaired</em>? To CFEngine, a promise is repaired when <em>any</em> actions needs to be taken as a result of evaluating the promise, and those actions result in reaching the desired state of the promise. For example, if the file already had the desired configuration values, CFEngine would see no need to edit it, and it would not be marked as repaired (in this case CFEngine would consider the promise as “kept”). On the other hand, if any of the parameters were not present and the promise adds them, then the promise will be flagged as “repaired.” All possible end states of a promise are described in the <a href="http://cf-learn.info/ref/classes-in-*">documentation</a> for the <code>classes</code> attribute. We are free to execute this bundle as many times as we want, and CFEngine will make changes only when they are needed. Thus is the nature of convergent configuration that CFEngine allows us to perform.</p>
 </div>
@@ -271,7 +271,7 @@ net.ipv4.conf.all.log_martians = 1</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Remember, from <a href="/book/chapter03/#containers">Bundles, Bodies, and Namespaces</a>, that bundles in CFEngine are equivalent to subroutines in other programming languages—they are self-contained units that can contain most different promise types, thus allowing us to encapsulate functionality. We will now dissect this set_variable_values() bundle to see how it performs its magic.</p>
+<p>Remember, from <a href="../../book/chapter03/#containers">Bundles, Bodies, and Namespaces</a>, that bundles in CFEngine are equivalent to subroutines in other programming languages—they are self-contained units that can contain most different promise types, thus allowing us to encapsulate functionality. We will now dissect this set_variable_values() bundle to see how it performs its magic.</p>
 </div>
 <div class="colist arabic">
 <ol>
@@ -327,7 +327,7 @@ net.ipv4.conf.all.log_martians = 1</pre>
 <li>
 <p>If the promise is OK (in CFEngine, this means the promise was either already satisfied, or not satisfied but repaired), the <a href="http://cf-learn.info/ref/classes"><code>classes</code></a> attribute sets the <code>"$(cindex[$(index)])_in_file"</code> class. For example, if the parameter <code>net.ipv4.tcp_syncookies</code> already existed in the file, the <code>net_ipv4_tcp_syncookies_in_file</code> class will be set. This is the canonified version of the parameter name, concatenated with the string <code>_in_file</code>.</p>
 <div class="paragraph">
-<p>Remember from <a href="/book/chapter03/#classes-and-decision-making">Classes and Decision Making</a> that <em>classes</em> in CFEngine are identifiers that are either set or unset, and that allow us to perform Boolean decisions. In this case, we are setting classes that contain the names of all the parameters that already existed in the file, whether their value was correct already or not. The existence of these classes indicates that there is no further work to be done for those particular parameters.</p>
+<p>Remember from <a href="../../book/chapter03/#classes-and-decision-making">Classes and Decision Making</a> that <em>classes</em> in CFEngine are identifiers that are either set or unset, and that allow us to perform Boolean decisions. In this case, we are setting classes that contain the names of all the parameters that already existed in the file, whether their value was correct already or not. The existence of these classes indicates that there is no further work to be done for those particular parameters.</p>
 </div>
 </li>
 <li>
@@ -349,7 +349,7 @@ net.ipv4.conf.all.log_martians = 1</pre>
 <div class="title">Implicit Looping in CFEngine</div>
 <div class="paragraph">
 <p>Although we have already
-described implicit looping in <a href="/book/chapter03/#looping-in-cfengine">Looping in CFEngine</a>, let us look in
+described implicit looping in <a href="../../book/chapter03/#looping-in-cfengine">Looping in CFEngine</a>, let us look in
 detail at what is going on in this variable assignment, to refresh
 your memory. If a list variable is referenced as a scalar (with the
 <code>$</code> prefix instead of <code>@</code>), CFEngine automatically loops over all the
@@ -423,7 +423,7 @@ values the canonified version of each name.</p>
 <p>if_repaired() and if_ok() are both <a href="http://cf-learn.info/ref/classes">classes</a> body parts, which means they can be used as the value of a <a href="http://cf-learn.info/ref/classes">classes</a> attribute. This attribute is allowed in almost any CFEngine promise, and defines classes to be set depending on the result of the promise.</p>
 </div>
 <div class="paragraph">
-<p>The two examples shown here should be fairly self-explanatory. In if_repaired(), we are specifying that the class whose name is given as argument $(x) will be defined only when the promise was repaired (this is, when some change had to be made in order to bring the promise to its desired state). In if_ok(), we are specifying that the class will be defined when the promise was either repaired or kept (this is, it was already true). We examined the col() body in detail in <a href="/book/chapter03/#sec-bodies">Bodies</a>. In this case we are specifying the field separator, the field to be selected for edition, its value, and the operation to be performed.</p>
+<p>The two examples shown here should be fairly self-explanatory. In if_repaired(), we are specifying that the class whose name is given as argument $(x) will be defined only when the promise was repaired (this is, when some change had to be made in order to bring the promise to its desired state). In if_ok(), we are specifying that the class will be defined when the promise was either repaired or kept (this is, it was already true). We examined the col() body in detail in <a href="../../book/chapter03/#sec-bodies">Bodies</a>. In this case we are specifying the field separator, the field to be selected for edition, its value, and the operation to be performed.</p>
 </div>
 <div class="paragraph">
 <p>This finishes our explanation for now. I would like to remind you of the different levels of abstraction present even in this simple example:</p>
@@ -666,7 +666,7 @@ counter-intuitive, but it gives us an opportunity to learn more about
 how CFEngine works.</p>
 <div class="paragraph">
 <p>As we saw in
-<a href="/book/chapter03/#normal-ordering">Normal Ordering</a>, promise sections in a CFEngine policy are executed
+<a href="../../book/chapter03/#normal-ordering">Normal Ordering</a>, promise sections in a CFEngine policy are executed
 in a hard-coded sequence known as normal ordering. According to normal
 ordering, the <a href="http://cf-learn.info/ref/insert_lines"><code>insert_lines:</code></a>
 section is executed <em>before</em> the
@@ -881,7 +881,7 @@ us to edit fields in a colon-separated file. Here is its definition:</p>
 </div>
 <div class="paragraph">
 <p>This bundle uses the same
-lower-level col() body we employed in <a href="/book/chapter04/#editing-sysctl.conf">Editing /etc/sysctl.conf</a>, only this
+lower-level col() body we employed in <a href="../../book/chapter04/#editing-sysctl.conf">Editing /etc/sysctl.conf</a>, only this
 time using the colon as a separator to set the appropriate field to
 the value we provide. As used in our promise, col() results in the
 second field of the line whose first field is <code>"id"</code> to be set to
@@ -2825,7 +2825,7 @@ IPv6) as part of @(acl).</p>
 </table>
 </div>
 <div class="paragraph">
-<p>As you work more with CFEngine, you will discover new features and new ways of doing things. Now that you have read through this chapter, I encourage you to go back and look at the list of resources in <a href="/book/chapter03/#cfengine-information-resources">CFEngine Information Resources</a>. Many of them will probably make much more sense now.</p>
+<p>As you work more with CFEngine, you will discover new features and new ways of doing things. Now that you have read through this chapter, I encourage you to go back and look at the list of resources in <a href="../../book/chapter03/#cfengine-information-resources">CFEngine Information Resources</a>. Many of them will probably make much more sense now.</p>
 </div>
 </div>
 </div>
