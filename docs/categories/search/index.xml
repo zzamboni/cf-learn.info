@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Search on Learning CFEngine 3</title>
+    <link>http://cf-learn.info/categories/search/</link>
+    <description>Recent content in Search on Learning CFEngine 3</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 02 Feb 2012 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://cf-learn.info/categories/search/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Searching CFEngine documentation</title>
+      <link>http://cf-learn.info/post/searching-cfengine-documentation/</link>
+      <pubDate>Thu, 02 Feb 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://cf-learn.info/post/searching-cfengine-documentation/</guid>
+      <description>The CFEngine Reference Manual is extremely useful, and is the ultimate guide to everything about CFEngine. However, it is not always the easiest to find what you are looking for. 
+To help in this respect, I have created a cross-referenced index of all the section headings in the manual. You can search it using the second search box on the right of any page of this site. For example, try searching for &#34;</description>
+    </item>
+    
+  </channel>
+</rss>

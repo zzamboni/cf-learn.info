@@ -1,0 +1,14 @@
+bundle agent monitor_for_changes
+{
+  vars:
+      "dirs"  slist => { "/bin/", "/usr/bin/" };
+      "files" slist => { "/etc/passwd", "/etc/motd" };
+
+  files:
+      "$(dirs)"
+        changes => detect_all_change,
+        depth_search => recurse("inf");
+
+      "$(files)"
+        changes => detect_all_change;
+}

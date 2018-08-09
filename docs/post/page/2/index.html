@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html xmlns="https://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>The Blog &middot; Diego Zamboni</title>
+
+  
+  <link rel="stylesheet" href='../../../css/poole.css'>
+  <link rel="stylesheet" href='../../../css/hyde.css'>
+  <link rel="stylesheet" href='../../../css/poole-overrides.css'>
+  <link rel="stylesheet" href='../../../css/hyde-overrides.css'>
+  <link rel="stylesheet" href='../../../css/hyde-x.css'>
+  <link rel="stylesheet" type="text/css" href='../../../css/socialicious.css' media="screen" />
+  
+  <link href='https://fonts.googleapis.com/css?family=Quattrocento|Quattrocento+Sans' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href='../../../css/tachyons.min.css'/>
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../../../apple-touch-icon-144-precomposed.png">
+  <link href="../../../favicon.png" rel="icon">
+
+  
+  <link href="http://cf-learn.info/post/index.xml" rel="alternate" type="application/rss+xml" title="Learning CFEngine 3 &middot; Diego Zamboni" />
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  
+</head>
+<body class="lh-copy">
+<div class="sidebar">
+  <div class="container">
+    <div class="sidebar-about">
+      
+      <h1>Learning CFEngine 3</h1>
+      
+    </div>
+
+    <ul class="sidebar-nav">
+      
+        <li class="sidebar-nav-item"><a  href="../../../home/">Home</a></li>
+      
+        <li class="sidebar-nav-item"><a  href="../../../the-author/">The Author</a></li>
+      
+        <li class="sidebar-nav-item active"><a  href="../../../post/">The Blog</a></li>
+      
+        <li class="sidebar-nav-item"><a  href="../../../book/">The Book</a></li>
+      
+        <li class="sidebar-nav-item"><a  href="../../../the-code/">The Code</a></li>
+      
+        <li class="sidebar-nav-item"><a  href="../../../the-raves/">The Raves</a></li>
+      
+        <li class="sidebar-nav-item"><a  href="../../../contact/">Contact</a></li>
+      
+    </ul>
+
+    <ul class="sidebar-nav">
+      
+      
+      <a href="http://twitter.com/LearningCF3"><li class="icon-twitter"></li></a>&nbsp;
+      
+      
+    </ul>
+
+    <div class="sidebar-sticky"><p>&copy; 2018 Diego Zamboni<br/>
+        Powered by <a href="https://gohugo.io">Hugo</a></p></div>
+  </div>
+</div>
+
+
+<div class="content container">
+  <div class="posts">
+    
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="../../../post/cfengine-tip-004-how-to-bootstrap-a-cfengine/">CFEngine tip #004: How to bootstrap a CFEngine client</a>
+      </h1>
+      <span class="post-date">Sep 25, 2012 &middot; 3 minute read &middot; <a href="../../../post/cfengine-tip-004-how-to-bootstrap-a-cfengine/#disqus_thread">Comments</a>
+      
+      <br/>
+      
+      <a class="label" href='../../../categories/bootstrap'>bootstrap</a><a class="label" href='../../../categories/cfengine_tip'>cfengine_tip</a>
+      </span>
+      <p>My apologies for the long delay since the last tip! Today we come back with a simple tip: how to bootstrap a CFEngine client.</p>
+
+<h2>First, some background</h2>
+
+<p>CFEngine is designed to operate in a fully distributed fashion – each CFEngine client (i.e. a machine running <code>cf-agent</code>) can operate fully autonomously, using only the policy files stored locally. For regular operation, <code>cf-agent</code> does not require any type of network connectivity.</p>
+
+<p>In real deployments, of course, maintaining each machine’s policy independently would be impractical, so CFEngine has the concept of a <em>policy hub</em>. In CFEngine Community, the policy hub is simply a file server, a machine from which others can download policy files. This allows having a single point of distribution, so that changes made there can be distributed to a large number of clients. In CFEngine Enterprise, the hub has a more complex role, acting also as an aggregator of data from the clients, for the purposes of reporting and analysis.</p>
+
+<p>All CFEngine clients will copy to their local <code>/var/cfengine/inputs/</code> directory the contents of <code>/var/cfengine/masterfiles/</code> in the policy hub, so that is where you should make any changes that you want distributed to all the machines.</p>
+
+<h2>Bootstrapping</h2>
+
+<p>When a new client is installed, it needs to be told which machine is the policy hub to which it should connect. This is done using the following command:</p>
+
+<div class="CodeRay">
+  <div class="code"><pre># cf-agent --bootstrap --policy-server=10.0.2.15</pre></div>
+</div>
+
+
+<p>You should, of course, replace 10.0.2.15 with the actual IP address of the hub to which you want to bootstrap. The first machine you install will be the policy hub itself, and it should bootstrap to itself. In this case, you have to use its own external IP address, and not “localhost” or 127.0.0.1.</p>
+
+<p>When you issue this command on the policy hub, you will see a message like this, that indicates the host recognizes itself as a policy hub:</p>
+
+<div class="CodeRay">
+  <div class="code"><pre># cf-agent --bootstrap --policy-server=10.0.2.15
+** CFEngine BOOTSTRAP probe initiated
+
+   @@@     
+   @@@      CFEngine
+
+ @ @@@ @    CFEngine Core 3.3.5
+ @ @@@ @   
+ @ @@@ @   
+ @     @   
+   @@@     
+   @ @     
+   @ @     
+   @ @     
+
+Copyright (C) CFEngine AS 2008-2012
+See Licensing at http://cfengine.com/3rdpartylicenses
+
+ -&gt; This host is: precise32
+ -&gt; Operating System Type is linux
+ -&gt; Operating System Release is 3.2.0-23-generic-pae
+ -&gt; Architecture = i686
+ -&gt; Internal soft-class is linux
+ -&gt; No previous policy has been cached on this host
+ -&gt; Assuming the policy distribution point at: 10.0.2.15:/var/cfengine/masterfiles
+ -&gt; Attempting to initiate promised autonomous services...
+
+ ** This host recognizes itself as a CFEngine Policy Hub, with policy distribution and knowledge base.
+ -&gt; The system is now converging. Full initialisation and self-analysis could take up to 30 minutes
+
+R: This host assumes the role of policy distribution host
+R:  -&gt; Updated local policy from policy server
+R:  -&gt; Started the server
+R:  -&gt; Started the scheduler
+-&gt; Bootstrap to 10.0.2.15 completed successfully</pre></div>
+</div>
+
+
+<p>If you issue it on a client, you will see a similar message, but indicating that it is bootstrapping from a different machine.</p>
+
+<p>Regardless of what you use, after bootstrap you should see <code>/var/cfengine/inputs/</code> populated with the default set of policy files, and both <code>cf-execd</code> and <code>cf-serverd</code>  should be running:</p>
+
+<div class="CodeRay">
+  <div class="code"><pre># ps axw | grep [c]f-
+16099 ?        Ss     0:00 /var/cfengine/bin/cf-execd
+16102 ?        Ss     0:00 /var/cfengine/bin/cf-serverd</pre></div>
+</div>
+
+
+<p>Once this has been done, CFEngine will start running every 5 minutes, updating its policy files from the hub, and executing them afterwards.</p>
+
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="../../../post/cfengine-tip-003-the-distinction-between-bodi/">CFEngine tip #003: The distinction between bodies and bundles</a>
+      </h1>
+      <span class="post-date">Jun 4, 2012 &middot; 2 minute read &middot; <a href="../../../post/cfengine-tip-003-the-distinction-between-bodi/#disqus_thread">Comments</a>
+      
+      <br/>
+      
+      <a class="label" href='../../../categories/bodies'>bodies</a><a class="label" href='../../../categories/bundles'>bundles</a><a class="label" href='../../../categories/cfengine'>cfengine</a><a class="label" href='../../../categories/cfengine_tip'>cfengine_tip</a><a class="label" href='../../../categories/tips'>tips</a>
+      </span>
+      <p>This is an extract from Chapter 3 of "Learning CFEngine 3", where you can also find a much more comprehensive description of bodies and bundles in the CFEngine 3 policy language.</p>
+<p>The distinction between bundles and bodies can be confusing at first. Remembering these points may help:</p>
+<ul>
+<li>
+<p>Bodies are named groups of attributes, whereas bundles are collections of promises. Promises are the units that actually do something in CFEngine (for example, run a command or add a line to a file), whereas attributes specify characteristics of how things are done (for example, whether to run the command in a shell, or where in the file to add the line).</p>
+</li>
+<li>
+<p>The value of an attribute can be a basic data type (string, integer, list, etc.), it can be the name of a body, or it can be the name of a bundle.</p>
+</li>
+<li>
+<p>The type of an attribute’s value is fixed, and determined by the attribute itself (for example, the value of the depth_search attribute in a files: promise is always a body, and the value of an edit_line attribute is always a bundle).</p>
+</li>
+<li>
+<p>For bodies and bundles, their type is always the name of the attribute to which they correspond. For example, bodies to be used with the depth_search attribute are always declared as “body depth_search xyz”, where xyz is an arbitrary name of your choosing. The same goes for bundles: bundles to be used with the edit_line attribute are always declared as “bundle edit_line xyz".</p>
+<p>There are only four types of “top level” bundles that are not used as arguments to attributes: agent, server, knowledge and monitor.</p>
+</li>
+<li>
+<p>The promise types (sections) that can appear in a bundle are determined by the bundle type. For example, commands: promises can only appear in bundles of type agent. </p>
+</li>
+</ul>
+
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="../../../post/cfengine-tip-002-how-to-pass-arguments-to-bun/">CFEngine tip #002: How to pass arguments to bundles using arrays</a>
+      </h1>
+      <span class="post-date">May 7, 2012 &middot; 3 minute read &middot; <a href="../../../post/cfengine-tip-002-how-to-pass-arguments-to-bun/#disqus_thread">Comments</a>
+      
+      <br/>
+      
+      <a class="label" href='../../../categories/arrays'>arrays</a><a class="label" href='../../../categories/cfengine'>cfengine</a><a class="label" href='../../../categories/cfengine_tip'>cfengine_tip</a><a class="label" href='../../../categories/tips'>tips</a>
+      </span>
+      <p>(This tip is based on a section from Chapter 5 of Learning CFEngine 3.)</p>
+
+<p>Many system configuration tasks require groups of name-value pairs as arguments. For example:</p>
+
+<ul>
+<li>Editing configuration files in which parameters and their values need to be stored (ssh configuration files, Windows-style INI files, etc.)</li>
+<li>Setting user parameters. In this case, sets of name-value pairs (home directory, full name, shell, etc.) are associated with a single user, identified by name.</li>
+</ul>
+<p>Having sets of related values in a single array has a number of advantages, since they can be manipulated by a single set of promises just by varying the indices used to access them. To make use of this array, you have to pass it as an argument to a bundle. One of the most useful functions in this technique is <a href="http://cf-learn.info/ref/getindices">getindices()</a>, which returns a list containing the indices of the given array, and can be used to produce an enumeration of the elements over which to iterate. The complementary function to get just the values is <a href="http://cf-learn.info/ref/getvalues">getvalues()</a>. For example, consider <a href="http://cf-learn.info/code/ch04/configfiles2.cf.html">this bundle</a>:</p>
+
+<p>{% gist 2605453 arguments1.cf %}</p>
+
+<p>To pass arrays as arguments we must pass a string with the name of the array, and then dereference it inside the function. The argument we are passing to set_config_values() is “configfiles.sshd”, which refers to the sshd array defined in the configfiles() bundle.  The dereferencing happens in the <a href="https://github.com/cfengine/copbl/blob/master/cfengine_stdlib.cf#L278">set_config_values() bundle</a>:</p>
+
+<p>{% gist 2605453 set_config_values.cf %}</p>
+
+<p>This bundle receives the name of the array as the “v” parameter, so we dereference the array and its values by using <code>$(v)</code> wherever we would normally use the array name. For example, to loop over the array elements using the indices stored in the <code>$(index)</code> list, we use <code>$($(v)[$(index)])</code> instead of <code>$(configfiles.sshd[$(index)])</code>.</p>
+
+<p>To group name/value sets into named groups, we can use two-dimensional arrays, as in <a href="http://cf-learn.info/code/ch04/users_use.cf.html">this example</a>:</p>
+
+<p>{% gist 2605453 users_use.cf %}</p>
+
+<p>In this case the dereferencing can get a little more complicated. For example, let us look at some of the code inside the <a href="http://cf-learn.info/code/ch04/sys_create_users.cf.html">create_users() bundle</a>:</p>
+
+<p>{% gist 2605453 sys_create_users.cf %}</p>
+
+<p>This bundle is being called from the methods: section of the <code>manage_users()</code> bundle, with the string <code>"manage_users.users"</code> as the value of <code>$(info)</code>. We use getindices() directly on this value to get a list of the first-level indices of the array (the user names), which we store in <code>@(user)</code>. Then we use implicit looping over <code>@(user)</code> to cycle through all those values, and we use the following construction to access individual elements of each user’s data: <code>$($(info)[$(user)][field])</code>. This expands to <code>$(manage_users.users[$(user)][field])</code>, on which implicit looping is applied through the <code>$(user)</code> variable. Remember that parenthesis (or curly braces, they mean the same) are required around the whole expression, so that CFEngine recognizes it properly as a variable reference.</p>
+
+<p>While the syntax looks complicated, this data structure allows great flexibility in passing around and using data structures to be used in configuration operations.</p>
+
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="../../../post/get-a-free-copy-of-learning-cfengine-3-in-exc/">Get a free copy of &#34;Learning CFEngine 3&#34; in exchange for a review</a>
+      </h1>
+      <span class="post-date">May 4, 2012 &middot; 1 minute read &middot; <a href="../../../post/get-a-free-copy-of-learning-cfengine-3-in-exc/#disqus_thread">Comments</a>
+      
+      <br/>
+      
+      <a class="label" href='../../../categories/booknews'>booknews</a><a class="label" href='../../../categories/oreilly'>oreilly</a><a class="label" href='../../../categories/reviews'>reviews</a>
+      </span>
+      <div>Are you a technical blogger? O'Reilly's "<a href="http://oreilly.com/bloggers/">Blogger Review Program</a>" allows bloggers to get free ebooks and videos, in exchange for writing reviews of them.</div>
+<p></p>
+<div>I'd love to see more reviews of "Learning CFEngine 3". If you have a technical blog, and would be interested in reviewing the book, I encourage you to visit <a href="http://oreilly.com/bloggers/">the program's website</a> to find out more.</div>
+<p></p>
+<div>Plus, I'm sure you will enjoy the book, and I would love to read your review!</div>
+
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="../../../post/day-against-drm-at-oreilly-50-discount-on-lea/">Day Against DRM at O&#39;Reilly: 50% discount on &#34;Learning CFEngine 3&#34; and all other ebooks</a>
+      </h1>
+      <span class="post-date">May 3, 2012 &middot; 2 minute read &middot; <a href="../../../post/day-against-drm-at-oreilly-50-discount-on-lea/#disqus_thread">Comments</a>
+      
+      <br/>
+      
+      <a class="label" href='../../../categories/announcements'>announcements</a><a class="label" href='../../../categories/booknews'>booknews</a><a class="label" href='../../../categories/offers'>offers</a><a class="label" href='../../../categories/oreilly'>oreilly</a>
+      </span>
+      <p>Today, May 4th, 2012, O'Reilly Media is participating in support of the FSF's <a href="http://www.fsf.org/news/may-4-day-against-drm">Day Against DRM</a>. All O'Reilly ebooks and videos are DRM-free, and to celebrate this, you can get 50% off on any purchase by using the code DRMFREE.</p>
+<p></p>
+<div>I'm proud to participate. <em>Learning CFEngine 3</em> is also available as a DRM-free ebook, and you can use this code to get it at half price.</div>
+<p></p>
+<div>Here's the message from O'Reilly. Find out more at <a href="http://shop.oreilly.com/category/deals/day-against-drm.do">http://shop.oreilly.com/category/deals/day-against-drm.do</a>
+</div>
+<p></p>
+<div>
+<span style="color: #333333; font-family: Arial, Verdana, Geneva, Helvetica, sans-serif; font-size: 12px;"><span class="orm"> </span></span>
+<div class="module ml" style="">
+<div class="body no-border">
+<div style="background: #ffd021;">
+<h1 class="fwb" style=""><span style="font-size: x-large;"><strong><a href="http://shop.oreilly.com/category/deals/day-against-drm.do">In Celebration of *Day Against DRM*</a></strong></span></h1>
+<h2 class="fsxl fwb mb" style="">Save 50% on ALL Ebooks &amp; Videos <span class="fsl" style="font-size: 16px;">– Use Code: <span style="color: #cc0000;">DRMFREE</span></span>
+</h2>
+<div style="">
+<p class="mn fsl" style="">Having the ability to download files at your convenience, store them on all your devices, or share them with a friend or colleague as you would a print book, <span class="fwb" style="font-weight: bold;">is liberating, and is how it should be</span>. If you haven't tried a DRM-free ebook or video, we encourage you to do so now. And if you're already a fan, take advantage of our sale and add to your library. For one day only, you can save 50% on all <span class="fwb" style="font-weight: bold;">O'Reilly</span>, <span class="fwb" style="font-weight: bold;">No Starch</span>, and <span class="fwb" style="font-weight: bold;">Rocky Nook </span>ebooks and videos. <a href="http://www.fsf.org/news/may-4-day-against-drm" class="fc-dark" style="color: #222222; text-decoration: underline;">Learn more about Day Against DRM</a></p>
+<p class="fsm mb" style="">Ebooks from oreilly.com are <span class="fwb" style="font-weight: bold;">DRM-free</span>. You get <span class="fwb" style="font-weight: bold;">free lifetime access, multiple file formats, free updates.</span> <br><span class="fsm fwn" style="font-size: 12px; font-weight: normal;">Deal expires May 4, 2012 at 11:59pm PT and cannot be combined with other offers.</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="../../../post/cfengine-talks-at-picc12-conference/">CFEngine talks at PICC&#39;12 conference</a>
+      </h1>
+      <span class="post-date">Apr 27, 2012 &middot; 1 minute read &middot; <a href="../../../post/cfengine-talks-at-picc12-conference/#disqus_thread">Comments</a>
+      
+      <br/>
+      
+      <a class="label" href='../../../categories/announcements'>announcements</a><a class="label" href='../../../categories/cfengine'>cfengine</a><a class="label" href='../../../categories/picc12'>picc12</a><a class="label" href='../../../categories/talks'>talks</a>
+      </span>
+      There will be several CFEngine-related classes and talks at the <a href="http://www.picconf.org/">PICC'12 conference</a> (Professional IT Community Conference) on May 11-12th, in New Jersey. I will be talking about using CFEngine as part of your security infrastructure. My colleague Joe Netzel will be talking about migration from CFEngine 2 to CFEngine 3, so if you are using CF2 and have been considering (or dreading) the migration, make sure to come by! Aleksey Tsalolikhin will give an introductory class to CFEngine. And Mark Burgess will give a class not related to CFEngine, but to the perils and skills needed to survive as a technical person in the "business world".<p></p>
+<div>If you are coming to the conference, we look forward to seeing you there!<br><ul>
+<li>Mark Burgess - <a href="http://www.picconf.org/picc12-training-classes/#f4">A Sysadmin’s Guide to Navigating the Business World</a>
+</li>
+<li>Diego Zamboni - <a href="http://www.picconf.org/picc-12-talkspapers/#18">CFEngine Configuration Management for Security</a>
+</li>
+<li>Joe Netzel - <a href="http://www.picconf.org/picc-12-talkspapers/#16">Successfully Migrating From CFEngine 2 to CFEngine 3</a>
+</li>
+<li>Aleksey Tsalolikhin - <a href="http://www.picconf.org/picc12-training-classes/#f10">Automating System Administration with CFEngine 3</a>
+</li>
+</ul>
+<p></p>
+</div>
+
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="../../../post/a-full-shelf/">A full shelf</a>
+      </h1>
+      <span class="post-date">Apr 25, 2012 &middot; 1 minute read &middot; <a href="../../../post/a-full-shelf/#disqus_thread">Comments</a>
+      
+      <br/>
+      
+      <a class="label" href='../../../categories/photos'>photos</a>
+      </span>
+      I got this photo of a bookshelf at the CFEngine office in Palo Alto. Looks awesome, doesn't it? :)<p></p>
+<div>
+<div class="p_embed p_image_embed">
+<a href="../../../images/2012/04/25/a-full-shelf/40472230-photo.jpeg"><img alt="Photo" height="375" src="../../../images/2012/04/25/a-full-shelf/40472230-photo.jpeg" width="500"></a>
+</div>
+</div>
+
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="../../../post/cfengine-tip-001-modularize-complex-policies/">CFEngine tip #001: Modularize complex policies using methods: calls</a>
+      </h1>
+      <span class="post-date">Apr 23, 2012 &middot; 2 minute read &middot; <a href="../../../post/cfengine-tip-001-modularize-complex-policies/#disqus_thread">Comments</a>
+      
+      <br/>
+      
+      <a class="label" href='../../../categories/cfengine'>cfengine</a><a class="label" href='../../../categories/cfengine_tip'>cfengine_tip</a><a class="label" href='../../../categories/methods'>methods</a><a class="label" href='../../../categories/tips'>tips</a>
+      </span>
+      <div>Welcome to the new "CFEngine tip" series. In this series of posts I will explore different tips, tricks and techniques for making better use of CFEngine. For now I will post weekly, but the frequency may change as time goes by. If you have any suggestions for topics that I should cover in this series, please <a href="http://cf-learn.info/contact.html">let me know</a>!</div>
+<p></p>
+<div>For our first installment, we will talk about methods: promises, and how they can be used to make policies both clearer and more extensible.</div>
+<div>
+<hr>
+</div>
+<p>As your CFEngine policies grow in complexity, they become harder to read if all your promises are in a single bundle, or if you split them among bundles, to have all those bundles listed in the <a href="http://cf-learn.info/ref/bundlesequence">bundlesequence</a> declaration.</p>
+<div>Enter the <a href="http://cf-learn.info/ref/methods">methods:</a> promise type. Promises of this type allow you to call other bundles in sequence, passing arbitrary parameters. For example, consider the following example (from <a href="http://cf-learn.info/code/ch05/configfiles5.cf.html">Chapter 5</a> of "Learning CFEngine 3"):</div>
+<p>{% gist 2471468 methods_ex1.cf %}</p>
+<div>The methods: section makes it very easy to see the sequence of actions that will take place: backup some files, configure sysctl, sshd, inittab and users in sequence. This helps both in clarity and in code reusability: each bundle can perform logically different functionality, and they could potentially be reused in different settings and with different parameters. The promiser string in a methods: promise is an arbitrary string. The CFEngine documentation uses "any", but you can also use it, as in this example, to indicate the purpose of the promise.</div>
+<p></p>
+<div>Furthermore, you can use CFEngine's <a href="https://cfengine.com/manuals/cf3-reference#Loops-and-lists-in-CFEngine-3">implicit looping</a> to create generic promises that will call as many other bundles as necessary. Consider this <a href="http://cf-learn.info/code/ch05/configfiles7.cf.html">revised code</a>:</div>
+<p>{% gist 2471468 methods_ex2.cf %}</p>
+<div>Now the list of bundles to call (edit_sysctl, edit_sshd and edit_inittab) is being built on the fly from the contents of the files array, and used through implicit looping to call the bundles in the methods: promises. Note how you can even pass arguments to these calls. This makes it very easy to extend the functionality by simply adding new elements to the files array (and of course, defining the appropriate edit_* bundle).</div>
+<p></p>
+<div>Until next time!</div>
+
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="../../../post/new-reviews-page/">New &#34;reviews&#34; page</a>
+      </h1>
+      <span class="post-date">Apr 19, 2012 &middot; 1 minute read &middot; <a href="../../../post/new-reviews-page/#disqus_thread">Comments</a>
+      
+      <br/>
+      
+      
+      </span>
+      I have started collecting some of the nice things I have read people say about the book, and put them in the <a href="http://cf-learn.info/reviews.html">Reviews</a> page. Check it out!
+
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="../../../post/my-first-batch-of-print-books-arrived/">My first batch of print books arrived</a>
+      </h1>
+      <span class="post-date">Mar 26, 2012 &middot; 1 minute read &middot; <a href="../../../post/my-first-batch-of-print-books-arrived/#disqus_thread">Comments</a>
+      
+      <br/>
+      
+      <a class="label" href='../../../categories/booknews'>booknews</a><a class="label" href='../../../categories/photos'>photos</a><a class="label" href='../../../categories/purdue'>purdue</a>
+      </span>
+      I'm visiting Purdue University today to give a talk and to visit old friends and colleagues. And the first box of books arrived here! It's incredible to have the physical book in my hand.<p></p>
+<div class="p_embed p_image_embed">
+<img alt="Img_0515" height="640" src="../../../images/2012/03/26/my-first-batch-of-print-books-arrived/39422579-IMG_0515.jpeg" width="479">
+</div>
+<p>This is the building where I spent most of my grad school years.</p>
+<p></p>
+<div class="p_embed p_image_embed">
+<a href="../../../images/2012/03/26/my-first-batch-of-print-books-arrived/39422580-IMG_0514.jpeg"><img alt="Img_0514" height="374" src="../../../images/2012/03/26/my-first-batch-of-print-books-arrived/39422580-IMG_0514.jpeg" width="500"></a>
+</div>
+
+    </div>
+    
+    
+
+<ul class="pagination">
+    
+    <li class="page-item">
+        <a href="../../../post/" class="page-link" aria-label="First"><span aria-hidden="true">&laquo;&laquo;</span></a>
+    </li>
+    
+    <li class="page-item">
+    <a href="../../../post/" class="page-link" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+    </li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="../../../post/">1</a></li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item active"><a class="page-link" href="../../../post/page/2/">2</a></li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="../../../post/page/3/">3</a></li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="../../../post/page/4/">4</a></li>
+    
+    
+    <li class="page-item">
+    <a href="../../../post/page/3/" class="page-link" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+    </li>
+    
+    <li class="page-item">
+        <a href="../../../post/page/4/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+    </li>
+    
+</ul>
+
+  </div>
+</div>
+
+
+<script type="text/javascript">
+var disqus_shortname = "cf-learn";
+(function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+}());
+</script>
+
+
+
+</body>
+</html>
+

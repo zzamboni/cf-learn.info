@@ -1,0 +1,17 @@
+bundle agent wp_config_exists(params)
+{
+  classes:
+      "wordpress_config_file_exists"  # <1>
+        expression => fileexists("$($(params)[_wp_config])");
+
+  files:
+    !wordpress_config_file_exists::  # <2>
+      "$($(params)[_wp_config])"
+        copy_from => backup_local_cp("$($(params)[_wp_cfgsample])");
+
+  reports:
+    wordpress_config_file_exists::
+      "WordPress config file $($(params)[_wp_config]) is present";
+    !wordpress_config_file_exists::
+      "WordPress config file $($(params)[_wp_config]) is not present";
+}

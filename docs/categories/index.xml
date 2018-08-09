@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on Learning CFEngine 3</title>
+    <link>http://cf-learn.info/categories/</link>
+    <description>Recent content in Categories on Learning CFEngine 3</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 03 May 2012 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://cf-learn.info/categories/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Announcements</title>
+      <link>http://cf-learn.info/categories/announcements/</link>
+      <pubDate>Thu, 03 May 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://cf-learn.info/categories/announcements/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Arrays</title>
+      <link>http://cf-learn.info/categories/arrays/</link>
+      <pubDate>Mon, 07 May 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://cf-learn.info/categories/arrays/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Bodies</title>
+      <link>http://cf-learn.info/categories/bodies/</link>
+      <pubDate>Mon, 04 Jun 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://cf-learn.info/categories/bodies/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Booknews</title>
+      <link>http://cf-learn.info/categories/booknews/</link>
+      <pubDate>Tue, 03 Apr 2018 10:45:00 +0200</pubDate>
+      
+      <guid>http://cf-learn.info/categories/booknews/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Bootstrap</title>
+      <link>http://cf-learn.info/categories/bootstrap/</link>
+      <pubDate>Tue, 25 Sep 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://cf-learn.info/categories/bootstrap/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Bundles</title>
+      <link>http://cf-learn.info/categories/bundles/</link>
+      <pubDate>Mon, 04 Jun 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://cf-learn.info/categories/bundles/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Cf2</title>
+      <link>http://cf-learn.info/categories/cf2/</link>
+      <pubDate>Wed, 21 Dec 2011 00:00:00 +0000</pubDate>
+      
+      <guid>http://cf-learn.info/categories/cf2/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Cf3</title>
+      <link>http://cf-learn.info/categories/cf3/</link>
+      <pubDate>Wed, 21 Dec 2011 00:00:00 +0000</pubDate>
+      
+      <guid>http://cf-learn.info/categories/cf3/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Cfengine</title>
+      <link>http://cf-learn.info/categories/cfengine/</link>
+      <pubDate>Mon, 04 Jun 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://cf-learn.info/categories/cfengine/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Cfengine_tip</title>
+      <link>http://cf-learn.info/categories/cfengine_tip/</link>
+      <pubDate>Tue, 25 Sep 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://cf-learn.info/categories/cfengine_tip/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Chicago</title>
+      <link>http://cf-learn.info/categories/chicago/</link>
+      <pubDate>Sat, 24 Mar 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://cf-learn.info/categories/chicago/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Documentation</title>
+      <link>http://cf-learn.info/categories/documentation/</link>
+      <pubDate>Thu, 02 Feb 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://cf-learn.info/categories/documentation/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Examples</title>
+      <link>http://cf-learn.info/categories/examples/</link>
+      <pubDate>Sun, 08 Jan 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://cf-learn.info/categories/examples/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Methods</title>
+      <link>http://cf-learn.info/categories/methods/</link>
+      <pubDate>Mon, 23 Apr 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://cf-learn.info/categories/methods/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Migration</title>
+      <link>http://cf-learn.info/categories/migration/</link>
+      <pubDate>Wed, 21 Dec 2011 00:00:00 +0000</pubDate>
+      
+      <guid>http://cf-learn.info/categories/migration/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Newzealand</title>
+      <link>http://cf-learn.info/categories/newzealand/</link>
+      <pubDate>Mon, 26 Mar 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://cf-learn.info/categories/newzealand/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Offers</title>
+      <link>http://cf-learn.info/categories/offers/</link>
+      <pubDate>Thu, 03 May 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://cf-learn.info/categories/offers/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Oreilly</title>
+      <link>http://cf-learn.info/categories/oreilly/</link>
+      <pubDate>Fri, 04 May 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://cf-learn.info/categories/oreilly/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Photos</title>
+      <link>http://cf-learn.info/categories/photos/</link>
+      <pubDate>Wed, 25 Apr 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://cf-learn.info/categories/photos/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Picc12</title>
+      <link>http://cf-learn.info/categories/picc12/</link>
+      <pubDate>Fri, 27 Apr 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://cf-learn.info/categories/picc12/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Purdue</title>
+      <link>http://cf-learn.info/categories/purdue/</link>
+      <pubDate>Mon, 26 Mar 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://cf-learn.info/categories/purdue/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Reviews</title>
+      <link>http://cf-learn.info/categories/reviews/</link>
+      <pubDate>Fri, 04 May 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://cf-learn.info/categories/reviews/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Search</title>
+      <link>http://cf-learn.info/categories/search/</link>
+      <pubDate>Thu, 02 Feb 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://cf-learn.info/categories/search/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Sitenews</title>
+      <link>http://cf-learn.info/categories/sitenews/</link>
+      <pubDate>Tue, 19 May 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://cf-learn.info/categories/sitenews/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Talks</title>
+      <link>http://cf-learn.info/categories/talks/</link>
+      <pubDate>Fri, 27 Apr 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://cf-learn.info/categories/talks/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Testing</title>
+      <link>http://cf-learn.info/categories/testing/</link>
+      <pubDate>Tue, 27 Dec 2011 00:00:00 +0000</pubDate>
+      
+      <guid>http://cf-learn.info/categories/testing/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Tips</title>
+      <link>http://cf-learn.info/categories/tips/</link>
+      <pubDate>Mon, 04 Jun 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://cf-learn.info/categories/tips/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Tools</title>
+      <link>http://cf-learn.info/categories/tools/</link>
+      <pubDate>Thu, 02 Feb 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://cf-learn.info/categories/tools/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Training</title>
+      <link>http://cf-learn.info/categories/training/</link>
+      <pubDate>Wed, 04 Jan 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://cf-learn.info/categories/training/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Tui</title>
+      <link>http://cf-learn.info/categories/tui/</link>
+      <pubDate>Mon, 26 Mar 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://cf-learn.info/categories/tui/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Webinars</title>
+      <link>http://cf-learn.info/categories/webinars/</link>
+      <pubDate>Wed, 21 Dec 2011 00:00:00 +0000</pubDate>
+      
+      <guid>http://cf-learn.info/categories/webinars/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Westlafayette</title>
+      <link>http://cf-learn.info/categories/westlafayette/</link>
+      <pubDate>Sat, 24 Mar 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://cf-learn.info/categories/westlafayette/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

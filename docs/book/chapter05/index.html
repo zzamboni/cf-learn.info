@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html xmlns="https://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>Chapter 5: The CFEngine Design Center &middot; Diego Zamboni</title>
+
+  
+  <link rel="stylesheet" href='../../css/poole.css'>
+  <link rel="stylesheet" href='../../css/hyde.css'>
+  <link rel="stylesheet" href='../../css/poole-overrides.css'>
+  <link rel="stylesheet" href='../../css/hyde-overrides.css'>
+  <link rel="stylesheet" href='../../css/hyde-x.css'>
+  <link rel="stylesheet" type="text/css" href='../../css/socialicious.css' media="screen" />
+  
+  <link href='https://fonts.googleapis.com/css?family=Quattrocento|Quattrocento+Sans' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href='../../css/tachyons.min.css'/>
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../../apple-touch-icon-144-precomposed.png">
+  <link href="../../favicon.png" rel="icon">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="Learning CFEngine 3 &middot; Diego Zamboni" />
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  
+</head>
+<body class="lh-copy">
+<div class="sidebar">
+  <div class="container">
+    <div class="sidebar-about">
+      
+      <h1>Learning CFEngine 3</h1>
+      
+    </div>
+
+    <ul class="sidebar-nav">
+      
+        <li class="sidebar-nav-item"><a  href="../../home/">Home</a></li>
+      
+        <li class="sidebar-nav-item"><a  href="../../the-author/">The Author</a></li>
+      
+        <li class="sidebar-nav-item"><a  href="../../post/">The Blog</a></li>
+      
+        <li class="sidebar-nav-item"><a  href="../../book/">The Book</a></li>
+      
+        <li class="sidebar-nav-item"><a  href="../../the-code/">The Code</a></li>
+      
+        <li class="sidebar-nav-item"><a  href="../../the-raves/">The Raves</a></li>
+      
+        <li class="sidebar-nav-item"><a  href="../../contact/">Contact</a></li>
+      
+    </ul>
+
+    <ul class="sidebar-nav">
+      
+      
+      <a href="http://twitter.com/LearningCF3"><li class="icon-twitter"></li></a>&nbsp;
+      
+      
+    </ul>
+
+    <div class="sidebar-sticky"><p>&copy; 2018 Diego Zamboni<br/>
+        Powered by <a href="https://gohugo.io">Hugo</a></p></div>
+  </div>
+</div>
+
+
+<div class="content container">
+  <div class="post">
+    <h1>Chapter 5: The CFEngine Design Center</h1>
+    <div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#ch-design-center">The CFEngine Design Center</a>
+<ul class="sectlevel2">
+<li><a href="#_getting_started_with_the_design_center">Getting Started with the Design Center</a></li>
+<li><a href="#_contributing_to_the_design_center">Contributing to the Design Center</a></li>
+<li><a href="#_learning_more_about_the_design_center">Learning More About the Design Center</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="sect1">
+<h2 id="ch-design-center">The CFEngine Design Center</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <a href="http://cfengine.com/cfengine-design-center">CFEngine Design Center</a> is a repository of pre-made, ready-to-use components called sketches that allow entirely data-driven system management. You can install, configure, and deploy sketches across your infrastructure without modifying or even looking at the code used to implement them. Sketches may range in complexity from simple system-configuration tasks (e.g., configuring the system timezone) to complex, multi-host operations (e.g., coordinating and managing cloud instances in Amazon EC2).</p>
+</div>
+<div class="paragraph">
+<p>You may wonder what the difference is between the CFEngine Design Center and the CFEngine Standard Library. The latter contains reusable but low-level building blocks that you use on your own policies to perform certain common tasks. Most bundles and bodies in the Standard Library have very limited scope and functionality: editing or copying files, defining classes, etc. By contrast, the Design Center contains more encompassing components that perform complete tasks that can stand on their own, such as configuring DNS, setting up the system timezone, installing MySQL, or managing EC2 virtual machines. Most Design Center sketches use the Standard Library in their code, just like any other policy.</p>
+</div>
+<div class="paragraph">
+<p>The Design Center also provides tools for managing and creating sketches, and a framework for encapsulating your own policies, for your own use or to share with the community. The Design Center is a community project <a href="https://github.com/cfengine/design-center/">hosted on GitHub</a>, so you are encouraged to use it and contribute to it.</p>
+</div>
+<div class="paragraph">
+<p>In this chapter we will describe the basic concepts behind the CFEngine Design Center, and how to make use of it both as a user and as a contributor.</p>
+</div>
+<div class="sect2">
+<h3 id="_getting_started_with_the_design_center">Getting Started with the Design Center</h3>
+<div class="paragraph">
+<p>To start getting familiarized with the workflow and capabilities of the Design Center tools, we will perform a task we did earlier: configuring the SSH daemon like we did in <a href="#editing-etcsshd_config">[editing-etcsshd_config]</a>, but this time using a Design Center sketch. Later we will explain in detail the concepts behind the Design Center functionality.</p>
+</div>
+<div class="sect3">
+<h4 id="_installing_cf_sketch">Installing cf-sketch</h4>
+<div class="paragraph">
+<p>As of this writing, the best way to install cf-sketch is to fetch it directly from the design-center repository hosted on <a href="https://github.com/cfengine/design-center/">GitHub</a>. Inside the repository, cf-sketch can be found under <em>tools/cf-sketch/</em>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>For now the cf-sketch tool needs to be installed separately, but most likely it will, at some point, be incorporated into the core CFEngine distribution.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<pre xmlns="http://www.w3.org/1999/xhtml" data-type="programlisting"># <strong><code>git clone https://github.com/cfengine/design-center/</code></strong>
+Cloning into 'design-center'...
+...
+# <strong><code>cd design-center/tools/cf-sketch
+</code></strong># <strong><code>ls</code></strong>
+Makefile         cf-dc-api.pl     config-root.json constdata.conf
+README.md        cf-sketch.pl     config.json      perl-lib</pre>
+<div class="paragraph">
+<p>Before running cf-sketch.pl, you should install the Term::ReadLine::Gnu Perl module, for a nicer interactive-prompt experience. Depending on your operating system, it may be available as a package. For example, on Ubuntu 12.04 you can simply run this command to install it:</p>
+</div>
+<pre xmlns="http://www.w3.org/1999/xhtml" data-type="programlisting"># <strong><code>apt-get -y install libterm-readline-gnu-perl</code></strong></pre>
+<div class="paragraph">
+<p>If the package for this Perl module is not available on your system&#8217;s package repositories, you can install it using the Perl CPAN utility:</p>
+</div>
+<pre xmlns="http://www.w3.org/1999/xhtml" data-type="programlisting" data-code-language="cf3"># <strong><code>cpan</code></strong>
+   (the first time you run it,
+    cpan will ask for some configuration information)
+cpan&gt; <strong><code>install Term::ReadLine::Gnu</code></strong></pre>
+<div class="paragraph">
+<p>You are now ready to start using cf-sketch.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_exploring_cf_sketch">Exploring cf-sketch</h4>
+<div class="paragraph">
+<p>You can run cf-sketch.pl directly from the <em>design-center/tools/cf-sketch/</em> directory. It will enter its interactive mode, which presents you with a prompt where you can type commands. You can type help to get a description of available commands.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="console"><span></span><span class="tok-gp">#</span> ./cf-sketch.pl
+<span class="tok-go">Welcome to cf-sketch version 3.5.1b1.</span>
+<span class="tok-go">CFEngine AS, 2013.</span>
+
+<span class="tok-go">Enter any command to cf-sketch, use &#39;help&#39; for help, or &#39;quit&#39; or &#39;^D&#39; to quit.</span>
+
+<span class="tok-go">cf-sketch&gt; help</span>
+
+<span class="tok-go">The current commands are: ([]&#39;s denote optional, caps need values)</span>
+<span class="tok-go">activate [-n ACTIVATION_ID] SKETCH PARAMSETNAME|FILE[,...]</span>
+<span class="tok-go">         [ENVIRONMENT|CLASSEXP]</span>
+<span class="tok-go">                     Activate the given sketch using the named</span>
+<span class="tok-go">                     parameter sets and environment. If a FILE path is</span>
+<span class="tok-go">                     provided, it is read to create a new parameter</span>
+<span class="tok-go">...</span>
+<span class="tok-go">deactivate SKETCH|ACTIVATION_ID|all ...</span>
+<span class="tok-go">                     Remove the given activations. If the sketch name</span>
+<span class="tok-go">                     is specified, all its activations are removed. If</span>
+<span class="tok-go">                     an activation ID is specified, only that</span>
+<span class="tok-go">...</span></code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>You can also run commands non-interactively by providing commands as arguments to cf-sketch in the command line. For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="console"><span></span><span class="tok-gp">#</span> ./cf-sketch.pl search system
+<span class="tok-go">The following sketches match your query:</span>
+
+<span class="tok-go">System::Logrotate Sets defaults and user permissions in the sudoers file</span>
+<span class="tok-go">System::Routes Sets defaults and user permissions in the sudoers file</span>
+<span class="tok-go">System::Sudoers Sets defaults and user permissions in the sudoers file</span>
+<span class="tok-go">System::Syslog Configures syslog</span>
+<span class="tok-go">System::access Manage access.conf values</span>
+<span class="tok-go">System::config_resolver Configure DNS resolver</span>
+<span class="tok-go">System::cron Manage crontab and /etc/cron.d contents</span>
+<span class="tok-go">System::etc_hosts Manage /etc/hosts</span>
+<span class="tok-go">System::motd Configure the Message of the Day</span>
+<span class="tok-go">System::set_hostname Set system hostname. Domain name is also set on Mac,</span>
+<span class="tok-go">        Red Hat and and Gentoo derived distributions (but not Debian)</span>
+<span class="tok-go">System::sysctl Manage sysctl values</span>
+<span class="tok-go">System::tzconfig Manage system timezone configuration&lt;/pre&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The rest of this chapter will show the interactive mode usage.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Let us now go through the typical sequence to get the SSH-management sketch installed and deployed:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>First, we search for the sketch we want, and get it installed:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="console"><span></span><span class="tok-go">cf-sketch&gt; list</span>
+
+<span class="tok-go">No sketches are installed. Maybe use &#39;search&#39; instead?</span>
+
+<span class="tok-go">cf-sketch&gt; search ssh</span>
+
+<span class="tok-go">The following sketches match your query:</span>
+
+<span class="tok-go">Security::SSH Configure and enable sshd</span>
+
+<span class="tok-go">cf-sketch&gt; install Security::SSH</span>
+
+<span class="tok-go">Sketch Security::SSH installed</span>
+<span class="tok-go">under /var/cfengine/masterfiles/sketches.</span>
+
+<span class="tok-go">cf-sketch&gt; list</span>
+
+<span class="tok-go">The following sketches are installed:</span>
+
+<span class="tok-go">CFEngine::dclib Design Center standard library</span>
+<span class="tok-go">CFEngine::stdlib The portions of the CFEngine standard library</span>
+<span class="tok-go">        that are compatible with 3.4.0 releases</span>
+<span class="tok-go">Security::SSH Configure and enable sshd</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Note that two sketches are installed in addition to the one we requested: the CFEngine standard library (CFEngine::stdlib) and the Design Center standard library (CFEngine::dclib). They are installed automatically because the Security::SSH declares them as dependencies.</p>
+</div>
+</li>
+<li>
+<p>The next step is to provide the appropriate parameters for the sketch through a <em>parameter set</em>. Each sketch declares a list of parameters that it needs, and that list can be queried using the info -v command.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="console"><span></span><span class="tok-go">cf-sketch&gt; info -v Security::SSH</span>
+
+<span class="tok-go">The following sketches match your query:</span>
+
+<span class="tok-go">Sketch Security::SSH</span>
+<span class="tok-go">Description: Configure and enable sshd</span>
+<span class="tok-go">Authors: Diego Zamboni &lt;diego.zamboni@cfengine.com&gt;</span>
+<span class="tok-go">         Ted Zlatanov &lt;tzz@lifelogs.com&gt;</span>
+<span class="tok-go">Version: 1.1</span>
+<span class="tok-go">License: MIT</span>
+<span class="tok-go">Tags: cfdc</span>
+<span class="tok-go">Installed: Yes, under /var/cfengine/masterfiles/sketches</span>
+<span class="tok-go">Activated: No</span>
+<span class="tok-go">Parameters:</span>
+<span class="tok-go">  For bundle sshd</span>
+<span class="tok-go">    params: array</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We can see here some general information about the sketch, including its installation state and the list of parameters that it takes. The params parameter contains a list of ssh configuration values, like those shown in <a href="#editing-etcsshd_config">[editing-etcsshd_config]</a>.</p>
+</div>
+<div class="paragraph">
+<p>Use the define paramset command to create a new parameter set named sshd_base_config (the name is arbitrary; note that cf-sketch automatically generates a name if you don&#8217;t provide one). We will use the same parameters we configured in <a href="#editing-etcsshd_config">[editing-etcsshd_config]</a>. At the end we use the <strong><code>list</code></strong> command to verify that the parameter set was correctly created.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="console"><span></span><span class="tok-go">cf-sketch&gt; define paramset Security::SSH</span>
+
+<span class="tok-go">Please enter a name for the new parameter set</span>
+<span class="tok-go">(default: Security::SSH-sshd-000): sshd_base_config</span>
+<span class="tok-go">Querying configuration for parameter set &#39;sshd_base_config&#39;</span>
+<span class="tok-go">for bundle &#39;sshd&#39;.</span>
+<span class="tok-go">Please enter parameter params.</span>
+<span class="tok-go">  (enter STOP to cancel)</span>
+<span class="tok-go">Next key (Enter to finish): Protocol</span>
+<span class="tok-go">params[Protocol]: 2</span>
+<span class="tok-go">Next key (Enter to finish): X11Forwarding</span>
+<span class="tok-go">params[X11Forwarding]: yes</span>
+<span class="tok-go">Next key (Enter to finish): UseDNS</span>
+<span class="tok-go">params[UseDNS]: no</span>
+<span class="tok-go">Next key (Enter to finish):</span>
+<span class="tok-go">Defining parameter set &#39;sshd_base_config&#39; with the entered data.</span>
+<span class="tok-go">Parameter set sshd_base_config successfully defined.</span>
+
+<span class="tok-go">cf-sketch&gt; list -v params</span>
+
+<span class="tok-go">The following parameter sets are defined:</span>
+
+<span class="tok-go">sshd_base_config: Sketch Security::SSH</span>
+<span class="tok-go">  [Security::SSH][params][Protocol]: 2</span>
+<span class="tok-go">  [Security::SSH][params][UseDNS]: no</span>
+<span class="tok-go">  [Security::SSH][params][X11Forwarding]: yes</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>You can have the same sketch running with different parameters on different machines, or even on the same machine but under different conditions. To differentiate them, you define <em>environments</em>, which use CFEngine class expressions to define groups of machines. For our example, we want the SSH parameters we just defined to be applied on all Linux machines, so we will create an environment that contains all the Linux machines:</p>
+<pre xmlns="http://www.w3.org/1999/xhtml" data-type="programlisting">cf-sketch&gt; <strong><code>define environment</code></strong>
+
+Please enter a name for the new environment: <strong><code>linux_machines</code></strong>
+I will now prompt you for the conditions for activation, test, and
+verbose mode that will be associated with environment
+'linux_machines'. Please enter them as CFEngine class expressions.
+Please enter the activation condition: <strong><code>linux</code></strong>
+Please enter the test condition: !any
+Please enter the verbose condition: !any
+Environment 'linux_machines' successfully defined.
+
+cf-sketch&gt; <strong><code>list -v env</code></strong>
+
+The following environments are defined:
+
+linux_machines
+  [activated]: linux
+  [test]: !any
+  [verbose]: !any</pre>
+<div class="paragraph">
+<p>We define a new environment called linux_machines, which has its activation condition set to linux. This gets interpreted as a CFEngine class expression, which means that the linux_machines environment will be active on all the Linux machines. Environments also define conditions for when to activate test and verbose modes (these have to be explicitly supported by the sketch, and not all of them do), which by default are always disabled through the !any class expression.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The conditions in an environment are arbitrary CFEngine class expressions! This means that you can have them depend on arbitrary conditions, both static (e.g. operating system, Linux distribution, architecture, etc.) and dynamic (e.g. time of day, day of the week, CPU load, etc.)—basically anything that can be differentiated through a CFEngine class. If you need a refresher on class expressions, please see <a href="#classes-and-decision-making">[classes-and-decision-making]</a>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Having defined the parameters you want to use and the environment in which you want to use them, you need to <em>activate</em> the sketch. Activation connects a sketch with a parameter set and an environment. For our example, what we want can be summarized as, “I want to activate the Security::SSH sketch using the parameter set sshd_base_config in all my Linux machines”. We use the activate command:</p>
+<pre xmlns="http://www.w3.org/1999/xhtml" data-type="programlisting">cf-sketch&gt; <strong><code>activate Security::SSH sshd_base_config linux_machines</code></strong>
+
+Using generated activation ID 'Security::SSH-1'.
+Using existing parameter definition 'sshd_base_config'.
+Using existing environment 'linux_machines'.
+Activating sketch Security::SSH with parameters sshd_base_config.
+
+cf-sketch&gt; <strong><code>list activations</code></strong>
+
+The following activations are defined:
+
+Activation ID Security::SSH-1
+  Sketch: Security::SSH
+  Parameter sets: [ sshd_base_config ]
+  Environment:  'linux_machines'</pre>
+<div class="paragraph">
+<p>Note that you can activate the same sketch using different parameter sets on different environments, which would allow you, for example, to have different SSH configurations for Linux and Solaris machines, for machines that belong in your DMZ versus hosts in your internal VLAN, or during workdays and during the weekend. The possibilities are limited only by what you can express as CFEngine class expressions in the activation condition for each environment.</p>
+</div>
+<div class="paragraph">
+<p>Activations also have a name. By default the activate command generates a name automatically, as shown in this example (the generated name is Security::SSH-1). If you want to explicitly name an activation, you can do so by passing the -n option to the activate command.</p>
+</div>
+</li>
+<li>
+<p>The remaining step is to actually execute the sketches. You can do so using the run command:</p>
+<pre xmlns="http://www.w3.org/1999/xhtml" data-type="programlisting">cf-sketch&gt; <strong><code>run</code></strong>
+
+Runfile /var/cfengine/masterfiles/cf-sketch-runfile-standalone.cf
+successfully generated.
+Now executing the runfile with:
+/usr/local/sbin/cf-agent \
+  -f /var/cfengine/masterfiles/cf-sketch-runfile-standalone.cf</pre>
+<div class="paragraph">
+<p>Executing the sketches implies generating a runfile, which is a CFEngine policy file that contains all the necessary information and code. Once this file is generated, cf-sketch executes it with cf-agent. After execution finishes, you can inspect the <em>/etc/ssh/sshd_config</em> file to verify that the Protocol, UseDNS, and X11Forwarding parameters have been set to the correct values.</p>
+</div>
+<div class="paragraph">
+<p>The run command performs a one-time execution of the currently-activated sketches, and is useful for testing your sketch activations while configuring them. For actual deployment of your sketches, you do not want to run them by hand all the time, but integrate them into the regular execution of CFEngine. For this, use the deploy command:</p>
+</div>
+<pre xmlns="http://www.w3.org/1999/xhtml" data-type="programlisting">cf-sketch&gt; <strong><code>deploy</code></strong>
+
+Runfile /var/cfengine/inputs/cf-sketch-runfile.cf
+successfully generated.</pre>
+<div class="paragraph">
+<p>Note that this generates the runfile (with a different filename from the earlier one, to indicate it is not meant to be run standalone), but does not execute it. For this to happen, you need to integrate it into your <em>/var/cfengine/masterfiles/promises.cf</em> file. As of this writing, you need to make the following changes. You need to do this just once, the first time you deploy a Design Center runfile.</p>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Remove the line from the <a href="http://cf-learn.info/ref/inputs">inputs</a> attribute that loads @(cfengine_stdlib.inputs) (on 3.5.1 and later) or “libraries/cfengine_stdlib.cf” (on 3.5.0 and older).</p>
+</li>
+<li>
+<p>Add the following line after the line that loads “cf-sketch-runfile.cf”:</p>
+<div class="listingblock">
+<div class="content">
+<pre>@(cfsketch_g.inputs),</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now you can verify your <em>promises.cf</em> file with the following command. If there is no output, the file is correct:</p>
+</div>
+<pre xmlns="http://www.w3.org/1999/xhtml" data-type="programlisting"># <strong><code>cf-promises -f /var/cfengine/masterfiles/promises.cf</code></strong></pre>
+<div class="paragraph">
+<p>Now, every time cf-agent runs, it will automatically load and execute the activated sketches. If you make any changes in the sketch installations or configuration, simply run the deploy command again, and your changes will be picked up automatically.</p>
+</div>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If you run cf-sketch on the policy hub, all the files (installed sketches and runfile) are stored under <em>/var/cfengine/masterfiles/</em>, which means they will be automatically distributed to all the clients that get their policy updates from the hub. Note that this doesn&#8217;t mean that all the sketches will be executed in all the clients! This depends on how the sketches are activated, in particular the environment with which each sketch and parameter set is activated. In our earlier example, the Security::SSH sketch will be executed with the parameters contained in the sshd_base_config parameter set <em>only</em> on Linux machines, according to the environment with which it was activated.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_exploring_existing_sketches">Exploring Existing Sketches</h4>
+<div class="paragraph">
+<p>Now that you know how to interact with the Design Center through cf-sketch, I invite you to explore the existing sketches, which allow you to perform a wide range of tasks. Here are some of the sketches that I find particularly useful. This is only a sample, and new sketches are being contributed all the time, so use that cf-sketch search command and explore on your own too!</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Security::SSH</dt>
+<dd>
+<p>Manage the sshd configuration parameters, as shown before.</p>
+</dd>
+<dt class="hdlist1">Security::file_integrity</dt>
+<dd>
+<p>Monitor a set of files or directories for changes.</p>
+</dd>
+<dt class="hdlist1">System::tzconfig</dt>
+<dd>
+<p>Configure the system timezone.</p>
+</dd>
+<dt class="hdlist1">System::set_hostname</dt>
+<dd>
+<p>Configure the system host and domain names.</p>
+</dd>
+<dt class="hdlist1">System::sysctl</dt>
+<dd>
+<p>Manage kernel configuration parameters on Linux.</p>
+</dd>
+<dt class="hdlist1">VCS::vcs_mirror</dt>
+<dd>
+<p>Maintain a checkout of a git repository.</p>
+</dd>
+<dt class="hdlist1">Utilities::ping_report</dt>
+<dd>
+<p>Periodically ping a list of hosts and report whether they are reachable.</p>
+</dd>
+<dt class="hdlist1">Utilities::abortclasses</dt>
+<dd>
+<p>Stop CFEngine from executing if a certain file exists. Also known as “Cowboy mode”, this is good for those times when you need to fix or debug something without CFEngine getting in the way. As soon as you remove the file, CFEngine starts working again.</p>
+</dd>
+<dt class="hdlist1">Cloud::Services::AWS::EC2</dt>
+<dd>
+<p>Manage EC2 virtual machines. Allows you to create and destroy VMs according to arbitrary conditions. Two similar sketches, <em>Cloud::Services::VMWare</em> and <em>Cloud::Services::OpenStack</em>, allow you to do similar tasks on VMware and OpenStack infrastructure.</p>
+</dd>
+<dt class="hdlist1">Database::Install::MySQL</dt>
+<dd>
+<p>Install and configure MySQL. Similar sketches exist for PostgreSQL and SQLite.</p>
+</dd>
+<dt class="hdlist1">Applications::NewRelic</dt>
+<dd>
+<p>Install and configure the <a href="http://newrelic.com/">NewRelic</a> system-monitoring daemon.</p>
+</dd>
+<dt class="hdlist1">Applications::Postfix::Client</dt>
+<dd>
+<p>Install Postfix and configure it as a client.</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_peeking_under_the_hood">Peeking Under the Hood</h4>
+<div class="paragraph">
+<p>We have seen how to interact with the Design Center through the cf-sketch tool. Let us look a little under the hood so you can better understand what&#8217;s going on. I invite you to take a look at the generated <em>/var/cfengine/masterfiles/cf-sketch-runfile-standalone.cf</em> file—by now you should be able to understand most of it. Among other sections, you will see the following (some lines abbreviated or rewrapped to fit on the page):</p>
+</div>
+<pre xmlns="http://www.w3.org/1999/xhtml" data-type="programlisting" data-code-language="cf3">body common control
+{
+      bundlesequence =&gt; { cfsketch_g, cfsketch_run };  <a class="co" id="co_co-ch05_src_cf_sketch_runfile_standalone_cf_0" href="#callout_co-ch05_src_cf_sketch_runfile_standalone_cf_0"><img src="../callouts/1.png" alt="1"/></a>
+      inputs =&gt; { @(cfsketch_g.inputs) };
+}
+
+bundle common linux_machines   <a class="co" id="co_co-ch05_src_cf_sketch_runfile_standalone_cf_1" href="#callout_co-ch05_src_cf_sketch_runfile_standalone_cf_1"><img src="../callouts/2.png" alt="2"/></a>
+{
+  vars:
+      "activated" string =&gt; "linux";
+      "env_vars" slist =&gt; { "activated", "test", "verbose" };
+      "test" string =&gt; "!any";
+      "verbose" string =&gt; "!any";
+  classes:
+      "runenv_linux_machines_activated" expression =&gt; "linux";
+      "runenv_linux_machines_test" expression =&gt; "!any";
+      "runenv_linux_machines_verbose" expression =&gt; "!any";
+}
+
+bundle common cfsketch_g   <a class="co" id="co_co-ch05_src_cf_sketch_runfile_standalone_cf_2" href="#callout_co-ch05_src_cf_sketch_runfile_standalone_cf_2"><img src="../callouts/3.png" alt="3"/></a>
+{
+  vars:
+      "inputs" slist =&gt; { "sketches/libraries/dclib/library.cf",
+                          "sketches/libraries/copbl/cfengine_stdlib.cf",
+                          "sketches/networking/ssh/ssh.cf" };
+}
+
+bundle agent cfsketch_run   <a class="co" id="co_co-ch05_src_cf_sketch_runfile_standalone_cf_3" href="#callout_co-ch05_src_cf_sketch_runfile_standalone_cf_3"><img src="../callouts/4.png" alt="4"/></a>
+{
+  vars:
+...
+      "__Security_SSH_1_001_Security_SSH_sshd_params[Protocol]" string =&gt; "2";   <a class="co" id="co_co-ch05_src_cf_sketch_runfile_standalone_cf_4" href="#callout_co-ch05_src_cf_sketch_runfile_standalone_cf_4"><img src="../callouts/5.png" alt="5"/></a>
+      "__Security_SSH_1_001_Security_SSH_sshd_params[UseDNS]" string =&gt; "no";
+      "__Security_SSH_1_001_Security_SSH_sshd_params[X11Forwarding]" string =&gt; "yes";
+  methods:
+...
+    runenv_linux_machines_activated::   <a class="co" id="co_co-ch05_src_cf_sketch_runfile_standalone_cf_5" href="#callout_co-ch05_src_cf_sketch_runfile_standalone_cf_5"><img src="../callouts/6.png" alt="6"/></a>
+      "__Security_SSH_1_001_Security_SSH_sshd"
+        usebundle =&gt; cfdc_sshd:sshd("linux_machines",
+  "default:cfsketch_run.__..._001_Security_SSH_sshd_metadata",
+  "default:cfsketch_run.__..._001_Security_SSH_sshd_params"),
+        ifvarclass =&gt; "any",
+        useresult =&gt;
+          "return___Security_SSH_1_001_Security_SSH_sshd";
+}</pre>
+<dl xmlns="http://www.w3.org/1999/xhtml" class="calloutlist">
+        <dt><a class="co" id="callout_co-ch05_src_cf_sketch_runfile_standalone_cf_0" href="#co_co-ch05_src_cf_sketch_runfile_standalone_cf_0"><img src="../callouts/1.png" alt="1"/></a></dt><dd>
+          <p>This file has a <code>body common control</code>
+          definition because it is designed to be run by itself (hence the
+          “standalone” in the filename). It calls two bundles:
+          <code>cfsketch_g</code>, which defines some common variables,
+          and <code>cfsketch_run</code>, which invokes all the activated
+          sketches. Note that the <code>inputs</code> definition is
+          taken from the cfsketch_g.inputs variable, which
+          contains all the files that need to be loaded for the currently
+          activated sketches.</p>
+
+          <p>If you look at the non-standalone file
+          <em class="filename">/var/cfengine/masterfiles/cf-sketch-runfile.cf</em>,
+          generated by the <code>deploy</code> command, you will see that
+          the only difference is the absence of the <code>body common
+          control</code> definition, which makes it possible to load the
+          sketch from your main <em class="filename">promises.cf</em> policy
+          file.</p>
+        </dd>
+
+        <dt><a class="co" id="callout_co-ch05_src_cf_sketch_runfile_standalone_cf_1" href="#co_co-ch05_src_cf_sketch_runfile_standalone_cf_1"><img src="../callouts/2.png" alt="2"/></a></dt><dd>
+          <p>Environments<a data-type="indexterm" data-primary="CFEngine Design Center" data-secondary="sketches" data-tertiary="environments for"> </a><a data-type="indexterm" data-primary="sketches" data-secondary="environments for"> </a> defined in the Design Center framework are
+          implemented using common bundles. In this case, we have a bundle
+          named <code>linux_machines</code>, just like the environment
+          we defined during
+          the activation of the sketch. All environments contain at least
+          three fields named <code>activated</code>,
+          <code>test</code> and <code>verbose</code>, which are
+          declared as both variables and classes so that they can be used for
+          decision making later on. In our example we defined the environment
+          automatically with the <code>activate</code> command and we
+          set only the <code>activated</code> class expression (setting
+          it to <code>linux</code>); the other two class expressions
+          took default values. Note that the
+          <code>runenv_linux_machines_activated</code> class is defined
+          to evaluate the class expression <code>“linux”</code>. This
+          way, the <code>runenv_linux_machines_activated</code> class
+          can be used to determine whether the environment should be activated
+          during execution.</p>
+        </dd>
+
+        <dt><a class="co" id="callout_co-ch05_src_cf_sketch_runfile_standalone_cf_2" href="#co_co-ch05_src_cf_sketch_runfile_standalone_cf_2"><img src="../callouts/3.png" alt="3"/></a></dt><dd>
+          <p>The <code>cfsketch_g</code> bundle contains useful
+          general information needed for the execution of the sketches. In
+          this particular case, it contains the list of files that need to be
+          loaded. These are all the CFEngine files installed as part of the
+          sketches that are going to be executed. This list is used in the
+          <code>inputs</code> declaration in the earlier <code>body
+          common control</code> definition.</p>
+        </dd>
+
+        <dt><a class="co" id="callout_co-ch05_src_cf_sketch_runfile_standalone_cf_3" href="#co_co-ch05_src_cf_sketch_runfile_standalone_cf_3"><img src="../callouts/4.png" alt="4"/></a></dt><dd>
+          <p>We finally come to the bundle that executes the sketches,
+          called <code>cfksetch_run</code>. This is the bundle that
+          takes care of executing all the sketches, with the appropriate
+          parameters, under the appropriate conditions.</p>
+        </dd>
+
+        <dt><a class="co" id="callout_co-ch05_src_cf_sketch_runfile_standalone_cf_4" href="#co_co-ch05_src_cf_sketch_runfile_standalone_cf_4"><img src="../callouts/5.png" alt="5"/></a></dt><dd>
+          <p class="plain">All the parameters that we defined in the
+          parameter set
+          are declared as variables here, for passing to the appropriate
+          bundles. The variables are named according to an internal naming
+          convention to make them unique, but you can clearly see the SSH
+          parameter names and values here, just as we provided them to
+          <code>cf-sketch</code>.</p>
+        </dd>
+
+        <dt><a class="co" id="callout_co-ch05_src_cf_sketch_runfile_standalone_cf_5" href="#co_co-ch05_src_cf_sketch_runfile_standalone_cf_5"><img src="../callouts/6.png" alt="6"/></a></dt><dd>
+          <p>The bundle that implements the
+          <code>Security::SSH</code> sketch functionality is called from
+          a <a href="http://cf-learn.info/ref/methods" class="orm:hideurl"><code>methods:</code></a>
+          promise inside <code>cfsketch_run</code>. Note that the
+          execution of this promise is conditioned according to the activation
+          class for the <code>linux_machines</code> environment, and the
+          bundle is called with the appropriate parameters, in particular the
+          array that contains the defined parameter values, called
+          `__Security_SSH_1_001_Security_SSH_sshd_params`
+          in this <a data-type="indexterm" data-primary="" data-startref="ch5-ssh4"> </a><a data-type="indexterm" data-primary="" data-startref="ch5-ssh3"> </a>example.</p>
+        </dd>
+      </dl>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_contributing_to_the_design_center">Contributing to the Design Center</h3>
+<div class="paragraph">
+<p>Now you know how to use the Design Center to install, configure, and deploy sketches. With this you are able to use any of the sketches available in the Design Center repository. But at some point you may want to write your own! We will now look at how to create your own sketches.</p>
+</div>
+<div class="paragraph">
+<p>Suppose you have written a very useful piece of CFEngine policy, and you would like to share it with the world, or at least with your colleagues, so that they can all benefit from it. How do you go about it?</p>
+</div>
+<div class="paragraph">
+<p>The foundation of any Design Center sketch should be a working piece of CFEngine policy, in the form of a bundle of type <a href="http://cf-learn.info/ref/agent">agent</a> that performs the appropriate functionality. This bundle can call other bundles or bodies as appropriate, but it should be callable as a single point of entry. At least until you become more familiar with how sketches are structured, I would advise you to write your bundles first as regular CFEngine policy, and then convert them to sketches. This is what we will do in this section. As an example, we will use the password_expiration() bundle that we developed in <a href="#password-expiration-periods">[password-expiration-periods]</a>.</p>
+</div>
+<div class="paragraph">
+<p>The first step is to define a name for our new sketch. We can use arbitrary names, but the Design Center by convention encourages us to use names of the form <em>Category::Sketch</em>, or even <em>Category::Subcategory::Sketch</em>. For our password-expiration configuration sketch, we will use Security::password_expiration.</p>
+</div>
+<div class="paragraph">
+<p>We now need to define the interface for the sketch. In our original example, all the parameters are specified as variables inside the password_expiration() bundle, but for a sketch, we want those values as parameters specified by the user when they configure the sketch. Let us look through the original code, make a list of what those configurable parameters should be, and decide on their names while we are at it:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">pass_max_days</dt>
+<dd>
+<p>The maximum password age in days.</p>
+</dd>
+<dt class="hdlist1">pass_min_days</dt>
+<dd>
+<p>The minimum password age, also in days.</p>
+</dd>
+<dt class="hdlist1">pass_warn_age</dt>
+<dd>
+<p>The warning period before a password expires, in days.</p>
+</dd>
+<dt class="hdlist1">min_uid</dt>
+<dd>
+<p>The minimum UID for setting password-expiration parameters. Users with UID below this threshold will not be modified.</p>
+</dd>
+<dt class="hdlist1">skipped_users</dt>
+<dd>
+<p>A comma-separated list of usernames to skip when setting password-expiration parameters.</p>
+</dd>
+<dt class="hdlist1">skipped_uids</dt>
+<dd>
+<p>A comma-separated list of UIDs to skip when setting password-expiration parameters.</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>All of these can be specified as strings, just as they were in the original policy code.</p>
+</div>
+<div class="paragraph">
+<p>We also need to decide on a <a href="http://cf-learn.info/ref/namespace"><em>namespace</em></a> in which to place the sketch. I suggest using a namespace that contains a reference of the origin of the sketch (for example, all CFEngine-produced sketches have namespaces that start with cfdc_ for “CFEngine Design Center”), and also the name of the sketch (or a shortened, representative version of it). We will use cflearn_password_expiration.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Namespaces are top-level naming divisions that help avoid conflicts in bundle, body or class names. Please refer to <a href="#namespaces">[namespaces]</a> for background.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Once we have this information, we can rewrite our policy file a bit to make it ready to use as a sketch. Here is the updated code, with some comments about the changes we made (as you go through these, please compare them to the original code in <a href="#password-expiration-periods">[password-expiration-periods]</a>):</p>
+</div>
+<pre xmlns="http://www.w3.org/1999/xhtml" data-type="programlisting" data-code-language="cf3">bundle agent password_expiration(pass_max_days, pass_min_days, pass_warn_age,
+      min_uid, skipped_users, skipped_uids)  <a class="co" id="co_co-ch05_src_password_expiration_for_sketchifying_cf_6" href="#callout_co-ch05_src_password_expiration_for_sketchifying_cf_6"><img src="../callouts/1.png" alt="1"/></a>
+{
+  vars:
+      # We store the individual parameters in an array,
+      # for easier reference and file editing
+      "logindefs[PASS_MAX_DAYS]" string =&gt; "$(pass_max_days)";   <a class="co" id="co_co-ch05_src_password_expiration_for_sketchifying_cf_7" href="#callout_co-ch05_src_password_expiration_for_sketchifying_cf_7"><img src="../callouts/2.png" alt="2"/></a>
+      "logindefs[PASS_MIN_DAYS]" string =&gt; "$(pass_min_days)";
+      "logindefs[PASS_WARN_AGE]" string =&gt; "$(pass_warn_age)";
+
+      # Position of each parameter in /etc/shadow
+      "fieldnum[PASS_MIN_DAYS]"  string =&gt; "4";
+      "fieldnum[PASS_MAX_DAYS]"  string =&gt; "5";
+      "fieldnum[PASS_WARN_AGE]"  string =&gt; "6";
+
+      # List of parameters to modify
+      "params" slist =&gt; getindices("logindefs");
+
+      # Get list of users, and also generate them in canonified form
+      # This list already excludes users specified by UID or name.
+      "users" slist =&gt; getusers("$(skipped_users)", "$(skipped_uids)");
+      "cusers[$(users)]" string =&gt; canonify("$(users)");
+
+  classes:
+      # Define classes for users that must not be modified by UID threshold
+      "skip_$(cusers[$(users)])"
+        expression =&gt; islessthan(getuid("$(users)"),
+                                                      "$(min_uid)");
+
+  files:
+    linux::   <a class="co" id="co_co-ch05_src_password_expiration_for_sketchifying_cf_8" href="#callout_co-ch05_src_password_expiration_for_sketchifying_cf_8"><img src="../callouts/3.png" alt="3"/></a>
+      "/etc/login.defs"
+        handle =&gt; "edit_logindefs",
+        comment =&gt; "Set desired login.defs parameters",
+        edit_line =&gt;
+          default:set_config_values(
+            "cflearn_password_expiration:password_expiration.logindefs"); <a class="co" id="co_co-ch05_src_password_expiration_for_sketchifying_cf_9" href="#callout_co-ch05_src_password_expiration_for_sketchifying_cf_9"><img src="../callouts/4.png" alt="4"/></a>
+
+      "/etc/shadow"
+        handle =&gt; "edit_shadow_$(params)",
+        comment =&gt; "Modify $(params) for individual users.",
+        edit_defaults =&gt; default:backup_timestamp,   <a class="co" id="co_co-ch05_src_password_expiration_for_sketchifying_cf_10" href="#callout_co-ch05_src_password_expiration_for_sketchifying_cf_10"><img src="../callouts/5.png" alt="5"/></a>
+        edit_line =&gt; default:set_user_field("$(users)",
+                                            "$(fieldnum[$(params)])",
+                                            "$(logindefs[$(params)])"),
+        ifvarclass =&gt; "!skip_$(cusers[$(users)])";
+
+  reports:
+    !linux::   <a class="co" id="co_co-ch05_src_password_expiration_for_sketchifying_cf_11" href="#callout_co-ch05_src_password_expiration_for_sketchifying_cf_11"><img src="../callouts/6.png" alt="6"/></a>
+      "Warning: Security::password_expiration only works on Linux for now.";
+}</pre>
+<div class="paragraph">
+<p>The logic of the code has not changed, but a few things have been updated or rearranged:</p>
+</div>
+<dl xmlns="http://www.w3.org/1999/xhtml" class="calloutlist">
+
+
+      <dt><a class="co" id="callout_co-ch05_src_password_expiration_for_sketchifying_cf_6" href="#co_co-ch05_src_password_expiration_for_sketchifying_cf_6"><img src="../callouts/1.png" alt="1"/></a></dt><dd>
+        <p>We have added all the configurable parameters we determined
+        earlier as arguments to our password_expiration()
+        bundle. All of these values are now accepted as arguments instead of
+        being hardcoded into the policy. This will be the entry point for our
+        sketch.</p>
+      </dd>
+
+      <dt><a class="co" id="callout_co-ch05_src_password_expiration_for_sketchifying_cf_7" href="#co_co-ch05_src_password_expiration_for_sketchifying_cf_7"><img src="../callouts/2.png" alt="2"/></a></dt><dd>
+        <p>We use the new parameters throughout the code, instead of the
+        hard-coded values we had before.</p>
+      </dd>
+
+      <dt><a class="co" id="callout_co-ch05_src_password_expiration_for_sketchifying_cf_8" href="#co_co-ch05_src_password_expiration_for_sketchifying_cf_8"><img src="../callouts/3.png" alt="3"/></a></dt><dd>
+        <p>We have added a class expression to limit the execution of the
+        sketch to systems that support its behavior. This is necessary because
+        a sketch might be activated on many different systems, and it needs to
+        make sure to do the right thing regardless of where it is running. In
+        this case, we have limited it to Linux systems, in which we know the
+        password-expiration parameters are configured using the
+        <em class="filename">/etc/login.defs</em> file.</p>
+      </dd>
+
+      <dt><a class="co" id="callout_co-ch05_src_password_expiration_for_sketchifying_cf_9" href="#co_co-ch05_src_password_expiration_for_sketchifying_cf_9"><img src="../callouts/4.png" alt="4"/></a></dt><dd>
+        <p>Here <a data-type="indexterm" data-primary="sketches" data-secondary="namespace for"> </a><a data-type="indexterm" data-primary="CFEngine Design Center" data-secondary="sketches" data-tertiary="namespace for"> </a>we see the first use of namespaces, in two places: we
+        have added the <code>default:</code> namespace specification to
+        the standard library bundle set_config_values(),
+        and we have specified our sketch namespace in the fully-qualified name
+        of the logindefs array that we pass to
+        set_config_values(). The fully-qualified name of
+        the array
+        (<code>"cflearn_password_expiration:password_expiration.logindefs"</code>)
+        contains the namespace, the bundle name, and the array name.</p>
+      </dd>
+
+      <dt><a class="co" id="callout_co-ch05_src_password_expiration_for_sketchifying_cf_10" href="#co_co-ch05_src_password_expiration_for_sketchifying_cf_10"><img src="../callouts/5.png" alt="5"/></a></dt><dd>
+        <p>We need to add the <code>default:</code> namespace to all
+        the standard library components we use—in this case also to the
+        backup_timestamp body and the
+        set_user_field() bundle.</p>
+      </dd>
+
+      <dt><a class="co" id="callout_co-ch05_src_password_expiration_for_sketchifying_cf_11" href="#co_co-ch05_src_password_expiration_for_sketchifying_cf_11"><img src="../callouts/6.png" alt="6"/></a></dt><dd>
+        <p>Finally, and to complement the limitation of functionality of
+        the sketch to Linux systems, we added a <code>reports:</code>
+        promise that prints a warning on non-Linux systems, to let the user
+        know that the sketch is non-functional on them.</p>
+      </dd>
+    </dl>
+<div class="paragraph">
+<p>We now have the policy file in a shape that is well suited for conversion into a sketch. The last step is to actually wrap that policy file into the appropriate structure required by a sketch, which includes putting the file into its own directory. Add to that directory a <em>README</em> file and a file named <em>sketch.json</em> that contains all the metadata about the sketch, as well as all the information needed to configure and invoke it. You can find the full specification in the <a href="https://github.com/cfengine/design-center/blob/master/howto/etch_a_sketch.md">“Writing a Design Center Sketch” guide</a>, but you can also use the sketchify command of cf-sketch to do it automatically. sketchify reads the policy file, asks you for the appropriate information, and produces a ready-to-use sketch in your local checkout of the Design Center repository. This is what we will use now.</p>
+</div>
+<div class="paragraph">
+<p>The sketchify command takes as its only argument the file containing our policy file, which it reads and analyzes for bundles of type <a href="http://cf-learn.info/ref/agent">agent</a>. In our case there is only one such bundle, so it is used automatically as the entry point for the sketch (if more than one agent bundle is found, you will be asked which one you want to use as the sketch entry point).</p>
+</div>
+<pre xmlns="http://www.w3.org/1999/xhtml" data-type="programlisting"># <strong><code>./cf-sketch.pl sketchify /vagrant/password_expiration.cf</code></strong>
+Reading file '/vagrant/password_expiration.cf'.
+Automatically choosing the only agent bundle in
+/vagrant/password_expiration.cf:
+    'password_expiration'
+I will now prompt you for the data needed to generate the sketch.
+Please enter STOP at any prompt to interrupt the process.</pre>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The Design Center framework supports sketches with more than one entry point, but sketchify as of this writing lets you choose only one of them.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Next, sketchify asks us for some general information about the sketch, including its name, description, version number, license (most sketches in the Design Center use the <a href="http://opensource.org/licenses/MIT">MIT license</a>), tags, and author information. You can also enter the names of other CFEngine policy files that should be included in this sketch. Most sketches are contained in a single <em>.cf</em> file, but if you have a very complex sketch, the ability to package multiple <em>.cf</em> files withing the same sketch could be useful.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This has nothing to do with sketch dependencies—any files you specify here will be included within the sketch you are creating. As of this writing, sketchify does not handle sketch dependencies. You need to include them by hand in the generated <em>sketch.json</em> file.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<pre xmlns="http://www.w3.org/1999/xhtml" data-type="programlisting">Please enter the sketch name: <strong><code>Security::password_expiration</code></strong>
+Please enter a one-line description for the new sketch:
+      <strong><code>Manage password expiration and warning periods</code></strong>
+Please enter a version number: <strong><code>1.0</code></strong>
+Please enter a license for this sketch: <strong><code>MIT</code></strong>
+Please enter a comma-separated list of tags for this sketch:
+      <strong><code>security, cflearn, passwords</code></strong>
+Please enter a comma-separated list of author names
+(preferably of the form Name &lt;email&gt;):
+      <strong><code>Diego Zamboni &lt;diego.zamboni@cfengine.com&gt;</code></strong>
+Please enter any other files that need to be included with this sketch
+(press Enter to stop):</pre>
+<div class="paragraph">
+<p>Now, sketchify queries us for the information needed for defining the sketch API. For each parameter of the entry bundle, sketchify prompts for its type, a description, and an optional default value. In our example, we give default values for all the parameters except skipped_users and skipped_uids.</p>
+</div>
+<pre xmlns="http://www.w3.org/1999/xhtml" data-type="programlisting">Thank you. I will now prompt you for the information regarding the parameters
+of the entry point for the sketch.
+For each parameter, you need to provide a type and a description.
+(enter STOP at any prompt to abort)
+
+For parameter 'pass_max_days':
+  Please indicate the type as
+    (1) string, (2) boolean, (3) list, (4) array (1-4): <strong><code>1</code></strong>
+  Please give me a short description for this parameter:
+      <strong><code>Maximum password age in days</code></strong>
+  Please enter the default value for this parameter: <strong><code>180</code></strong>
+For parameter 'pass_min_days':
+  Please indicate the type as
+    (1) string, (2) boolean, (3) list, (4) array (1-4): <strong><code>1</code></strong>
+  Please give me a short description for this parameter:
+      <strong><code>Minimum password age in days</code></strong>
+  Please enter the default value for this parameter: <strong><code>5</code></strong>
+For parameter 'pass_warn_age':
+  Please indicate the type as
+    (1) string, (2) boolean, (3) list, (4) array (1-4): <strong><code>1</code></strong>
+  Please give me a short description for this parameter:
+      <strong><code>Warning period before password expires, in days</code></strong>
+  Please enter the default value for this parameter: <strong><code>2</code></strong>
+For parameter 'min_uid':
+  Please indicate the type as
+    (1) string, (2) boolean, (3) list, (4) array (1-4): <strong><code>1</code></strong>
+  Please give me a short description for this parameter:
+      <strong><code>Minimum UID to consider when updating existing accounts</code></strong>
+  Please enter the default value for this parameter: <strong><code>500</code></strong>
+For parameter 'skipped_users':
+  Please indicate the type as
+    (1) string, (2) boolean, (3) list, (4) array (1-4): <strong><code>1</code></strong>
+  Please give me a short description for this parameter:
+      <strong><code>Comma-separated list of usernames to skip</code></strong>
+  Please enter the default value for this parameter:
+For parameter 'skipped_uids':
+  Please indicate the type as
+    (1) string, (2) boolean, (3) list, (4) array (1-4): <strong><code>1</code></strong>
+  Please give me a short description for this parameter:
+      <strong><code>Comma-separated list of UIDs to skip</code></strong>
+  Please enter the default value for this parameter:</pre>
+<div class="paragraph">
+<p>Having defined the sketch API, sketchify now queries you for information about the namespace to use for this sketch. We decided before which namespace to use, but the namespace declaration does not yet appear in the policy file we are using, so sketchify offers to insert it automatically.</p>
+</div>
+<pre xmlns="http://www.w3.org/1999/xhtml" data-type="programlisting">We are done with the API. Now checking the namespace declaration.
+
+The file '/vagrant/password_expiration.cf' does not have a namespace
+declaration.  It is recommended that every sketch has its own
+namespace to avoid potential naming conflicts with other sketches or
+policies.
+
+I can insert the appropriate namespace declaration, and have generated
+a suggested namespace for you: cfdc_security_password_expiration
+
+Please enter the namespace to use for this sketch:
+  <strong><code>cflearn_password_expiration</code></strong></pre>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If you insert the namespace declaration in the policy file by hand, before running it through sketchify, the command will automatically detect and use the declaration.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>In addition to the parameters defined in the API, a sketch entry bundle can receive two special parameters of type environment and metadata. If used, these parameters will be automatically generated and passed by the Design Center framework when executing the sketch.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The environment parameter contains the name of the environment with which the sketch has been activated. This allows the sketch to access the characteristics of the environment, including the verbose and testing fields (interpreted as classes, so that the sketch can easily use them as conditions to alter its behavior).</p>
+</li>
+<li>
+<p>The metadata parameter contains the name of an array in which the Design Center framework automatically stores all the sketch metadata, including its name and description, authors, etc.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If these parameters are not already passed to the entry bundle in the input file, sketchify will ask you if you want to add them.</p>
+</div>
+<pre xmlns="http://www.w3.org/1999/xhtml" data-type="programlisting">The entry point 'password_expiration' doesn't seem to receive
+parameters of type 'environment' or 'metadata'.  These arguments
+are not necessary, but can be useful for the sketch to respond to
+different run environment parameters (i.e. test or verbose mode)
+or to have access to its own metadata.
+
+I can automatically add these parameters to the bundle, together
+with some code to put their information in classes and variables,
+and also to create an activation_id variable that will make it
+possible to use the new sketch with the CFEngine Enterprise
+Design Center GUI.
+
+Would you like me to do this? (Y/n) <strong><code>y</code></strong></pre>
+<div class="paragraph">
+<p>In addition to adding the parameters to the bundle, sketchify will also add some boilerplate code to do the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Extract the values of all fields defined in the active environment (at least activated, verbose and testing, and possibly others if defined) into both classes and variables. For example, it will create a string variable named verbose that contains the class expression stored in that field, and also a class named verbose that will be set to the result of evaluating that class expression. You can then use that class within your sketch to easily enable additional reports, when verbose mode has been activated in the current environment.</p>
+</li>
+<li>
+<p>Create a string variable named activation_id that contains a unique identifier for the current sketch activation. Multiple activations of the same sketch will have different activation_id values, so you can use the IDs to differentiate among the activations. This is used mainly by the Enterprise GUI interface to the Design Center.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>As of this writing, this is the code that is automatically inserted by sketchify at the top of the bundle (code reformatted to fit on the page):</p>
+</div>
+<pre xmlns="http://www.w3.org/1999/xhtml" data-type="programlisting" data-code-language="cf3">  classes:
+      "$(vars)" expression =&gt; "default:runenv_$(runenv)_$(vars)";
+      "not_$(vars)" expression =&gt; "!default:runenv_$(runenv)_$(vars)";
+  vars:
+      "activation_id"
+         string =&gt; canonify("$(this.bundle)_$($(metadata)[activation]
+             [identifier])_$($(metadata)[activation][timestamp])");
+      "vars" slist =&gt; { "@(default:$(runenv).env_vars)" };
+      "$(vars)" string =&gt; "$(default:$(runenv).$(vars))";</pre>
+<div class="paragraph">
+<p>Finally, sketchify asks you for the location under the currently-used sketch repository where the new sketch should be stored, automatically generates a skeleton README file (including the parameter descriptions you provided), and regenerates the cfsketches.json file used as an index of available sketches.</p>
+</div>
+<pre xmlns="http://www.w3.org/1999/xhtml" data-type="programlisting">Thank you! We are almost done.
+Please enter the directory within the sketches repository where this
+sketch should be stored: <strong><code>security/password_expiration</code></strong>
+Your new sketch will be stored under
+/design-center/sketches/security/password_expiration/
+Writing /design-center/sketches/security/password_expiration/sketch.json
+Transferring /vagrant/password_expiration.cf to
+  /design-center/sketches/security/password_expiration/password_expiration.cf
+Adding new sketch to /design-center/sketches/cfsketches.json
+Generating a README file for the new sketch.
+wrote /design-center/sketches/security/password_expiration/README.md...
+We are done! Please check your new sketch under
+/design-center/sketches/security/password_expiration</pre>
+<div class="paragraph">
+<p>We are done! You can verify that the new sketch is ready for installation and use using cf-sketch:</p>
+</div>
+<pre xmlns="http://www.w3.org/1999/xhtml" data-type="programlisting">cf-sketch&gt; <strong><code>search password</code></strong>
+
+The following sketches match your query:
+
+Security::password_expiration Manage password expiration and
+warning periods
+
+cf-sketch&gt; <strong><code>install Security::password_expiration</code></strong>
+
+Sketch Security::password_expiration installed under
+/var/cfengine/masterfiles/sketches.
+
+cf-sketch&gt; <strong><code>info -v Security::password_expiration</code></strong>
+
+The following sketches match your query:
+
+Sketch Security::password_expiration
+Description: Manage password expiration and warning periods
+Authors: Diego Zamboni &lt;diego.zamboni@cfengine.com&gt;
+Version: 1.0
+License: MIT
+Tags: passwords, security, sketchify_generated, cflearn
+Installed: Yes, under /var/cfengine/masterfiles/sketches
+Activated: No
+Parameters:
+  For bundle password_expiration
+    pass_max_days: string (Maximum password age in days) [default value: '180']
+    pass_min_days: string (Minimum password age in days) [default value: '5']
+    pass_warn_age: string (Warning period before password expires, in days)
+      [default value: '2']
+    min_uid: string (Minimum UID to consider when updating existing accounts)
+      [default value: '500']
+    skipped_users: string (Comma-separated list of usernames to skip)
+    skipped_uids: string (Comma-separated list of UIDs to skip)</pre>
+<div class="paragraph">
+<p>While sketchify automates most of the process of creating a sketch from an existing bundle, there are a few things that it doesn&#8217;t handle. You may want to take a look at the files it generates for sanity checking. Here are some of the things you may want or need to fix by hand:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Dependencies: If your sketch depends on other sketches, you need to add them by hand to the depends metadata element in the generated sketch.json file. At the moment, sketchify automatically inserts a dependency on CFEngine 3.5.0, which is the minimum recommended version of using Design Center sketches.</p>
+</li>
+<li>
+<p>Multiple entry points: The Design Center framework supports multiple entry points per sketch (to different bundles), this is not supported at the moment by sketchify, so you need to add any additional entry points by hand.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If you create a useful sketch, why not contribute it to the community? After all, the Design Center will only get better as more people contribute to it. This is very easy to do by <a href="https://help.github.com/articles/creating-a-pull-request">submitting the new sketch as a pull request</a> to the <a href="https://github.com/cfengine/design-center">design-center project at Github</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_learning_more_about_the_design_center">Learning More About the Design Center</h3>
+<div class="paragraph">
+<p>In this chapter we have touched only on the basics for using and contributing to the Design Center, but there is much more to explore! I invite you to review the <a href="https://cfengine.com/docs/3.5/manuals-design-center.html">Design Center documentation</a> to learn more. We have mentioned sketches as the main type of content in the Design Center repository, but it also hosts other types of content:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><em>examples</em></dt>
+<dd>
+<p>Contributed examples of CFEngine policy. These are not meant to be ready to use like sketches, or organized in any way, but rather to serve as starting points for others to write their own policies or to see how certain things can be achieved in CFEngine.</p>
+</dd>
+<dt class="hdlist1"><em>tools</em></dt>
+<dd>
+<p>Miscellaneous tools that have been contributed by the CFEngine community to help you work with CFEngine. It also contains cf-sketch, which manages sketches on a system.</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>As a user, you interact with the Design Center mostly through tools like cf-sketch or the Design Center GUI in CFEngine Enterprise. But these tools do not directly manipulate sketches on the system—instead, these operations are done through the <em>Design Center API</em>, which performs all operations related to sketches, parameter sets, environments, validations, and deployment. The API is implemented through the cf-dc-api.pl program, which is part of the Design Center installation. You can find detailed information about the Design Center API and its operations in the <a href="http://cfengine.com/docs/3.5/reference-design-center-api.html">Design Center API documentation</a>.</p>
+</div>
+<div class="paragraph">
+<p>The CFEngine Design Center is the easiest way of interfacing with CFEngine, allowing you to perform arbitrarily complex configurations without touching the CFEngine policy code. It is a project in active development, so by the time you try them, some things may have changed from the descriptions in this chapter. The Design Center depends on active contributions from the user community, so I encourage you to participate!</p>
+</div>
+</div>
+</div>
+</div>
+
+  </div>
+</div>
+
+
+</body>
+</html>

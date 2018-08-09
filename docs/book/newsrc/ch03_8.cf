@@ -1,0 +1,16 @@
+body common control
+{
+     bundlesequence => { "test" };
+}
+
+bundle agent test
+{
+ vars:
+   "words" slist => { "chair", "darwin", "table", "linux" };
+ reports:
+  cfengine::
+   "Class $(words) is defined"
+     ifvarclass => "$(words)";
+   "Class $(words) is not defined"
+     ifvarclass => "!$(words)";
+}

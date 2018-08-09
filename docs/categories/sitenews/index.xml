@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Sitenews on Learning CFEngine 3</title>
+    <link>http://cf-learn.info/categories/sitenews/</link>
+    <description>Recent content in Sitenews on Learning CFEngine 3</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 19 May 2015 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://cf-learn.info/categories/sitenews/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Finally, an update about “Learning CFEngine 3”!</title>
+      <link>http://cf-learn.info/post/finally-an-update-about-learning-cfengine-3/</link>
+      <pubDate>Tue, 19 May 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://cf-learn.info/post/finally-an-update-about-learning-cfengine-3/</guid>
+      <description>I know, I know. It’s been over two years since the last post, and other than my occasional comment on the IRC channel or mailing list, you couldn’t be blamed to think that I had disappeared from the face of the earth.  But I’m back! And I have a few updates for you:   I am finally working again on the new release of the book! It will focus on the upcoming CFEngine 3.</description>
+    </item>
+    
+  </channel>
+</rss>

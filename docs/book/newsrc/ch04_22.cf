@@ -1,0 +1,17 @@
+bundle agent wp_services_up(params)
+{
+  processes:
+    debian:: # <1>
+      "/usr/sbin/mysqld" restart_class => "start_mysqld";
+      "/usr/sbin/apache2"  restart_class => "start_httpd";
+    redhat::
+      "^mysqld" restart_class => "start_mysqld";
+      "^httpd"  restart_class => "start_httpd";
+
+  commands: # <2>
+    start_mysqld::
+      "$($(params)[_sys_servicecmd]) mysql start";
+
+    start_httpd::
+      "$($(params)[_sys_servicecmd]) $($(params)[_sys_apachesrv]) start" ;
+}

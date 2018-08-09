@@ -1,0 +1,6 @@
+bundle agent wrapper
+{
+  vars:
+      "variable"
+        type => value;
+}

@@ -1,0 +1,7 @@
+bundle edit_line set_user_field(user,field,val)
+{
+ field_edits:
+   "$(user):.*"
+     comment => "Edit a user attribute in the password file",
+     edit_field => col(":","$(field)","$(val)","set");
+}
