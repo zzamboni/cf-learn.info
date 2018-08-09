@@ -1,8 +1,0 @@
-body common control
-{
-        inputs => { "../../default.cf.sub",   # <1>
-                    "../../../../masterfiles/libraries/cfengine_stdlib.cf"   # <2>
-                  };
-        bundlesequence  => { default("$(this.promise_filename)") };   # <3>
-        version => "1.0";
-}
