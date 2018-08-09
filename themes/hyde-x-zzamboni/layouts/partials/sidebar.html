@@ -1,7 +1,7 @@
 <div class="sidebar">
   <div class="container">
     <div class="sidebar-about">
-      {{ with .Site.Params.gravatarHash }}<img src="http://www.gravatar.com/avatar/{{ . }}?s=200" alt="gravatar">{{ end }}
+      {{ with .Site.Params.gravatarHash }}<img src="https://www.gravatar.com/avatar/{{ . }}?s=200" alt="gravatar">{{ end }}
       <h1>{{ .Site.Title }}</h1>
       {{ with .Site.Params.tagline }}<p class="lead">{{ . | markdownify }}</p>{{ end }}
     </div>
@@ -21,6 +21,6 @@
     </ul>
 
     <div class="sidebar-sticky"><p>&copy; {{ now.Format "2006" }} Diego Zamboni<br/>
-        Powered by <a href="http://gohugo.io">Hugo</a></p></div>
+        Powered by <a href="https://gohugo.io">Hugo</a></p></div>
   </div>
 </div>
