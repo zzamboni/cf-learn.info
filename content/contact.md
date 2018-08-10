@@ -6,4 +6,4 @@ weight: '6'
 slug: contact
 ---
 
-{{< form-contact action="http://formspree.io/diego@zzamboni.org" >}}
+{{< form-contact-netlify >}}
