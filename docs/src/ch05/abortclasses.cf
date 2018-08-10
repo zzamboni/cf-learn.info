@@ -1,4 +1,0 @@
-body agent control
-{
-        abortclasses => { "disable_cfengine" };
-}

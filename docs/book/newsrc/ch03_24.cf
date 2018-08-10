@@ -1,3 +1,0 @@
-  classes:
-    "is_host_up"
-      expression => returnszero("/usr/bin/ping -c 1 myhost.com");
