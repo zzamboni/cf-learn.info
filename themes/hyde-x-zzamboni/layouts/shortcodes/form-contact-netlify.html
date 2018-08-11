@@ -20,6 +20,9 @@
     <label class="{{ $.Scratch.Get "honeyClasses" }}"  for="question">Don’t fill this out if you're human:</label>
     <input type="text" id="question" name="question" class="{{ $.Scratch.Get "honeyClasses" }}" placeholder=" "  aria-labelledby="name" />
 
+    <div netlify-recaptcha></div>
+    <div class="requirements f6 gray glow i ph3 overflow-hidden">Sorry for the Captcha - too much spam gets submitted otherwise!</div>
+
     <input class="db w-100 mv2 white pa3 bn contact-button grow" type="submit" value="Send" />
 
 </form>
