@@ -1,22 +1,18 @@
----
-date: '2017-09-04'
-title: The Book
-menu: main
-weight: '1'
----
++++
+title = "The Book"
+author = ["Diego Zamboni"]
+draft = false
+creator = "Emacs 26.1 (Org mode 9.1.14 + ox-hugo)"
+weight = 1
+[menu.main]
+  weight = 2001
+  identifier = "the-book"
++++
 
-# Read the book online
+{{< bookimglinkfloatright >}}
 
-You can find here the full text of the book. Not all the chapters are
-available yet. Keep an eye on [the blog](/post) for updates.
+A new version of the book has now been published, you can find it (including some free sample chapters) at <https://leanpub.com/learning-cfengine/>.
 
-<div class="db ba bg-lightest-blue pa2 pb2 mb3 w-100 fl">
-<iframe style="width:120px;height:240px;float:right;overflow:auto;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_sp_asin_til&ad_type=product_link&tracking_id=zzamboni-20&marketplace=amazon&region=US&placement=B07562BSWG&asins=B07562BSWG&linkId=8d7eb3010d7a790fe0dd80c1f44fbea0&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
-</iframe>
-If you like the book, please consider purchasing it! Your
-support will help me continue working on future versions of this book
-(and others!) and on making more content available for free on this
-website. Thank you!
-</div>
+To avoid confusion, I have removed the old chapters which were available here---please get the latest version of the book to ensure you have up-to-date content.
 
-## Available chapters
+Your support will help me continue working on future versions of this book (and [others](https://leanpub.com/learning-hammerspoon/)!) and on making more content available for free on this website. Thank you!

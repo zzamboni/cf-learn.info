@@ -1,19 +1,8 @@
 {{ partial "head.html" . }}
 <div class="content container">
-  {{ with .Content }}
-  {{ . }}
-  {{ end }}
-  <ul class="posts">
-  {{ range .Data.Pages }}
-    <li><a href="{{ .Permalink | relURL }}">{{ .Title }}</a>
-    {{ if isset .Params "categories" }}
-    &middot;
-    {{ $baseUrl := .Site.BaseURL }}
-    {{ range .Params.categories }}<a class="label" href='{{ "/categories/" | relURL }}{{ . | urlize }}'>{{ . }}</a>{{ end }}
-    {{ end }}</span>
-<!-- &middot; <time>{{ .Date.Format "Jan 2, 2006" }}</time> -->
-    </li>
-  {{ end }}
-  </ul>
+  <div class="post">
+    <h1>{{ .Title }}</h1>
+    {{ .Content }}
+  </div>
 </div>
 {{ partial "foot.html" . }}

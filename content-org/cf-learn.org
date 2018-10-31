@@ -15,7 +15,7 @@ This file is the source for all new and updated content on [[http://cf-learn.inf
 
 * Table of Contents                                            :TOC_3:noexport:
 - [[#pages][Pages]]
-- [[#book-pages][Book pages]]
+  - [[#the-book][The Book]]
 - [[#ideas][Ideas]]
 - [[#posts][Posts]]
   - [[#book-updates][Book updates]]
@@ -25,9 +25,22 @@ This file is the source for all new and updated content on [[http://cf-learn.inf
 
 This section contains all the static pages.
 
-* Book pages
+** The Book
+:PROPERTIES:
+:export_hugo_section: book
+:export_hugo_menu: :menu main
+:export_hugo_weight: 01
+:export_file_name: _index
+:END:
 
-The individual pages for each book.
+{{< bookimglinkfloatright >}}
+
+A new version of the book has now been published, you can find it (including some free sample chapters) at [[https://leanpub.com/learning-cfengine/]].
+
+To avoid confusion, I have removed the old chapters which were available here---please get the latest version of the book to ensure you have up-to-date content.
+
+Your support will help me continue working on future versions of this book (and [[https://leanpub.com/learning-hammerspoon/][others]]!) and on making more content available for free on this website. Thank you!
+
 
 * Ideas
 
