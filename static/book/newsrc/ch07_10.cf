@@ -1,7 +1,0 @@
-bundle agent test
-{
-  services:
-      "ssh"
-        service_policy => "start",
-        service_method => my_services;
-}
