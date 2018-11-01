@@ -1,6 +1,6 @@
 baseurl = "http://cf-learn.info"
 languageCode = "en-us"
-title = "Learning CFEngine 3"
+title = "Learning CFEngine"
 builddrafts = false
 theme = "hyde-x-zzamboni"
 paginate = 10

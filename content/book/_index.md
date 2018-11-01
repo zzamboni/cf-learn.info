@@ -3,9 +3,8 @@ title = "The Book"
 author = ["Diego Zamboni"]
 draft = false
 creator = "Emacs 26.1 (Org mode 9.1.14 + ox-hugo)"
-weight = 1
 [menu.main]
-  weight = 2001
+  weight = 2004
   identifier = "the-book"
 +++
 
