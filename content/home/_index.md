@@ -32,7 +32,7 @@ Thank you for visiting! I hope you find it useful. Please [let me know](/contact
 
 {{< bookimglinkfloatleft >}}
 
-The latest release of the book is published at LeanPub. You can find its home page at <https://leanpub.com/learning-cfengine/>, or click on the box below.
+The latest release of the book is published at LeanPub. You can find its home page at <https://leanpub.com/learning-cfengine/>.
 
 <div style="clear:left;">
   <div></div>

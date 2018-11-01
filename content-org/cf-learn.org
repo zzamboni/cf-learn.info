@@ -28,6 +28,7 @@ This file is the source for all new and updated content on [[http://cf-learn.inf
 - [[#ideas][Ideas]]
 - [[#posts][Posts]]
   - [[#book-updates][Book updates]]
+    - [[#new-version-of-learning-cfengine][New version of "Learning CFEngine"]]
     - [[#chapters-5-and-6-of-learning-cfengine-3-are-online][Chapters 5 and 6 of "Learning CFEngine 3" are Online]]
 
 * Pages
@@ -291,6 +292,15 @@ Ideas for things to write about.
 Blog posts.
 
 ** Book updates                                                  :@booknews:
+*** DONE New version of "Learning CFEngine"
+CLOSED: [2018-11-02 Fri 00:36]
+:PROPERTIES:
+:export_hugo_bundle: 2018-11-01-new-release-of-learning-cfengine
+:export_file_name: index
+:END:
+
+
+
 *** DONE Chapters 5 and 6 of "Learning CFEngine 3" are Online
 CLOSED: [2018-04-03 Tue 10:45]
 :PROPERTIES:
