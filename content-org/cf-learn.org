@@ -28,7 +28,7 @@ This file is the source for all new and updated content on [[http://cf-learn.inf
 - [[#ideas][Ideas]]
 - [[#posts][Posts]]
   - [[#book-updates][Book updates]]
-    - [[#new-version-of-learning-cfengine][New version of "Learning CFEngine"]]
+    - [[#learning-cfengine-new-version-new-name-new-cover][Learning CFEngine: New version, new name, new cover]]
     - [[#chapters-5-and-6-of-learning-cfengine-3-are-online][Chapters 5 and 6 of "Learning CFEngine 3" are Online]]
 
 * Pages
@@ -62,7 +62,7 @@ Thank you for visiting! I hope you find it useful. Please [[/contact][let me kno
 
 *** Where to get the book
 
-{{< bookimglinkfloatleft >}}
+{{< bookimglinkfloatright >}}
 
 The latest release of the book is published at LeanPub. You can find its home page at [[https://leanpub.com/learning-cfengine/]].
 
@@ -91,9 +91,9 @@ CFEngine 3 was released in 2008. With the new version came a complete overhaul o
 #+attr_html: :class ml3 img pa1 fr
 [[file:images/avatar.jpg]]
 
-My name is Diego Zamboni, and I am the author of [[https://www.safaribooksonline.com/library/view/learning-cfengine-3/9781449334536/][Learning CFEngine]]. I am a computer scientist, consultant, programmer, sysadmin and overall geek, now turned manager, project lead and [[https://www.youracclaim.com/badges/e6bf0ca2-f1c4-4af6-bf63-09f4b8cdbd02/public_url][SAFe Product Owner]]. I am very interested in topics related to computer security, virtualization, configuration management and system automation. Currently I work at [[http://swisscom.com/][Swisscom]] in the Cloud Development Platform team, where I lead teams working on Health Management, Logging and Monitoring capabilities.
+My name is Diego Zamboni, and I am the author of [[https://www.safaribooksonline.com/library/view/learning-cfengine-3/9781449334536/][Learning CFEngine]]. I am a computer scientist, consultant, programmer, sysadmin and overall geek, now turned manager, project lead and [[https://www.youracclaim.com/badges/e6bf0ca2-f1c4-4af6-bf63-09f4b8cdbd02/public_url][SAFe Product Owner]]. I am passionate about computer security, monitoring, virtualization, configuration management and system automation. Currently I work at [[http://swisscom.com/][Swisscom]] in the Cloud Development Platform team, where I lead teams working on Health Management, Logging and Monitoring capabilities.
 
-During college I founded the first computer security team at UNAM (Mexico's national university), which would grow to become [[http://www.seguridad.unam.mx/][a much larger organization]], before moving to the U.S. to pursue my Ph.D. at [[http://www.cerias.purdue.edu/][Purdue University]] under the direction of [[http://spaf.cerias.purdue.edu/][Gene Spafford]]. Upon finishing my studies, my wife and I decided to go to Switzerland, where I worked as a researcher in computer security at the [[http://www.zurich.ibm.com/][IBM Zurich Research Lab]]. After eight years there, we moved back to Mexico in late 2009, where I worked for HP Enterprise Services as a security consultant. Afterwards I worked for a while at [[http://cfengine.com/][CFEngine AS]], where my role was to advocate the power and usefulness of CFEngine and lead the product development. I am now back in Switzerland, where I live in [[https://en.wikipedia.org/wiki/Ittigen][Ittigen]] with my awesome wife and our two beautiful daughters.
+During college I founded the first computer security team at UNAM (Mexico's national university), which has grown to become [[http://www.seguridad.unam.mx/][a much larger organization]], before moving to the U.S. to pursue my Ph.D. at [[http://www.cerias.purdue.edu/][Purdue University]] under the direction of [[http://spaf.cerias.purdue.edu/][Gene Spafford]]. Upon finishing my studies I moved to Switzerland, where I worked as a researcher in computer security at the [[http://www.zurich.ibm.com/][IBM Zurich Research Lab]]. After eight years there I moved back to Mexico, where I worked for [[https://www.hpe.com/][HP Enterprise Services]] as a security consultant. Afterwards I worked at [[http://cfengine.com/][CFEngine AS]], where I took the role of educator, advocate and language product owner. I am now back in Switzerland, where I live with my awesome wife and our two beautiful daughters.
 
 You can visit my personal website and blog at [[http://zzamboni.org/]].
 
@@ -292,14 +292,28 @@ Ideas for things to write about.
 Blog posts.
 
 ** Book updates                                                  :@booknews:
-*** DONE New version of "Learning CFEngine"
+*** DONE Learning CFEngine: New version, new name, new cover
 CLOSED: [2018-11-02 Fri 00:36]
 :PROPERTIES:
-:export_hugo_bundle: 2018-11-01-new-release-of-learning-cfengine
+:export_hugo_bundle: 2018-11-02-new-version-of-learning-cfengine
 :export_file_name: index
 :END:
 
+{{< bookimglinkfloatright >}}
 
+I am happy to announce that the new version of "Learning CFEngine" is now available! It's been a long time coming, but it's finally here. Among many other changes, the book has been updated to cover CFEngine 3.12 LTS.
+
+You can get it right now at https://leanpub.com/learning-cfengine/, or by clicking on the box to the right.
+
+Some other changes you may notice:
+
+- The name of the book has changed to "Learning CFEngine" instead of "Learning CFEngine 3". At the time of its first publication, CFEngine 3 was relatively new, but by now I feel it is no longer necessary to specify the version.
+- The cover is also new! I will write more about it in the future.
+- The book is now published via LeanPub, which makes the publishing process extremely easy, so I expect to make new releases much more frequently than before. You can purchase the book now, and get free updates as I release them.
+
+I really hope you like this new release, and would very much welcome your feedback! Feel free to use the [[https://leanpub.com/learning-cfengine/email_author/new][Email the Author]] form or the [[https://community.leanpub.com/c/learning-cfengi][Learning CFEngine Forum]].
+
+I would like to thank everyone in the community for their encouragement, kind words and ideas. I would like to especially mention [[https://cmdln.org/][Nick]], [[https://github.com/tzz][Ted]], [[https://syslog.me/2012/06/17/why-i-gave-up-puppet-and-chose-cfengine-3/][Marco]], [[https://twitter.com/atsaloli][Aleksey]] and, of course, [[http://markburgess.org/][Mark]] for their constant friendship, support and kindness.
 
 *** DONE Chapters 5 and 6 of "Learning CFEngine 3" are Online
 CLOSED: [2018-04-03 Tue 10:45]
