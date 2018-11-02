@@ -1,7 +1,0 @@
-  files: # <1>
-      "/etc/inittab"
-        handle => "inittab_set_initdefault",
-        comment => "Ensure graphical mode is disabled (default runmode=3)",
-        create    => "false",
-        edit_defaults => backup_timestamp, # <2>
-        edit_line => set_colon_field("id","2","3"); # <3>

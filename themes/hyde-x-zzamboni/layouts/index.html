@@ -1,7 +1,7 @@
 {{ partial "head.html" . }}
 <div class="content container">
-{{ range .Data.Pages }}
-  {{ if in .Params.tags "_home" }}
+{{ range .Site.Pages }}
+  {{ if in .Params.tags "home" }}
     <h1>{{ .Title }}</h1>
 
     {{ .Content }}

@@ -1,9 +1,0 @@
-bundle agent monitor_files
-{
-  vars:
-      "files" slist => { "/bin/ls", "/etc/passwd", "/etc/motd" };
-
-  files:
-      "$(files)"
-        changes => detect_all_change;
-}
