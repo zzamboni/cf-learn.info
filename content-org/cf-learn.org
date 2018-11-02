@@ -313,7 +313,7 @@ Some other changes you may notice:
 
 I really hope you like this new release, and would very much welcome your feedback! Feel free to use the [[https://leanpub.com/learning-cfengine/email_author/new][Email the Author]] form or the [[https://community.leanpub.com/c/learning-cfengi][Learning CFEngine Forum]].
 
-I would like to thank everyone in the community for their encouragement, kind words and ideas. I would like to especially mention [[https://cmdln.org/][Nick]], [[https://github.com/tzz][Ted]], [[https://syslog.me/2012/06/17/why-i-gave-up-puppet-and-chose-cfengine-3/][Marco]], [[https://twitter.com/atsaloli][Aleksey]] and, of course, [[http://markburgess.org/][Mark]] for their constant friendship, support and kindness.
+I would like to thank everyone in the community for their encouragement, kind words and ideas. I would like to especially mention [[https://cmdln.org/][Nick]], [[https://github.com/tzz][Ted]], [[https://syslog.me/][Marco]], [[https://twitter.com/atsaloli][Aleksey]] and, of course, [[http://markburgess.org/][Mark]] for their constant friendship, support and kindness.
 
 *** DONE Chapters 5 and 6 of "Learning CFEngine 3" are Online
 CLOSED: [2018-04-03 Tue 10:45]
