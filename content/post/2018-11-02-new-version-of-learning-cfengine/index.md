@@ -21,4 +21,4 @@ Some other changes you may notice:
 
 I really hope you like this new release, and would very much welcome your feedback! Feel free to use the [Email the Author](https://leanpub.com/learning-cfengine/email%5Fauthor/new) form or the [Learning CFEngine Forum](https://community.leanpub.com/c/learning-cfengi).
 
-I would like to thank everyone in the community for their encouragement, kind words and ideas. I would like to especially mention [Nick](https://cmdln.org/), [Ted](https://github.com/tzz), [Marco](https://syslog.me/), [Aleksey](https://twitter.com/atsaloli) and, of course, [Mark](http://markburgess.org/) for their constant friendship, support and kindness.
+I would like to thank everyone in the community for their encouragement, kind words and ideas. I would like to especially mention [Nick](https://cmdln.org/), [Ted](https://github.com/tzz), [Marco](https://syslog.me/), [Aleksey](https://twitter.com/atsaloli), [Neil](https://watson-wilson.ca/) and, of course, [Mark](http://markburgess.org/) for their constant friendship, support and kindness.
