@@ -2,7 +2,7 @@
 title = "The Raves"
 author = ["Diego Zamboni"]
 draft = false
-creator = "Emacs 26.1 (Org mode 9.1.14 + ox-hugo)"
+creator = "Emacs 26.1 (Org mode 9.2.1 + ox-hugo)"
 [menu.main]
   weight = 2006
   identifier = "the-raves"

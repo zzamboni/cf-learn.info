@@ -274,11 +274,7 @@ Here are some of the nice things people have said about "Learning CFEngine 3" (s
 :export_file_name: _index
 :END:
 
-If you have any questions, comments or feedback about this site, please use the form below to send me a message.
-
-----
-
-@@html:{{< form-contact-netlify >}}@@
+If you have any questions, comments or feedback about the book or this site, please use the [[https://leanpub.com/learning-cfengine/email_author/new][Email the Author]] page at Leanpub.
 
 * Ideas
 
