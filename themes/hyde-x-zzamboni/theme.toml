@@ -8,8 +8,8 @@ features = ["blog", "technical", "personal"]
 min_version=0.13
 
 [author]
-    name = "Andrei Mihu"
-    homepage = "http://andreimihu.com"
+    name = "Diego Zamboni"
+    homepage = "https://zzamboni.org"
 
 # If Porting existing theme
 [original]
