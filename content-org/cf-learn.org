@@ -97,7 +97,7 @@ During college I founded the [[https://web.archive.org/web/19981202131242/http:/
 
 You can visit my personal website and blog at [[http://zzamboni.org/]].
 
-If you want to send me a direct message, please use the [[file:contact.html][contact form]].
+If you want to send me a message, please use the [[https://leanpub.com/learning-cfengine/email_author/new][Email the Author]] page at Leanpub.
 
 /You should follow me on [[http://twitter.com/zzamboni][Twitter]]./
 

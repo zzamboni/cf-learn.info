@@ -16,6 +16,6 @@ During college I founded the [first computer security team at UNAM](https://web.
 
 You can visit my personal website and blog at <http://zzamboni.org/>.
 
-If you want to send me a direct message, please use the [contact form](contact.html).
+If you want to send me a message, please use the [Email the Author](https://leanpub.com/learning-cfengine/email%5Fauthor/new) page at Leanpub.
 
 _You should follow me on [Twitter](http://twitter.com/zzamboni)._
