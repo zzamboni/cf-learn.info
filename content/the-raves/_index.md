@@ -2,7 +2,7 @@
 title = "The Raves"
 author = ["Diego Zamboni"]
 draft = false
-creator = "Emacs 26.1 (Org mode 9.2.1 + ox-hugo)"
+creator = "Emacs 26.2 (Org mode 9.2.3 + ox-hugo)"
 [menu.main]
   weight = 2006
   identifier = "the-raves"
@@ -16,7 +16,7 @@ Here are some of the nice things people have said about "Learning CFEngine 3" (s
 >
 > I know I will use the book as long as I manage CFEngine 3. It complements the online reference manuals perfectly. I also highly recommend the PDF version for quick browsing.
 >
-> ---[Jeremy W](https://web.archive.org/web/20161211230610/http://shop.oreilly.com/product/0636920022022.do#PowerReview), Sydney, Australia
+> ---[Jeremy W](https://web.archive.org/web/20161211230610/https://shop.oreilly.com/product/0636920022022.do#PowerReview), Sydney, Australia
 
 ---
 
@@ -24,7 +24,7 @@ Here are some of the nice things people have said about "Learning CFEngine 3" (s
 >
 > Diego Zamboni delivers here on just 160 Pages, short and sharp, an intense introduction to CFEngine and the underlying "promise theory".
 >
-> ---[save the whales](https://web.archive.org/web/20161211230610/http://shop.oreilly.com/product/0636920022022.do#PowerReview), Berlin, Germany
+> ---[save the whales](https://web.archive.org/web/20161211230610/https://shop.oreilly.com/product/0636920022022.do#PowerReview), Berlin, Germany
 
 ---
 
@@ -38,7 +38,7 @@ Here are some of the nice things people have said about "Learning CFEngine 3" (s
 >
 > This _is_ the book about CFEngine 3. Start with this one if you want to commit to the real CFEngine philosophy, the productive and clean one.
 >
-> ---[Laurent Raufaste](http://www.amazon.com/review/R2AY7CMR3F0XKF), New York, NY, U.S.A.
+> ---[Laurent Raufaste](https://www.amazon.com/review/R2AY7CMR3F0XKF), New York, NY, U.S.A.
 
 ---
 
@@ -56,7 +56,7 @@ Here are some of the nice things people have said about "Learning CFEngine 3" (s
 >
 > If you have struggled with CFEngine 3 in the past, or are strongly considering deploying it in any way, I highly recommend this book.
 >
-> ---[Jeff Blaine](https://web.archive.org/web/20161211230610/http://shop.oreilly.com/product/0636920022022.do#PowerReview), St. Petersburgh, FL, U.S.A.
+> ---[Jeff Blaine](https://web.archive.org/web/20161211230610/https://shop.oreilly.com/product/0636920022022.do#PowerReview), St. Petersburgh, FL, U.S.A.
 
 ---
 
@@ -66,9 +66,9 @@ Here are some of the nice things people have said about "Learning CFEngine 3" (s
 >
 > It really is one of the best technical books I have read in a while.
 >
-> ---[Nick Anderson](http://www.cmdln.org/2012/03/29/review-learning-cfengine-3/), Lawrence, KS, U.S.A.
+> ---[Nick Anderson](https://www.cmdln.org/2012/03/29/review-learning-cfengine-3/), Lawrence, KS, U.S.A.
 
-(Nick wrote a [full review of the book](http://www.cmdln.org/2012/03/29/review-learning-cfengine-3/), you should check it out)
+(Nick wrote a [full review of the book](https://www.cmdln.org/2012/03/29/review-learning-cfengine-3/), you should check it out)
 
 ---
 
@@ -76,19 +76,19 @@ Here are some of the nice things people have said about "Learning CFEngine 3" (s
 >
 > This book is very well-written, easy to understand, and most importantly - the examples actually work!
 >
-> ---[Glen Barber](https://web.archive.org/web/20161211230610/http://shop.oreilly.com/product/0636920022022.do#PowerReview), Philadelphia, PA, U.S.A.
+> ---[Glen Barber](https://web.archive.org/web/20161211230610/https://shop.oreilly.com/product/0636920022022.do#PowerReview), Philadelphia, PA, U.S.A.
 
 ---
 
 > ... this book looks great. It explains the terminology of CFEngine very well. I've used CFEngine 2 for several years, but the change to version 3 had a large learning curve. This book definitely helped to lessen the curve and help me to develop new promises quickly. I would strongly recommend this book to anyone trying to learn CFEngine 3.
 >
-> ---[Brian](https://web.archive.org/web/20161211230610/http://shop.oreilly.com/product/0636920022022.do#PowerReview), Dallas, TX, U.S.A.
+> ---[Brian](https://web.archive.org/web/20161211230610/https://shop.oreilly.com/product/0636920022022.do#PowerReview), Dallas, TX, U.S.A.
 
 ---
 
 > ... it is very well organized with clear explanation of additional options in CFEngine3. I just started using CFEngine and this book helps a lot!
 >
-> ---[roadtest](https://web.archive.org/web/20161211230610/http://shop.oreilly.com/product/0636920022022.do#PowerReview), Toronto, Canada
+> ---[roadtest](https://web.archive.org/web/20161211230610/https://shop.oreilly.com/product/0636920022022.do#PowerReview), Toronto, Canada
 
 ---
 

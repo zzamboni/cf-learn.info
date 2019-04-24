@@ -1,4 +1,4 @@
-baseurl = "http://cf-learn.info"
+baseurl = "https://cf-learn.info"
 languageCode = "en-us"
 title = "Learning CFEngine"
 builddrafts = false
@@ -73,10 +73,10 @@ notAlternative = true
 
     # Sidebar social links, avoid enabling too many of these if possible.
     # These should be full URLs.
-#    github = "http://github.com/zzamboni/cf-learn.info"
+#    github = "https://github.com/zzamboni/cf-learn.info"
     github = ""
-#    linkedin = "http://mx.linkedin.com/in/zzamboni"
+#    linkedin = "https://mx.linkedin.com/in/zzamboni"
     linkedin = ""
     googleplus = ""
     facebook = ""
-    twitter = "http://twitter.com/LearningCF3"
+    twitter = "https://twitter.com/LearningCF3"
