@@ -10,9 +10,9 @@
 #+author: Diego Zamboni
 #+email: diego@zzamboni.org
 
-This file is the source for all new and updated content on [[http://cf-learn.info/][cf-learn.info]] since April 2018. Content here may be in progress or incomplete. This file gets converted to [[http://gohugo.io/][Hugo]] files by the excellent [[https://ox-hugo.scripter.co/][ox-hugo]].
+This file is the source for all new and updated content on [[https://cf-learn.info/][cf-learn.info]] since April 2018. Content here may be in progress or incomplete. This file gets converted to [[https://gohugo.io/][Hugo]] files by the excellent [[https://ox-hugo.scripter.co/][ox-hugo]].
 
-*You really should not read it here but at [[http://cf-learn.info/][cf-learn.info]]*.
+*You really should not read it here but at [[https://cf-learn.info/][cf-learn.info]]*.
 
 * Table of Contents                                            :TOC_3:noexport:
 - [[#pages][Pages]]
@@ -77,9 +77,9 @@ The original release, published by O'Reilly, can still be found in Safari books 
    :CUSTOM_ID: about-cfengine
    :END:
 
-[[http://cfengine.com/][CFEngine]] is a mature and widely used tool for configuration management. It was first released in 1993, and it has evolved over the years to address real needs in real systems, and to match technological developments such as virtualization and cloud computing. CFEngine is fine-tuned to the features and design that make it possible to automate very large numbers of systems in a scalable and manageable way. CFEngine has been designed to be very resource-efficient, and it can run on everything from embedded devices and smartphones to supercomputers.
+[[https://cfengine.com/][CFEngine]] is a mature and widely used tool for configuration management. It was first released in 1993, and it has evolved over the years to address real needs in real systems, and to match technological developments such as virtualization and cloud computing. CFEngine is fine-tuned to the features and design that make it possible to automate very large numbers of systems in a scalable and manageable way. CFEngine has been designed to be very resource-efficient, and it can run on everything from embedded devices and smartphones to supercomputers.
 
-CFEngine 3 was released in 2008. With the new version came a complete overhaul of its syntax and mode of operation, and many new features such as Knowledge Management and support for virtual environments. CFEngine 3 is *declarative* and *convergent*: you specify the state in which you wish the system to be, and CFEngine will automatically and iteratively decide the actions to take to reach the desired state, or as close to it as possible. Underlying this ability is a powerful theoretical model known as [[http://en.wikipedia.org/wiki/Promise_theory][Promise Theory]], which was initially developed for CFEngine 3, but which has also found other applications in Computer Science and in other fields such as Economics and Organization.
+CFEngine 3 was released in 2008. With the new version came a complete overhaul of its syntax and mode of operation, and many new features such as Knowledge Management and support for virtual environments. CFEngine 3 is *declarative* and *convergent*: you specify the state in which you wish the system to be, and CFEngine will automatically and iteratively decide the actions to take to reach the desired state, or as close to it as possible. Underlying this ability is a powerful theoretical model known as [[https://en.wikipedia.org/wiki/Promise_theory][Promise Theory]], which was initially developed for CFEngine 3, but which has also found other applications in Computer Science and in other fields such as Economics and Organization.
 
 ** The Author
 :PROPERTIES:
@@ -91,15 +91,15 @@ CFEngine 3 was released in 2008. With the new version came a complete overhaul o
 #+attr_html: :class ml3 img pa1 fr
 [[file:images/avatar.jpg]]
 
-My name is Diego Zamboni, and I am the author of [[https://leanpub.com/learning-cfengine][Learning CFEngine]]. I am a computer scientist, consultant, programmer, sysadmin and overall geek now turned manager, project lead and [[https://www.youracclaim.com/badges/e6bf0ca2-f1c4-4af6-bf63-09f4b8cdbd02/public_url][SAFe Product Owner]]. I am passionate about computer security, monitoring, virtualization, configuration management and system automation. Currently I work at [[http://swisscom.com/][Swisscom]] in the Cloud Products team, where I lead a team working on Health Management, Logging and Monitoring capabilities for Swisscom's cloud platforms.
+My name is Diego Zamboni, and I am the author of [[https://leanpub.com/learning-cfengine][Learning CFEngine]]. I am a computer scientist, consultant, programmer, sysadmin and overall geek now turned manager, project lead and [[https://www.youracclaim.com/badges/e6bf0ca2-f1c4-4af6-bf63-09f4b8cdbd02/public_url][SAFe Product Owner]]. I am passionate about computer security, monitoring, virtualization, configuration management and system automation. Currently I work at [[https://swisscom.com/][Swisscom]] in the Cloud Products team, where I lead a team working on Health Management, Logging and Monitoring capabilities for Swisscom's cloud platforms.
 
-During college I founded the [[https://web.archive.org/web/19981202131242/http://www.asc.unam.mx/][first computer security team at UNAM]] (Mexico's national university), which has grown to become [[http://www.seguridad.unam.mx/][a much larger organization]], before moving to the U.S. to pursue my Ph.D. at [[http://www.cerias.purdue.edu/][Purdue University]] under the direction of [[http://spaf.cerias.purdue.edu/][Gene Spafford]]. Upon finishing my studies I moved to Switzerland, where I worked as a researcher in computer security at the [[http://www.zurich.ibm.com/][IBM Zurich Research Lab]]. After eight years there I moved back to Mexico, where I worked for [[https://www.hpe.com/][HP Enterprise Services]] as a security consultant. Afterwards I worked at [[http://cfengine.com/][CFEngine AS]], where I took the role of educator, advocate and language product owner. I am now back in Switzerland, where I live with my awesome wife and our two beautiful daughters.
+During college I founded the [[https://web.archive.org/web/19981202131242/https://www.asc.unam.mx/][first computer security team at UNAM]] (Mexico's national university), which has grown to become [[https://www.seguridad.unam.mx/][a much larger organization]], before moving to the U.S. to pursue my Ph.D. at [[https://www.cerias.purdue.edu/][Purdue University]] under the direction of [[https://spaf.cerias.purdue.edu/][Gene Spafford]]. Upon finishing my studies I moved to Switzerland, where I worked as a researcher in computer security at the [[https://www.zurich.ibm.com/][IBM Zurich Research Lab]]. After eight years there I moved back to Mexico, where I worked for [[https://www.hpe.com/][HP Enterprise Services]] as a security consultant. Afterwards I worked at [[https://cfengine.com/][CFEngine AS]], where I took the role of educator, advocate and language product owner. I am now back in Switzerland, where I live with my awesome wife and our two beautiful daughters.
 
-You can visit my personal website and blog at [[http://zzamboni.org/]].
+You can visit my personal website and blog at [[https://zzamboni.org/]].
 
 If you want to send me a message, please use the [[https://leanpub.com/learning-cfengine/email_author/new][Email the Author]] page at Leanpub.
 
-/You should follow me on [[http://twitter.com/zzamboni][Twitter]]./
+/You should follow me on [[https://twitter.com/zzamboni][Twitter]]./
 
 ** The Blog
 :PROPERTIES:
@@ -156,7 +156,7 @@ Here are some of the nice things people have said about "Learning CFEngine 3" (s
 
   I know I will use the book as long as I manage CFEngine 3. It complements the online reference manuals perfectly. I also highly recommend the PDF version for quick browsing.
 
----[[https://web.archive.org/web/20161211230610/http://shop.oreilly.com/product/0636920022022.do#PowerReview][Jeremy W]], Sydney, Australia
+---[[https://web.archive.org/web/20161211230610/https://shop.oreilly.com/product/0636920022022.do#PowerReview][Jeremy W]], Sydney, Australia
 #+END_QUOTE
 
 --------------
@@ -166,7 +166,7 @@ Here are some of the nice things people have said about "Learning CFEngine 3" (s
 
   Diego Zamboni delivers here on just 160 Pages, short and sharp, an intense introduction to CFEngine and the underlying "promise theory".
 
----[[https://web.archive.org/web/20161211230610/http://shop.oreilly.com/product/0636920022022.do#PowerReview][save the whales]], Berlin, Germany
+---[[https://web.archive.org/web/20161211230610/https://shop.oreilly.com/product/0636920022022.do#PowerReview][save the whales]], Berlin, Germany
 #+END_QUOTE
 
 
@@ -185,7 +185,7 @@ Here are some of the nice things people have said about "Learning CFEngine 3" (s
 
   This /is/ the book about CFEngine 3. Start with this one if you want to commit to the real CFEngine philosophy, the productive and clean one.
 
----[[http://www.amazon.com/review/R2AY7CMR3F0XKF][Laurent Raufaste]], New York, NY, U.S.A.
+---[[https://www.amazon.com/review/R2AY7CMR3F0XKF][Laurent Raufaste]], New York, NY, U.S.A.
 #+END_QUOTE
 
 --------------
@@ -207,7 +207,7 @@ Here are some of the nice things people have said about "Learning CFEngine 3" (s
 
   If you have struggled with CFEngine 3 in the past, or are strongly considering deploying it in any way, I highly recommend this book.
 
----[[https://web.archive.org/web/20161211230610/http://shop.oreilly.com/product/0636920022022.do#PowerReview][Jeff Blaine]], St. Petersburgh, FL, U.S.A.
+---[[https://web.archive.org/web/20161211230610/https://shop.oreilly.com/product/0636920022022.do#PowerReview][Jeff Blaine]], St. Petersburgh, FL, U.S.A.
 #+END_QUOTE
 
 --------------
@@ -219,10 +219,10 @@ Here are some of the nice things people have said about "Learning CFEngine 3" (s
 
   It really is one of the best technical books I have read in a while.
 
----[[http://www.cmdln.org/2012/03/29/review-learning-cfengine-3/][Nick Anderson]], Lawrence, KS, U.S.A.
+---[[https://www.cmdln.org/2012/03/29/review-learning-cfengine-3/][Nick Anderson]], Lawrence, KS, U.S.A.
 #+END_QUOTE
 
-(Nick wrote a [[http://www.cmdln.org/2012/03/29/review-learning-cfengine-3/][full review of the book]], you should check it out)
+(Nick wrote a [[https://www.cmdln.org/2012/03/29/review-learning-cfengine-3/][full review of the book]], you should check it out)
 
 --------------
 
@@ -231,7 +231,7 @@ Here are some of the nice things people have said about "Learning CFEngine 3" (s
 
   This book is very well-written, easy to understand, and most importantly - the examples actually work!
 
----[[https://web.archive.org/web/20161211230610/http://shop.oreilly.com/product/0636920022022.do#PowerReview][Glen Barber]], Philadelphia, PA, U.S.A.
+---[[https://web.archive.org/web/20161211230610/https://shop.oreilly.com/product/0636920022022.do#PowerReview][Glen Barber]], Philadelphia, PA, U.S.A.
 #+END_QUOTE
 
 --------------
@@ -239,7 +239,7 @@ Here are some of the nice things people have said about "Learning CFEngine 3" (s
 #+BEGIN_QUOTE
   ... this book looks great. It explains the terminology of CFEngine very well. I've used CFEngine 2 for several years, but the change to version 3 had a large learning curve. This book definitely helped to lessen the curve and help me to develop new promises quickly. I would strongly recommend this book to anyone trying to learn CFEngine 3.
 
----[[https://web.archive.org/web/20161211230610/http://shop.oreilly.com/product/0636920022022.do#PowerReview][Brian]], Dallas, TX, U.S.A.
+---[[https://web.archive.org/web/20161211230610/https://shop.oreilly.com/product/0636920022022.do#PowerReview][Brian]], Dallas, TX, U.S.A.
 #+END_QUOTE
 
 
@@ -248,7 +248,7 @@ Here are some of the nice things people have said about "Learning CFEngine 3" (s
 #+BEGIN_QUOTE
   ... it is very well organized with clear explanation of additional options in CFEngine3. I just started using CFEngine and this book helps a lot!
 
----[[https://web.archive.org/web/20161211230610/http://shop.oreilly.com/product/0636920022022.do#PowerReview][roadtest]], Toronto, Canada
+---[[https://web.archive.org/web/20161211230610/https://shop.oreilly.com/product/0636920022022.do#PowerReview][roadtest]], Toronto, Canada
 #+END_QUOTE
 
 --------------
@@ -309,7 +309,7 @@ Some other changes you may notice:
 
 I really hope you like this new release, and would very much welcome your feedback! Feel free to use the [[https://leanpub.com/learning-cfengine/email_author/new][Email the Author]] form or the [[https://community.leanpub.com/c/learning-cfengi][Learning CFEngine Forum]].
 
-I would like to thank everyone in the community for their encouragement, kind words and ideas. I would like to especially mention [[https://cmdln.org/][Nick]], [[https://github.com/tzz][Ted]], [[https://syslog.me/][Marco]], [[https://twitter.com/atsaloli][Aleksey]], [[https://watson-wilson.ca/][Neil]] and, of course, [[http://markburgess.org/][Mark]] for their constant friendship, support and kindness.
+I would like to thank everyone in the community for their encouragement, kind words and ideas. I would like to especially mention [[https://cmdln.org/][Nick]], [[https://github.com/tzz][Ted]], [[https://syslog.me/][Marco]], [[https://twitter.com/atsaloli][Aleksey]], [[https://watson-wilson.ca/][Neil]] and, of course, [[https://markburgess.org/][Mark]] for their constant friendship, support and kindness.
 
 *** DONE Chapters 5 and 6 of "Learning CFEngine 3" are Online
 CLOSED: [2018-04-03 Tue 10:45]

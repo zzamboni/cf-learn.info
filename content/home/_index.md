@@ -3,7 +3,7 @@ title = "Home"
 author = ["Diego Zamboni"]
 tags = ["home"]
 draft = false
-creator = "Emacs 26.1 (Org mode 9.2.1 + ox-hugo)"
+creator = "Emacs 26.2 (Org mode 9.2.3 + ox-hugo)"
 [menu.main]
   weight = 2001
   identifier = "home"
@@ -46,6 +46,6 @@ The original release, published by O'Reilly, can still be found in Safari books 
 
 ## About CFEngine {#about-cfengine}
 
-[CFEngine](http://cfengine.com/) is a mature and widely used tool for configuration management. It was first released in 1993, and it has evolved over the years to address real needs in real systems, and to match technological developments such as virtualization and cloud computing. CFEngine is fine-tuned to the features and design that make it possible to automate very large numbers of systems in a scalable and manageable way. CFEngine has been designed to be very resource-efficient, and it can run on everything from embedded devices and smartphones to supercomputers.
+[CFEngine](https://cfengine.com/) is a mature and widely used tool for configuration management. It was first released in 1993, and it has evolved over the years to address real needs in real systems, and to match technological developments such as virtualization and cloud computing. CFEngine is fine-tuned to the features and design that make it possible to automate very large numbers of systems in a scalable and manageable way. CFEngine has been designed to be very resource-efficient, and it can run on everything from embedded devices and smartphones to supercomputers.
 
-CFEngine 3 was released in 2008. With the new version came a complete overhaul of its syntax and mode of operation, and many new features such as Knowledge Management and support for virtual environments. CFEngine 3 is **declarative** and **convergent**: you specify the state in which you wish the system to be, and CFEngine will automatically and iteratively decide the actions to take to reach the desired state, or as close to it as possible. Underlying this ability is a powerful theoretical model known as [Promise Theory](http://en.wikipedia.org/wiki/Promise%5Ftheory), which was initially developed for CFEngine 3, but which has also found other applications in Computer Science and in other fields such as Economics and Organization.
+CFEngine 3 was released in 2008. With the new version came a complete overhaul of its syntax and mode of operation, and many new features such as Knowledge Management and support for virtual environments. CFEngine 3 is **declarative** and **convergent**: you specify the state in which you wish the system to be, and CFEngine will automatically and iteratively decide the actions to take to reach the desired state, or as close to it as possible. Underlying this ability is a powerful theoretical model known as [Promise Theory](https://en.wikipedia.org/wiki/Promise%5Ftheory), which was initially developed for CFEngine 3, but which has also found other applications in Computer Science and in other fields such as Economics and Organization.
