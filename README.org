@@ -1,0 +1,4 @@
+* Website for "[[https://cf-learn.info][Learning CFEngine 3]]"
+  :PROPERTIES:
+  :CUSTOM_ID: website-for-learning-cfengine-3
+  :END:
