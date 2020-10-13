@@ -2,7 +2,7 @@
 title = "The Code"
 author = ["Diego Zamboni"]
 draft = false
-creator = "Emacs 26.2 (Org mode 9.2.3 + ox-hugo)"
+creator = "Emacs 28.0.50 (Org mode 9.4 + ox-hugo)"
 [menu.main]
   weight = 2005
   identifier = "the-code"

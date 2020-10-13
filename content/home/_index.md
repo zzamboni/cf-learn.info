@@ -3,7 +3,7 @@ title = "Home"
 author = ["Diego Zamboni"]
 tags = ["home"]
 draft = false
-creator = "Emacs 26.2 (Org mode 9.2.3 + ox-hugo)"
+creator = "Emacs 28.0.50 (Org mode 9.4 + ox-hugo)"
 [menu.main]
   weight = 2001
   identifier = "home"
