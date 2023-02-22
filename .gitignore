@@ -1,2 +1,4 @@
 public/
 .DS_Store
+docs/
+.hugo_build.lock
